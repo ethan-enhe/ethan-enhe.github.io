@@ -1,1 +1,113 @@
-theme: jekyll-theme-slate
+# Site settings
+title: Blog E
+SEOTitle: Blog E
+header-img: img/home-bg-littleprince.jpg
+email: ethan_enhe@163.com
+description: "路漫漫其修远兮，吾将上下而求索。"
+keyword: "编程,天文,生活"
+url: "https://ethan-enhe.github.io/"          # your host, for absolute URL
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+github_repo: "https://github.com/ethan-enhe/ethan-enhe.github.io.git" # you code repository
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "喜欢天文，爱好编程，闲来无事总爱“玩机”，理工男一枚～"
+sidebar-avatar: /img/myavatar2.png      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# SNS settings
+RSS: true
+# weibo_username:     qiubaiying
+zhihu_username:     zhou-di-en-he
+github_username:    ethan-enhe
+#facebook_username:  baiying.qiu.7
+jianshu_username:   a6a6cdbb4aa5
+#twitter_username:   qiubaiying
+
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: false                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate,jekyll-sitemap]
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+
+# 评论系统
+# Disqus（https://disqus.com/）
+#  disqus_username: ethan_enhe
+
+# Gitalk
+gitalk:
+  enable: false    #是否开启Gitalk评论
+  clientID: 22d8494ed02b2338d731                            #生成的clientID
+  clientSecret: 52894fa3a4c1daa463aa31abd75e666125e8e781    #生成的clientSecret
+  repo: ethan-enhe.github.io    #仓库名称
+  owner: ethan-enhe    #github用户名
+  admin: ethan-enhe
+  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+
+# Valine
+valine:
+  enable: true    #是否开启valine评论
+  id: iV58KKolduUdvYohigmXppWg-gzGzoHsz
+  key: EC10ndFpD2eUMMXMJeRLzxuH
+
+# 统计
+
+# Analytics settings
+# Baidu Analytics
+#ba_track_id: b50bf2b12b5338a1845e33832976fd68
+
+# Google Analytics
+ga_track_id: 'UA-135452662-1'            # Format: UA-xxxxxx-xx
+ga_domain: ethan.ga               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+
+
+
+# Featured Tags
+featured-tags: true                     # 是否使用首页标签
+featured-condition-size: 0              # 相同标签数量大于这个数，才会出现在首页
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# Friends
+friends: [
+    {
+        title: "deadpool123的博客",
+        href: "https://www.luogu.org/blog/deadpool123/"
+    },{
+        title: "天天oi",
+        href: "http://ttoier.com/"
+    }
+]

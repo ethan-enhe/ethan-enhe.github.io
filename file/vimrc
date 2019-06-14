@@ -1,0 +1,123 @@
+" Basic
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+set number
+set ruler
+set showcmd
+set mouse=a
+
+" Indent+Cursor
+set smartindent
+set cindent
+set ts=4
+set sw=4
+set cursorline
+set cursorcolumn
+" 代码折叠
+set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+set foldmethod=indent
+set foldlevel=99
+
+" Automatic
+set autochdir
+set autowrite
+set autoread
+set hlsearch
+set incsearch
+" cd ~ 
+
+" MAP
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {}<ESC>i
+vmap <C-c> "+y
+map <F9> :! g++ %<.cpp -o %< -Wall<CR>
+imap <F9> <ESC>:! g++ %<.cpp -o %< -Wall<CR>
+map <F8> :call RunCode()<CR>
+func! RunCode()
+	exec "w"
+	if &filetype == 'cpp'
+		if has('nvim')
+			exec "!%<.exe"
+		else
+			exec "!./%<"
+		endif
+	elseif &filetype == 'python'
+		exec "!python %"
+	endif
+endfunction
+
+let mapleader=" "
+map <leader><F9> :! g++ %<.cpp -o %< -Wall -O2<CR>
+imap <leader><F9> <ESC>:! g++ %<.cpp -o %< -Wall -O2<CR>
+imap <leader>. <C-n>
+imap <leader>, <C-p>
+
+" COLOR
+"color elflord
+"hi statusline ctermbg=white ctermfg=black
+"hi tablineSel ctermbg=7 ctermfg=black
+
+"color ron
+"hi StatusLine ctermfg=White ctermbg=Black cterm=bold
+"hi special cterm=bold
+"hi Tabline ctermbg=White ctermfg=Black cterm=none
+"hi Tablinesel ctermbg=Black ctermfg=White cterm=bold
+
+color evening
+
+syntax enable
+"set background=dark
+"colorscheme solarized
+
+" statusline
+function! Buf_total_num()
+	return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+endfunction
+function! File_size(f)
+	let l:size = getfsize(expand(a:f))
+	if l:size == 0 || l:size == -1 || l:size == -2
+		return ''
+	endif
+	if l:size < 1024
+		return l:size.' bytes'
+	elseif l:size < 1024*1024
+		return printf('%.1f', l:size/1024.0).'k'
+	elseif l:size < 1024*1024*1024
+		return printf('%.1f', l:size/1024.0/1024.0) . 'm'
+	else
+		return printf('%.1f', l:size/1024.0/1024.0/1024.0) . 'g'
+	endif
+endfunction
+if has('nvim')
+	call plug#begin('~/.vim/plugged')
+	Plug 'itchyny/lightline.vim'
+	call plug#end()
+else
+	set statusline=%<%1*[B-%n]%*
+	" TOT is an abbreviation for total
+	set statusline+=%2*[TOT:%{Buf_total_num()}]%*
+	set statusline+=%3*\ %{File_size(@%)}\ %*
+	set statusline+=%4*\ %F\ %*
+	set statusline+=%=%5*\ %{&ff}\ \|\ %{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\ \|\"}\ %-14.(%l:%c%V%)%*
+	set statusline+=%6*\ %P\ %*
+	" default bg for statusline is 236 in space-vim-dark
+	hi User1 cterm=bold ctermfg=232 ctermbg=179
+	hi User2 cterm=None ctermfg=214 ctermbg=242
+	hi User3 cterm=None ctermfg=251 ctermbg=240
+	hi User4 cterm=bold ctermfg=169 ctermbg=239
+	hi User5 cterm=None ctermfg=208 ctermbg=238
+	hi User6 cterm=None ctermfg=246 ctermbg=237
+endif
+" This is the END of the template of this vimrc file. [Color]Suitable for Vim 7.* in gnome-terminal, Ubuntu 14.04 LTS
+

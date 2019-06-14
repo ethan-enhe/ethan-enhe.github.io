@@ -1,0 +1,108 @@
+---
+layout: page
+title: "About"
+description: "Hi, this is Ethan."
+header-img: "img/home-bg-m42.jpg"
+---
+
+
+<!-- Chinese Version -->
+<div class="zh post-container">
+    <!--copied from markdown -->
+    <h2 id="关于我">关于我</h2>
+    <p><img src="/img/advartar-littleprince.png" alt="Ethan Zhou的头像">
+    喜欢天文，爱好编程，闲来无事总爱“玩机”，理工男一枚～
+    本职是oier，业余乱搞前端。
+    一个hexo博客梦破碎的小孩</p>
+    <h2 id="ta的博客梦">Ta的博客梦</h2>
+    <ul>
+      <li>2018.4 成为一名oier，常在洛谷博客上著文章自娱。提交无数篇题解，无一通过</li>
+      <li>2018.6-2018.7 注册了简书，对简书的形式不甚满意</li>
+      <li>2018.8-2018.9 拥有了自己的微信公众号，从此痛恨富文本编辑器，转行mark↓</li>
+      <li>2018.9-2018.10 搭建了自己的hexo博客，激动不已。过了不久更换域名到ethan.ga</li>
+      <li>2018.10 hexo博客爆炸，无法deploy，悲痛万分，寻找其他替代品</li>
+      <li>2019.1 来到博客园养老，结果发现博客园竟然可以自定义！仿佛发现了一个新天地，于是申请了js权限，套用了某大佬写的css主题，又改了改几个细小的bug，无比自豪</li>
+      <li>文章<a href="/2019/02/01/优雅地使用eruda在移动端上调试网页/">优雅地使用eruda在移动端上调试网页</a>通过审核，进入洛谷日报队列。</li>
+      <li>2018.2 开始尝试用Jekyll弄博客</li>
+      <li>年近十三，仍然坚持每天写bug，精神特别好～</li>
+    </ul>
+    <h2 id="联系我">联系我</h2>
+    <p>邮箱：ethan_enhe@163.com</p>
+    <p>github：<a href="https://github.com/ethan-enhe">ethan-enhe</a></p>
+    <h2 id="感谢">感谢</h2>
+    <ol>
+      <li>本站使用的评论系统：<a href="https://valine.js.org/">valine</a>，该评论系统后台基于<a href="https://leancloud.cn/">leancloud</a></li>
+      <li>魔改自<a href="https://github.com/qiubaiying/qiubaiying.github.io">@qiubaiying的主题</a></li>
+    </ol>
+    {% if site.valine.enable %}
+    <span id="{{page.url}}" class="leancloud-visitors">
+		<em class="post-meta-item-text">阅读量 </em>
+		<i class="leancloud-visitors-count"></i>
+    </span>
+    {% endif %}
+</div>
+
+<!-- Valine -->
+{% if site.valine.enable %}
+<hr style="visibility: hidden;">
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<div id="vcomments"></div>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '{{site.valine.id}}',
+        appKey: '{{site.valine.key}}',
+        avatar: 'identicon',
+        visitor: true
+    })
+</script>
+{% endif %}
+
+<!-- Gitalk 评论 start  -->
+{% if site.gitalk.enable %}
+<!-- Gitalk link  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+    <script type="text/javascript">
+    var gitalk = new Gitalk({
+    clientID: '{{site.gitalk.clientID}}',
+    clientSecret: '{{site.gitalk.clientSecret}}',
+    repo: '{{site.gitalk.repo}}',
+    owner: '{{site.gitalk.owner}}',
+    admin: ['{{site.gitalk.admin}}'],
+    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
+    id: 'about',
+    });
+    gitalk.render('gitalk-container');
+</script>
+{% endif %}
+<!-- Gitalk end -->
+
+ <!-- disqus 评论框 start  -->
+{% if site.disqus.enable %}
+
+<div class="comment">
+    <div id="disqus_thread" class="disqus-thread">
+    </div>
+</div>
+<!-- disqus 评论框 end -->
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "{{site.disqus.username}}";
+    var disqus_identifier = "{{site.disqus.username}}/{{page.url}}";
+    var disqus_url = "{{site.url}}{{page.url}}";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+{% endif %}
+
