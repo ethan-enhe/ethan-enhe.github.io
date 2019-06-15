@@ -56,6 +56,9 @@ kramdown:
       line_numbers: true
       start_line: 1
 
+# Copyright
+copyright:
+    enable: true
 
 # 评论系统
 # Disqus（https://disqus.com/）
