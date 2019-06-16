@@ -317,7 +317,7 @@ pre,.table-responsive {
 .container pre[class*="language-"] {
     display: block;
     width: auto;
-    white-space: pre-wrap;
+    white-space: pre;
     /* word-wrap: normal; */
     /* background: #eee; */
     border: 0 solid #3d7e9a;
