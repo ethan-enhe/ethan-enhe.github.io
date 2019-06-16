@@ -314,17 +314,15 @@ hr.small {
 pre,.table-responsive {
 	-webkit-overflow-scrolling: touch
 }
-
-.container pre code {
-	display: block;
-	width: auto;
-	white-space: pre;
-	word-wrap: normal;
-	background: #eee;
-	border: 0 solid #3d7e9a;
-	border-left-width: 5px !important
+.container pre[class*="language-"] {
+    display: block;
+    width: auto;
+    white-space: pre-wrap;
+    /* word-wrap: normal; */
+    /* background: #eee; */
+    border: 0 solid #3d7e9a;
+    border-left-width: 5px!important;
 }
-
 .postlist-container {
 	margin-bottom: 15px
 }
