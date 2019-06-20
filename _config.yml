@@ -61,6 +61,10 @@ kramdown:
 copyright:
     enable: true
 
+#不蒜子
+bsz:
+    enable: true
+
 # 评论系统
 # Disqus（https://disqus.com/）
 #  disqus_username: ethan_enhe
@@ -89,7 +93,7 @@ valine:
 
 # Google Analytics
 ga_track_id: 'UA-135452662-1'            # Format: UA-xxxxxx-xx
-ga_domain: ethan.ga               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+ga_domain: blog-e.tk              # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 
 
