@@ -6,6 +6,7 @@ set number
 set ruler
 set showcmd
 set mouse=a
+set laststatus=2
 
 " Indent+Cursor
 set smartindent
@@ -102,7 +103,9 @@ endfunction
 if has('nvim')
 	call plug#begin('~/.vim/plugged')
 	Plug 'itchyny/lightline.vim'
+	Plug 'scrooloose/nerdtree'
 	call plug#end()
+	map<F10> :NERDTreeToggle<CR>
 else
 	set statusline=%<%1*[B-%n]%*
 	" TOT is an abbreviation for total
