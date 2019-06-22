@@ -61,8 +61,9 @@ endfunction
 let mapleader=" "
 map <leader><F9> :! g++ %<.cpp -o %< -Wall -O2<CR>
 imap <leader><F9> <ESC>:! g++ %<.cpp -o %< -Wall -O2<CR>
-imap <leader>. <C-n>
-imap <leader>, <C-p>
+inoremap jj <ESC>
+inoremap <leader>. <C-n>
+inoremap <leader>, <C-p>
 
 " COLOR
 "color elflord
