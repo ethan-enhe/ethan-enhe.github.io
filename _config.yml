@@ -81,9 +81,9 @@ gitalk:
 
 # Valine
 valine:
-  enable: true    #是否开启valine评论
-  id: iV58KKolduUdvYohigmXppWg-gzGzoHsz
-  key: EC10ndFpD2eUMMXMJeRLzxuH
+  enable: false    #是否开启valine评论
+  id: xc3PBlgpE3UXRAJaXWVeazFX-MdYXbMMI
+  key: Q5ec2duzeuLbvP5ut4AeWF8E
 
 # 统计
 
