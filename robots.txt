@@ -1,0 +1,7 @@
+---
+layout: null
+permalink: robots.txt
+---
+User-agent: *
+Disallow: /img/ 
+Sitemap: {{ site.url }}/sitemap.xml
