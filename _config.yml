@@ -32,6 +32,7 @@ jianshu_username:   a6a6cdbb4aa5
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 permalink: pretty
 paginate: 10
+excerpt_separator: "<!--more-->"
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 anchorjs: false                          # if you want to customize anchor. check out line:181 of `post.html`
 
