@@ -74,7 +74,7 @@
                         <a target="_blank" href="https://github.com/{{ site.github_username }}">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -122,6 +122,7 @@
 
 <!-- ProgressBar -->
 <script type="text/javascript" src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+<script src="{{ site.baseurl }}/js/search.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//加载顶部进度条
@@ -130,6 +131,32 @@
 		$("#myProgressBar").hide();
 	})
 	$("pre").addClass("line-numbers");
+	var trigger=$("#search-trigger");
+	var input=$("#search-input");
+	var res=$("#results-container");
+	trigger.click(function(){
+		if(input.hasClass("hidden")){
+			trigger.attr("class","fas fa-times");
+			$("body").addClass("no-scroll");
+			input.removeClass("hidden");
+			res.removeClass("hidden");
+			input.focus();
+		}
+		else{
+			input.addClass("hidden");
+			res.addClass("hidden");
+			$("body").removeClass("no-scroll");
+			trigger.attr("class","fas fa-search");
+		}
+	})
+	var sjs = SimpleJekyllSearch({
+		searchInput: document.getElementById('search-input'),
+		resultsContainer: document.getElementById('results-container'),
+		json: '/search.json',
+		searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+		limit: 20,
+		noResultsText: 'Nothing here...'
+	})
 </script>
 <script src="/js/prism.js"></script>
 <!-- 不蒜子 -->
