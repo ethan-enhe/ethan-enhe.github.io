@@ -14,7 +14,10 @@
             <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
 			<div id="searchbox" class="navbar-left">
 				<i id="search-trigger" class="fas fa-search"></i>
-				<input type="text" id="search-input" class="hidden" placeholder="Search...">
+				<div id="search-wrap" class="hidden">
+					<i class="fas fa-search"></i>
+					<input type="text" id="search-input" placeholder="Search...">
+				</div>
 				<ul id="results-container" class="hidden" >
 					<h4 style="padding-left: 30px;">Search Results</h4>
 					<div id="results-container-son">

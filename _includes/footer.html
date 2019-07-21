@@ -132,26 +132,37 @@
 	})
 	$("pre").addClass("line-numbers");
 	var trigger=$("#search-trigger");
+	var searchwrap=$("#search-wrap");
 	var input=$("#search-input");
 	var res=$("#results-container");
+	var reson=false;
 	trigger.click(function(){
-		if(input.hasClass("hidden")){
+		if(searchwrap.hasClass("hidden")){
 			trigger.attr("class","fas fa-times");
-			$("body").addClass("no-scroll");
-			input.removeClass("hidden");
-			res.removeClass("hidden");
+			searchwrap.removeClass("hidden");
 			/*hide on mobile*/
 			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
-			$(".navbar").css("height","100%");
+			input.val("");
 			input.focus();
 		}
 		else{
-			input.addClass("hidden");
-			res.addClass("hidden");
-			$("body").removeClass("no-scroll");
+			searchwrap.addClass("hidden");
+			if(reson){
+				res.addClass("hidden");
+				$(".navbar").css("height","initial");
+				$("body").removeClass("no-scroll");
+				reson=false;
+			}
 			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
-			$(".navbar").css("height","initial");
 			trigger.attr("class","fas fa-search");
+		}
+	})
+	input.on("input",function(){
+		if(!reson){
+			$("body").addClass("no-scroll");
+			$(".navbar").css("height","100%");
+			res.removeClass("hidden");
+			reson=true;
 		}
 	})
 	var sjs = SimpleJekyllSearch({
