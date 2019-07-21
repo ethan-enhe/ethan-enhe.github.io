@@ -140,22 +140,27 @@
 			$("body").addClass("no-scroll");
 			input.removeClass("hidden");
 			res.removeClass("hidden");
+			/*hide on mobile*/
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
+			$(".navbar").css("height","100%");
 			input.focus();
 		}
 		else{
 			input.addClass("hidden");
 			res.addClass("hidden");
 			$("body").removeClass("no-scroll");
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
+			$(".navbar").css("height","initial");
 			trigger.attr("class","fas fa-search");
 		}
 	})
 	var sjs = SimpleJekyllSearch({
 		searchInput: document.getElementById('search-input'),
-		resultsContainer: document.getElementById('results-container'),
+		resultsContainer: document.getElementById('results-container-son'),
 		json: '/search.json',
-		searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
-		limit: 20,
-		noResultsText: 'Nothing here...'
+		searchResultTemplate: '<hr><li><a href="{url}"><b>{title}</b><br>{subtitle}</a></li>',
+		limit: 5,
+		noResultsText: '<li>Nothing here...</li>'
 	})
 </script>
 <script src="/js/prism.js"></script>
