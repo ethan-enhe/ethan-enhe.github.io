@@ -45,6 +45,7 @@ vmap <C-c> "+y
 map <F9> :! g++ %<.cpp -o %< -Wall<CR>
 imap <F9> <ESC>:! g++ %<.cpp -o %< -Wall<CR>
 map <F8> :call RunCode()<CR>
+imap <F8> <ESC>:call RunCode()<CR>
 func! RunCode()
 	exec "w"
 	if &filetype == 'cpp'
@@ -59,6 +60,8 @@ func! RunCode()
 endfunction
 
 let mapleader=" "
+map <leader><F8> :!start %<.exe<CR>
+
 map <leader><F9> :! g++ %<.cpp -o %< -Wall -O2<CR>
 imap <leader><F9> <ESC>:! g++ %<.cpp -o %< -Wall -O2<CR>
 inoremap jj <ESC>
@@ -124,4 +127,6 @@ else
 	hi User6 cterm=None ctermfg=246 ctermbg=237
 endif
 " This is the END of the template of this vimrc file. [Color]Suitable for Vim 7.* in gnome-terminal, Ubuntu 14.04 LTS
+
+
 
