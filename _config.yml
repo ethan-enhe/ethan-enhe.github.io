@@ -114,7 +114,7 @@ service-worker: true
 friends: [
     {
         title: "deadpool123的博客",
-        href: "https://www.luogu.org/blog/deadpool123/"
+        href: "http://filaret.ml/"
     },{
         title: "Edsger_Wybe_Dijkstra(假的)的博客",
         href: "https://www.luogu.org/blog/xiezihan123456789/"
