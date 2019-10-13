@@ -1,13 +1,17 @@
 ---
-layout: page
-title: "About"
-description: "Hi, this is Ethan."
-header-img: "img/home-bg-m42.jpg"
+layout: null
 ---
+<!DOCTYPE html>
+<html lang="en">
 
+{% include head.html %}
 
-<div class="container">
-      <section id="main_content">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    {% include nav.html %}
+
+    <section id="main_content">
         <p>▼ 网页访问量 ▼</p>
 
 <!-- hitwebcounter Code START -->
@@ -72,4 +76,14 @@ header-img: "img/home-bg-m42.jpg"
 <p>本文主要目的不是为了抨击某些公众号自媒体的可能不当行为，而是像前辈一样告知bdfz的学弟们不要发表过激不当言论，且合理看待事情的起因经过与结果。也许某些公众号自媒体的做法确实欠缺对学校学生的负面影响的考虑，但是也敬请各位冷静下来。</p>
 
       </section>
-    </div>
+
+    {% include footer.html %}
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
