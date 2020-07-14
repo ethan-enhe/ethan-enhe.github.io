@@ -122,7 +122,6 @@
 
 <!-- ProgressBar -->
 <script type="text/javascript" src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
-<script src="{{ site.baseurl }}/js/search.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//加载顶部进度条
@@ -131,6 +130,29 @@
 		$("#myProgressBar").hide();
 	})
 	$("pre").addClass("line-numbers");
+</script>
+<script src="/js/prism.js"></script>
+<!-- mathjax -->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	  TeX: {
+		equationNumbers: {
+		  autoNumber: "AMS"
+		}
+	  },
+	  tex2jax: {
+		inlineMath: [ ['$','$'] ],
+		displayMath: [ ['$$','$$'] ],
+		processEscapes: true
+	  }
+	});
+</script>
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--search-->
+<script src="{{ site.baseurl }}/js/search.min.js"></script>
+<script type="text/javascript">
 	var trigger=$("#search-trigger");
 	var searchwrap=$("#search-wrap");
 	var input=$("#search-input");
@@ -175,9 +197,6 @@
 		fuzzy: true
 	})
 </script>
-<script src="/js/prism.js"></script>
-<!-- 不蒜子 -->
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <!-- Service Worker -->
 {% if site.service-worker %}
 <script type="text/javascript">
@@ -237,10 +256,9 @@
         })
     }
 </script>
-
 <!--fastClick.js -->
 <script>
-    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
