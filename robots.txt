@@ -3,5 +3,5 @@ layout: null
 permalink: robots.txt
 ---
 User-agent: *
-Disallow: /img/ 
+Allow: /
 Sitemap: {{ site.url }}/sitemap.xml
