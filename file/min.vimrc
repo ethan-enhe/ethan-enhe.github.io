@@ -3,6 +3,7 @@ set cindent
 set ts=4
 set sw=4
 set autowrite
+set autoread
 set hlsearch
 set mouse=a
 map <f9> :! g++ %<.cpp -o %< -Wall<cr>
