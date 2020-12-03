@@ -1,9 +1,11 @@
-set number
+set nu
 set cindent
 set ts=4
 set sw=4
 set hlsearch
 set mouse=a
+set cursorline
+set cursorcolumn
 map <f9> :! g++ %<.cpp -o %< -Wall<cr>
 map <f8> :! ./%<<cr>
 inoremap jj <ESC>
