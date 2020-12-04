@@ -9,6 +9,7 @@ set cursorcolumn
 map <f9> :! g++ %<.cpp -o %< -Wall<cr>
 map <f8> :! time ./%<<cr>
 inoremap jj <ESC>
+inoremap " ""<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
