@@ -1,3 +1,4 @@
+
 " Basic
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
@@ -43,8 +44,74 @@ inoremap " ""<LEFT>
 inoremap ( ()<LEFT>
 inoremap [ []<LEFT>
 inoremap { {}<LEFT>
-inoremap < <><LEFT>
 vmap <C-c> "+y
 set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall\ -O2
 map <F6> :cp<CR>
 map <F7> :cn<CR>
+map <F4> :cw<CR>
+map <F9> :make<CR>
+imap <F9> <ESC>:make<CR>
+map <F8> :call RunCode()<CR>
+func! RunCode()
+    exec "w"
+    if &filetype == 'cpp'
+        if has('nvim')
+            exec "!%<.exe"
+        else
+            exec "!time ./%<"
+        endif
+    elseif &filetype == 'python'
+        exec "!python %"
+    endif
+endfunction
+
+let mapleader=" "
+inoremap jj <ESC>
+inoremap <leader>. <C-n>
+inoremap <leader>, <C-p>
+
+" COLOR
+"color elflord
+"hi statusline ctermbg=white ctermfg=black
+"hi tablineSel ctermbg=7 ctermfg=black
+
+"color ron
+"hi StatusLine ctermfg=White ctermbg=Black cterm=bold
+"hi special cterm=bold
+"hi Tabline ctermbg=White ctermfg=Black cterm=none
+"hi Tablinesel ctermbg=Black ctermfg=White cterm=bold
+
+"color evening
+
+syntax enable
+set background=dark
+"colorscheme solarized
+
+" statusline
+function! Buf_total_num()
+    return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+endfunction
+function! File_size(f)
+    let l:size = getfsize(expand(a:f))
+    if l:size == 0 || l:size == -1 || l:size == -2
+        return ''
+    endif
+    if l:size < 1024
+        return l:size.' bytes'
+    elseif l:size < 1024*1024
+        return printf('%.1f', l:size/1024.0).'k'
+    elseif l:size < 1024*1024*1024
+        return printf('%.1f', l:size/1024.0/1024.0) . 'm'
+    else
+        return printf('%.1f', l:size/1024.0/1024.0/1024.0) . 'g'
+    endif
+endfunction
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'morhetz/gruvbox'
+call plug#end()
+map<F10> :NERDTreeToggle<CR>
+color gruvbox
+" This is the END of the template of this vimrc file. [Color]Suitable for Vim 7.* in gnome-terminal, Ubuntu 14.04 LTS
+
