@@ -118,7 +118,7 @@ layout: default
 				<!-- Valine -->
 				{% if site.valine.enable %}
 				<hr style="visibility: hidden;">
-				<script src="//unpkg.com/valine@1.4.4"></script>
+				<script src="//cdn.bootcdn.net/ajax/libs/valine/1.4.4/Valine.min.js"></script>
 				<div id="vcomments"></div>
 				<script>
 					new Valine({
@@ -214,6 +214,23 @@ layout: default
 <!-- disqus 公共JS代码 end -->
 {% endif %}
 
+<script src="/js/prism.js"></script>
+<!-- mathjax -->
+<script src="//cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	  TeX: {
+		equationNumbers: {
+		  autoNumber: "AMS"
+		}
+	  },
+	  tex2jax: {
+		inlineMath: [ ['$','$'], ["\\(", "\\)"]],
+		displayMath: [ ['$$','$$'], ["\\[", "\\]"]],
+		processEscapes: true
+	  }
+	});
+</script>
 
 {% if site.anchorjs %}
 <!-- async load function -->
