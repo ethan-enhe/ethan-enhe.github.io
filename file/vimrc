@@ -1,4 +1,6 @@
-
+"set runtimepath^=~/.vim runtimepath+=~/.vim/after
+"let &packpath = &runtimepath
+"source ~/.vimrc
 " Basic
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
@@ -45,21 +47,17 @@ inoremap ( ()<LEFT>
 inoremap [ []<LEFT>
 inoremap { {}<LEFT>
 vmap <C-c> "+y
+map <C-a> :!cat % \| clip.exe<cr>
 set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall\ -O2
 map <F6> :cp<CR>
 map <F7> :cn<CR>
 map <F4> :cw<CR>
-map <F9> :make<CR>
-imap <F9> <ESC>:make<CR>
 map <F8> :call RunCode()<CR>
+map <F9> :make<CR>
 func! RunCode()
     exec "w"
     if &filetype == 'cpp'
-        if has('nvim')
-            exec "!%<.exe"
-        else
             exec "!time ./%<"
-        endif
     elseif &filetype == 'python'
         exec "!python %"
     endif
@@ -110,6 +108,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
 call plug#end()
 map<F10> :NERDTreeToggle<CR>
 color gruvbox
