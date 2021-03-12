@@ -1,0 +1,115 @@
+I"b<h2 id="24分">24分</h2>
+
+<p>对于n&lt;=10的情况，可以打爆搜解决，最高复杂度\(4^n\),枚举每种方法做的食材，最后检查每道菜的数量即可</p>
+
+<pre><code class="language-cpp">void dfs(int curn,long long curs,int tot){
+    if(curn==n+1){
+        if(!tot)return;
+        for(int i=1;i&lt;=m;i++)
+            if(cnt[i]&gt;(tot&gt;&gt;1))
+                return;
+        ans+=curs;
+		ans%=RP;
+        return;
+    }
+    dfs(curn+1,curs,tot);
+    for(int i=1;i&lt;=m;i++)
+        if(arr[curn][i]&gt;0){
+            cnt[i]++;
+            dfs(curn+1,(curs*arr[curn][i])%RP,tot+1);
+            cnt[i]--;
+        }
+}
+</code></pre>
+
+<h2 id="48分">48分</h2>
+
+<p>对于m=2的数据，可以进行dp，\(dp[i][j][k]\)表示目前计算第i种烹饪方法，第一个食材恰好选择了j个，第二个食材恰好选择了k个的总共方法数，每一种新的烹饪方法可以从上一层直接转移或者用当前烹饪方法再做一个食材来进行转移。</p>
+
+<p>初值：将\(dp[0][0][0]\)赋值为1。</p>
+
+<pre><code class="language-cpp">dp[0][0][0]=1;
+for(int i=1;i&lt;=n;i++)
+    for(int j=0;j&lt;=(n&gt;&gt;1);j++)
+        for(int k=0;k&lt;=(n&gt;&gt;1);k++){
+            dp[i][j][k]=dp[i-1][j][k];
+            if(j)dp[i][j][k]+=dp[i-1][j-1][k]*arr[i][1];
+            if(k)dp[i][j][k]+=dp[i-1][j][k-1]*arr[i][2];
+            dp[i][j][k]%=RP;
+        }
+for(int i=1;i&lt;=(n&gt;&gt;1);i++)
+    ans+=dp[n][i][i],ans%=RP;
+printf("%lld",ans);
+</code></pre>
+
+<h2 id="64分">64分</h2>
+
+<p>m=3的数据的分也可以用类似m=2时的方法骗到，同样是dp,\(dp[i][j][k][l]\)表示，第一个食材恰好选择了j个，第二个食材恰好选择了k个，第三个食材恰好选择了l个的总共方法数。</p>
+
+<p>转移和初值均与m=2时类似。</p>
+
+<pre><code class="language-cpp">f[0][0][0][0]=1;
+for(int i=1;i&lt;=n;i++)
+    for(int j=0;j&lt;=(n&gt;&gt;1);j++)
+        for(int k=0;k&lt;=(n&gt;&gt;1);k++)
+            for(int l=0;l&lt;=(n&gt;&gt;1);l++){
+                f[i][j][k][l]=f[i-1][j][k][l];
+                if(j)f[i][j][k][l]+=f[i-1][j-1][k][l]*arr[i][1];
+                if(k)f[i][j][k][l]+=f[i-1][j][k-1][l]*arr[i][2];
+                if(l)f[i][j][k][l]+=f[i-1][j][k][l-1]*arr[i][3];
+                f[i][j][k][l]%=RP;
+            }
+for(int j=0;j&lt;=(n&gt;&gt;1);j++)
+    for(int k=0;k&lt;=(n&gt;&gt;1);k++)
+        for(int l=0;l&lt;=(n&gt;&gt;1);l++){
+            if(j+k&lt;l || k+l&lt;j || j+l&lt;k)continue;
+            ans+=f[n][j][k][l];
+            ans%=RP;
+        }
+printf("%lld",(ans+RP-1)%RP);
+</code></pre>
+
+<h2 id="100分">100分</h2>
+
+<p>这题正解是容斥原理。</p>
+
+<p>由于正难则反，我们不妨将所有的方案数减去所有不符合的方案数，从而得出结果</p>
+
+<p>总方案数\(\prod_{i=1}^{n}({\sum_{j=1}^m})-1（减去全不选的情况）\)</p>
+
+<p>在处理不符合要求的方案数时，我们可以首先枚举超过一半的原材料，假设该原材料编号为w，那么在计算总方案数的时候，我们可以将所有其他的原材料都可以合并为一个原材料。</p>
+
+<p>所以目前每一步的决策只有三种——不选，选w，选其他的任意一个菜。</p>
+
+<p>此时问题就再次简化成了n=2的情况，用完全相同的dp方法写出来就可以得到84分。</p>
+
+<p>但如果不对状态进行压缩，复杂度则会达到\(\O(n^3 \times m)\)，爆炸！所以我们不妨将dp的后两个状态——w选的个数和其他材料总共选的个数，简化为一个——w选的个数和其他材料总共选的个数之差。此时复杂度进一步降低到\(\O(n^2 \times m)\)，就可以满分了！</p>
+
+<p>由于差可能是负数，所以需要平移数组，把第二个状态都加上一个大数即可。</p>
+
+<pre><code class="language-cpp">ans=1;
+long long sum[MXN];
+for(int i=1;i&lt;=n;i++){
+    sum[i]=0;
+    for(int j=1;j&lt;=m;j++)
+        sum[i]+=arr[i][j],sum[i]%=RP;
+    ans*=sum[i]+1;
+    ans%=RP;
+}
+r[0][MXN]=1;
+long long wr=0;
+for(int loop=1;loop&lt;=m;loop++){
+    for(int i=1;i&lt;=n;i++)
+        for(int j=-i;j&lt;=i;j++){
+            r[i][MXN+j]=r[i-1][MXN+j];
+            if(MXN+j-1&gt;=0)r[i][MXN+j]+=r[i-1][MXN+j-1]*arr[i][loop];
+            r[i][MXN+j]+=r[i-1][MXN+j+1]*((sum[i]-arr[i][loop]+RP)%RP);
+            r[i][MXN+j]%=RP;
+        }
+    for(int i=1;i&lt;=n;i++)
+        wr+=r[n][MXN+i],wr%=RP;
+}
+printf("%lld\n",(ans-wr-1+RP)%RP);
+</code></pre>
+
+:ET

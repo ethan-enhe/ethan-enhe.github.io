@@ -1,0 +1,191 @@
+I"@<p>注：这个解题主要详细讲T3，T4</p>
+
+<h2 id="t1">T1</h2>
+<p>只需要找到每个位置对称的字符，看他们是否相差 +-2 或 0 即可。</p>
+
+<p><strong>代码：</strong></p>
+
+<!--more-->
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+using namespace std;
+int n,l;
+char tmp[105];
+int main(){
+	scanf("%d",&amp;n);
+	while(n--){
+		scanf("%d%s",&amp;l,tmp+1);
+		bool f=1;
+		for(int i=1;(i&lt;&lt;1)&lt;=l;i++)
+			if(abs(tmp[i]-tmp[l-i+1])&gt;2 || abs(tmp[i]-tmp[l-i+1])&amp;1){
+				f=0;
+				break;
+			}
+		printf(f?"YES\n":"NO\n");
+	}
+	return 0;
+}
+</code></pre>
+
+<h2 id="t2">T2</h2>
+<p>分类讨论即可，有点麻烦，需要细心</p>
+
+<p><strong>代码</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+long long n,q;
+int main(){
+	scanf("%lld%lld",&amp;n,&amp;q);
+	while(q--){
+		long long x,y;
+		scanf("%lld%lld",&amp;x,&amp;y);
+		x--;
+		long long res=0;
+		long long l1=(n+1)&gt;&gt;1;
+		long long l2=n&gt;&gt;1;
+		if(!((x+y)&amp;1)){
+			res+=(n*n+1)&gt;&gt;1;
+			swap(l1,l2);
+		}
+		res+=(l1+l2)*(x&gt;&gt;1)+(x&amp;1?l1:0)+((y+1)&gt;&gt;1);
+		printf("%lld\n",res);
+	}
+	return 0;
+}
+</code></pre>
+
+<h2 id="t3">T3</h2>
+
+\[\begin{aligned}
+S&amp;=&amp;ab,P=a+b\\
+\frac{P^2}{S}&amp;=&amp;\frac{a^2+b^2}{ab}+2\\
+&amp;=&amp;\frac a b+\frac b a+2\\
+\end{aligned}\]
+
+<p>这一函数在ab越接近时取值越大，所以我们只需要讲所有的小棍按照长短排序，从头到尾扫一遍，找到长度相邻，且都有两个及以上的小木棍，计算他们的 P^2/S 即可。</p>
+
+<blockquote>
+  <p>注意：这个矩形可能是正方形</p>
+</blockquote>
+
+<p><strong>代码：</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int NR=1e6+5;
+int t,n,arr[NR];
+int main(){
+	scanf("%d",&amp;t);
+	while(t--){
+		scanf("%d",&amp;n);
+		for(int i=1;i&lt;=n;i++)scanf("%d",arr+i);
+		sort(arr+1,arr+1+n);
+		int last=-1,cur=-1,curcnt=0;
+		int mnlast,mncur;
+		long long minfz=1e9,minfm=1;
+		for(int i=1;i&lt;=n;i++){
+			if(curcnt==2 || arr[i]!=cur){
+				if(curcnt&gt;=2)last=cur;
+				cur=arr[i];
+				curcnt=1;
+			}
+			else if(++curcnt==2)
+				if(last!=-1&amp;&amp;minfz*last*cur&gt;minfm*(last+cur)*(last+cur)){
+						minfz=(last+cur)*(last+cur);
+						minfm=last*cur;
+						mncur=cur;
+						mnlast=last;
+				}
+		}
+		printf("%d %d %d %d\n",mnlast,mnlast,mncur,mncur);
+		
+	}
+	return 0;
+}
+</code></pre>
+<h2 id="t4">T4</h2>
+
+<p>给你一个图，其中每个节点的出度都为 1，并要求从每个结点出发最终都能到达一个标记点，求所有标记点的权值的最小值。
+首先经过分析，我们知道从任意一个点出发，其必定先经过一段链，再进入一个环。为了使这个环上的所有点符合题目要求，我们只需在这整个环上取个权值最小的一点即可，而只要取了这个点，那么之前链上的所有点也就符合要求了。</p>
+
+<p><strong>代码：（树状数组没啥必要）</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int NR=2e5+5;
+int n;
+int c[NR],a[NR];
+bool ins[NR];
+long long res=0;
+struct tarr{
+	int arr[NR];
+	int place[NR];
+	int ind;
+#define lbt(x) ((x)&amp;(-x))
+	tarr(){
+		memset(arr,999999,sizeof(arr));
+		memset(place,-1,sizeof(place));
+		ind=n+1;
+	}
+	void mod(int x,int d){for(;x&lt;=n;x+=lbt(x))arr[x]=min(arr[x],d);}
+	bool hasvis(int p){return place[p]!=-1;}
+	int calmin(int x){
+		int ans=1e9;
+		for(;x;x-=lbt(x))ans=min(ans,arr[x]);
+		return ans;
+	}
+	void addp(int p){
+		place[p]=--ind;
+		mod(ind,c[p]);
+	}
+	int on_circle(int p){return calmin(place[p]);}
+
+}t;
+void dfs(int p){
+	if(ins[a[p]]){
+		res+=t.on_circle(a[p]);
+		return;
+	}
+	if(t.hasvis(a[p]))return;
+	ins[a[p]]=1;
+	t.addp(a[p]);
+	dfs(a[p]);
+	ins[a[p]]=0;
+}
+int main(){
+	scanf("%d",&amp;n);
+	t.ind=n+1;
+	for(int i=1;i&lt;=n;i++)scanf("%d",c+i);
+	for(int i=1;i&lt;=n;i++)scanf("%d",a+i);
+	for(int i=1;i&lt;=n;i++)
+		if(!t.hasvis(i)){
+			t.addp(i);
+			ins[i]=1;
+			dfs(i);
+			ins[i]=0;
+		}
+	printf("%lld",res);
+	
+
+	return 0;
+}
+</code></pre>
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTExODU2MDQzMjMsNzI3MjM1MTQ4LDg3Nj
+U4MzcxMiwyMDU4NDc3Nzc3LDExNjYzOTUyMjEsLTEyMTAxMTkx
+NDUsMTAxMjUyMDA1OCwzNzUyOTc5MywtMjEyMDE2MjIsNTMyND
+g4Mjc2LDYyMDUzNTUzOCwtNTIyNTY5NjE0LDE3NTQzMjc2NzAs
+LTEwMDExMjU5NTYsLTIwMTQ1MjAwMjIsLTIwMjcwMjIzNTEsMT
+I4NjA3OTQ4OV19
+-->
+:ET

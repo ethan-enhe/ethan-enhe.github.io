@@ -1,0 +1,28 @@
+I"�<p>在一道\(luogu\)题目里，我定义了一个取绝对值的宏：</p>
+
+<pre><code class="language-cpp">#define abs(x) (x&gt;0?x:-x)
+</code></pre>
+<p>而调用这个宏的代码大概是这样滴：</p>
+<pre><code class="language-cpp">if(abs(arr[i]-ans[x-1])&lt;=k)continue;
+</code></pre>
+
+<p>结果出现了某些神奇的现象，比如说：<del>AC</del></p>
+
+<pre><code class="language-cpp">cout&lt;&lt;abs(-3-1);
+</code></pre>
+
+<p>显示的的结果竟然是——\(2\)</p>
+
+<p>什么？！！<del>（我的鼠标于是被砸坏了）</del></p>
+
+<hr />
+
+<blockquote>
+  <p>其实，正确的宏应该写成这样：</p>
+
+  <pre><code class="language-cpp">#define abs(x) ((x)&gt;0?(x):-(x))
+</code></pre>
+
+  <p>因为c++的宏只是粗暴地将文字替换掉（我的理解），与函数不同，他不会先计算变量“x”的值。所以才导致了以上的问题。</p>
+</blockquote>
+:ET

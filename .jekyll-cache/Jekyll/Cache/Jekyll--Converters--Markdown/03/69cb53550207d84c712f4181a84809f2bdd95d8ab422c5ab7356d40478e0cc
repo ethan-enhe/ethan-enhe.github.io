@@ -1,0 +1,180 @@
+I"<h2 id="t1">T1</h2>
+<p>直接按照题目要求模拟，复杂度\(O(M+N)\)</p>
+
+<p><strong>代码</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int NR=1005;
+int n,m;
+int a[NR],b[NR];
+int main(){
+	scanf("%d%d",&amp;n,&amp;m);
+	for(int i=1;i&lt;=n;i++)scanf("%d",a+i);
+	for(int i=1;i&lt;=m;i++)scanf("%d",b+i);
+	int j=1;
+	for(int i=1;(j&lt;=n)&amp;&amp;(i&lt;=n);i++)
+		if(a[i]&lt;=b[j])j++;
+	printf("%d",j-1);
+	return 0;
+}
+
+</code></pre>
+<h2 id="t2">T2</h2>
+<p>将这个字符串以2为界分为几部分</p>
+
+\[（部分1）2（部分二）2\cdots2（部分n）\]
+
+<p>题目所等效的条件为：
+在这个字符串中，2是固定的，1可以随意移动，0可以在其所在的部分任意移动。
+所以简单的贪心一下，把每个部分的0移到这个部分的最前头，把每个部分的1集中起来移到第一个2的前头即可，所以最终的字符串是这样的：</p>
+
+\[00\cdots011\cdots1 +（一个以2开头，由0和2构成的字符串）\]
+
+<p><strong>代码：（奇丑无比）</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+char s[100005];
+int n0,n1;
+int main(){
+	scanf("%s",s+1);
+	int len=strlen(s+1);
+	for(int i=1;(s[i]!='2')&amp;&amp;(i&lt;=len);i++)n0+=s[i]=='0';
+	for(int i=1;(i&lt;=len);i++)n1+=s[i]=='1';
+	for(int i=1;i&lt;=n0;i++)putchar('0');
+	for(int i=1;i&lt;=n1;i++)putchar('1');
+	bool f=0;
+	for(int i=1;(i&lt;=len);i++){
+		f|=s[i]=='2';
+		if(f &amp;&amp; s[i]!='1')putchar(s[i]);
+	}
+	return 0;
+}
+
+</code></pre>
+<h2 id="t3此题代码调不对">T3（此题代码调不对）</h2>
+<p>暴力推式子，每次操作对总合的贡献：</p>
+
+\[\begin{aligned}
+delta_i &amp;=&amp; &amp;x\times n+d\times(\sum_{j=1}^{i-1} j+\sum_{j=1}^{n-i} j)\\
+&amp;=&amp; &amp;x\times n+d\times(\frac{i(i-1)}2+\frac{(n-i+1)(n-i)}2)\\
+&amp;=&amp;&amp;x\times n+d\times (2i^2-2(n+1)i+n(n+1))/2\\
+\end{aligned}\]
+
+<p>在\(i=int((n+1)/2)\)取到最小值，\(i=1\)时取最大。所以在d&lt;0时使其取最小，d&gt;0时取最大即可。</p>
+
+<p><strong>代码：（错的，求大佬挑错）</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+int n,m;
+long double eve=0;
+int main(){
+	scanf("%d%d",&amp;n,&amp;m);
+	int mid=(1.0+n)/2+0.5;
+	while(m--){
+		int x,d;
+		scanf("%d%d",&amp;x,&amp;d);
+		eve+=(long double)x;
+		long double delta=0;
+		if(d&lt;0){
+			delta=(long double)d*(mid*(mid-1)+(n-mid+1)*(n-mid))/2;
+			delta/=n;
+		}
+		else{
+			delta=(long double)d*n*(n-1)/2;
+			delta/=n;
+		}
+		eve+=delta;
+	}
+	cout&lt;&lt;eve;
+	return 0;
+}
+
+</code></pre>
+
+<h2 id="t4">T4</h2>
+<p>打了个暴力，结果wa了。。</p>
+
+<p><strong>代码：（有误）</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MXM=1e5+5;
+int n,m;
+int ans[MXM][2],cnt=0;
+inline int gcd(int a,int b){return b==0?a:gcd(b,a%b);}
+int main(){
+	scanf("%d%d",&amp;n,&amp;m);
+	if(m&lt;n-1){
+		printf("Impossible\n");
+		return 0;
+	}
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;i;j++)
+			if(gcd(i,j)==1){
+				ans[++cnt][0]=i;
+				ans[cnt][1]=j;
+				if(cnt==m){
+					printf("Possible\n");
+					for(int k=1;k&lt;=cnt;k++)printf("%d %d\n",ans[k][0],ans[k][1]);
+					return 0;
+				}
+			}
+	}
+	printf("Impossible\n");
+	return 0;
+}
+</code></pre>
+
+<h2 id="t5">T5</h2>
+<p>这是一道组合题，设疲劳驾驶了\(i\)分钟才到达休息站的情况总共会被计算\(f(i)\)次。则这段路必定从休息站/起点开始，以休息站/终点结束，则：</p>
+
+\[f(i)=\left\{  \begin{aligned}
+&amp;2^{n-i}+(n-i-1)\times 2^{n-i-2}&amp;(i\leq n-2)\\
+&amp;2^{n-i}&amp;(i&gt; n-2)
+\end{aligned}  \right.\]
+
+<p>于是答案就等于\(\sum_{i=1}^n f(i)\times sum[i]\)</p>
+
+<p><strong>代码：</strong></p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int NR=1e6+5;
+const int P=998244353;
+long long n;
+long long arr[NR];
+long long ans=0,tpn_i=1,tpn_i_2=1;
+int main(){
+	scanf("%lld",&amp;n);
+	for(long long i=1;i&lt;=n;i++){
+		scanf("%lld",arr+i);
+		arr[i]=(arr[i]+arr[i-1])%P;
+	}
+	for(long long i=n;i&gt;=1;i--){
+		if(i&lt;=n-2){
+			ans+=((((n-i-1)*arr[i])%P)*tpn_i_2)%P;
+			ans%=P;
+			tpn_i_2=(tpn_i_2&lt;&lt;1)%P;
+		}
+		ans=(ans+(arr[i]*tpn_i)%P)%P;
+		tpn_i=(tpn_i&lt;&lt;1)%P;
+	}
+	printf("%lld",ans);
+	return 0;
+}
+</code></pre>
+:ET

@@ -1,0 +1,95 @@
+I"�<blockquote>
+  <p>注：本题解详细讲解了各部分分的得法以及对于正解的启发</p>
+</blockquote>
+
+<h2 id="问题转化">问题转化</h2>
+
+<p>理解题意之后我们不难发现，只要我们能算出是否有以 i 块墙壁开始，刷 M 块墙的合法请求，那么这就转化成了一个区间覆盖问题。</p>
+
+<blockquote>
+  <p>比如：
+样例1中，x=1，y=0 是一个合法请求，那么 [0,M-1] 就是一个合法区间（即：一次请求就可以覆盖这个区间）</p>
+</blockquote>
+
+<p>找出这些区间之后，就可以做一个简单的贪心了，贪心代码如下：</p>
+<pre><code class="language-cpp">/* 
+ * canpaint[i]表示有没有从第i块开始的合法区间
+ * lastr表示目前匹配到的右端点
+ * newl表示下一个合法区间的左端点
+ */
+int lastr=-1,newl=0,ans=0;
+while(lastr&lt;N-1){
+	int mxl=-1;
+	while(newl&lt;=lastr+1 &amp;&amp; newl&lt;N){
+		if(canpaint[newl])mxl=newl;
+		newl++;
+	}
+	if(mxl==-1)return -1;
+	lastr=mxl+M-1;
+	ans++;
+}
+</code></pre>
+
+<h2 id="预处理">预处理</h2>
+
+<p>但是，我们做完了吗？并没有。这题的不好搞的地方在于 canpaint 数组的预处理。</p>
+
+<h3 id="28分">28分</h3>
+
+<p>NM^2 的暴力，枚举每个 x 和 y，并暴力匹配，能得到第二组和第三组的分数，代码过于简单，略。</p>
+
+<h3 id="51分">51分</h3>
+<p>写一个dp，令 f[i][j] 表示从第 j 个商家，第i块墙壁开始匹配，最多能刷几块墙，则其转移如下</p>
+
+\[f[i][j]=\left\{
+\begin{aligned} 
+&amp;0&amp;（第j个商家不能刷第i个墙）\\
+&amp;f[i+1][(j+1)mod M]&amp;（第j个商家能刷第i个墙）
+\end{aligned}  \right.\]
+
+<p>但是 NM 的空间显然是存不下的，所以你需要将i那一维滚动掉，最终的时间复杂的也是 NM。</p>
+
+<blockquote>
+  <p>注：这里必须使用滚动数组，而不能使用其他方法，否则将无法保证后效性，因为这里的转移模了 M。</p>
+</blockquote>
+
+<h3 id="63分">63分</h3>
+<p>观察数据特点：f(k)&lt;1，我们可以利用这点来优化我们的dp，即：在转移时只转移喜欢 C[i] 这个颜色的那个商家即可，这个思路也给正解打下了基础，但至于加了这个优化之后，滚动时怎么清零之前计算的结果，待会会说。</p>
+
+<h3 id="100分">100分</h3>
+<p>再看整体的数据范围，发现 f(k) 还是很小，所以我用一个 vector 数组 like[i] 表示喜欢第 i 种颜色的商家编号，转移如下：</p>
+
+\[f[i][j]=f[i+1][(j+1)modM](j \in like[C[i]])\]
+
+<p>代码如下</p>
+<pre><code class="language-cpp">for(int i=0;i&lt;M;i++)
+	for(int j=0;j&lt;A[i];j++)
+		like[B[i][j]].push_back(i);
+for(int l=N-1;~l;l--){
+	/*
+	 * 每次使用like[l&amp;1]这一行，就可以不用重新赋值
+	 * 由于上次使用like[l&amp;1]这一行是在l=l+2是
+	 * 所以需要清除like[l&amp;1][k]，当且仅当k在like[C[l+2]]中
+	 */
+	int tlsize=like[C[l+2]].size();
+	for(int i=0;i&lt;tlsize;i++)
+		mxl[l&amp;1][like[C[l+2]][i]]=0;
+	//lsize表示喜欢当前墙壁颜色的公司数量
+	int lsize=like[C[l]].size();
+	for(int i=0;i&lt;lsize;i++){
+		//curc表示当前公司
+		int curc=like[C[l]][i];
+		mxl[l&amp;1][curc]=mxl[!(l&amp;1)][(curc+1)%M]+1;
+		if(mxl[l&amp;1][curc]&gt;=M)canpaint[l]=1;
+	}
+}
+</code></pre>
+
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTkyNjU5OTA4MiwtMTUzNTEzNDIyNiw3NT
+YwNjIxNDQsLTE3MDU3Nzg2NjAsMTI4MDQ2MTEzMSwxODQwOTM1
+MDIyLC00NTQ1ODkxMTMsMjQzNTYzOTY1LC0xMzYxMzQ3OTg5LC
+02NTQ0MjI0MDEsMTg4MDg0NzIxNyw2NTMwMDc1OTUsNDk0MTc5
+NjEwLDE5NDU4NjUwMjMsODA4MTg0MDQyXX0=
+-->
+:ET

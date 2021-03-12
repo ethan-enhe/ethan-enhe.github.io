@@ -1,0 +1,110 @@
+I"\<h2 id="关于bfs">关于bfs：</h2>
+<p><strong>你怎么会连这个都不知道！！！自己好好谷歌一下！！！</strong><del>（其实我也刚学）</del></p>
+
+<p><strong>bfs伪代码：</strong></p>
+
+<pre><code class="language-c++">while(队列非空){
+    取出队首元素u;
+    弹出队首元素;
+    u染色为黑色;
+    for(int i=0;i&lt;u的出度){
+        if(i非白色) continue;
+        u的第i个出线连着的点入队;
+        i染为灰色;
+    }
+}
+</code></pre>
+
+<p>可爱的分割线</p>
+
+<hr />
+
+<h2 id="无权最短路">无权最短路</h2>
+
+<p>显然，你在洛谷上是搜不到这题的，因为这是我们学校团队的题。所以还是找个小板凳专心听我讲吧。</p>
+
+<h3 id="题目描述">题目描述：</h3>
+
+<p>给定无权无向图G(V,E)和源点s/终点t，求 s-&gt;t 的最短路径。</p>
+
+<p>假设读入边的列表是有（字典）序的（既邻接表就是有序的）。</p>
+
+<h3 id="输入输出格式">输入输出格式：</h3>
+<p><strong>输入格式：</strong></p>
+
+<p>第一行包含4个整数N、M、s、t，表示该图共有N个结点和M条无向边。（N &lt;= 5000，M &lt;= 200000）。起点为s，终点为t。</p>
+
+<p>接下来M行，每行包含2个整数{u,v}，表示有一条无向边连接结点u、v</p>
+
+<p><strong>输出格式：</strong></p>
+
+<p>输出最短路的长度（边数）</p>
+
+<p>若无法到达，输出”No path”</p>
+
+<h3 id="样例">样例：</h3>
+<p><strong>输入：</strong></p>
+<pre><code>4 3 1 4
+1 2
+1 3
+2 4
+</code></pre>
+<p><strong>输出：</strong></p>
+<pre><code>2
+</code></pre>
+
+<h3 id="代码">代码：</h3>
+<pre><code class="language-cpp">
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;queue&gt;
+const int NR=5005;
+using namespace std;
+struct Edge{
+	//一个存储权值的结构体，为bfs模板，此题无用
+    int v,w;
+    Edge(int v,int w):v(v),w(w){}
+};
+vector&lt;Edge&gt; save[5005];//邻接表
+int d[NR];//记录距离的数组
+int main()
+{
+    int n,m,s,t;
+    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;//输入
+    char color[n+1];//判断是否去过（没去过:"w"，正在考虑（在队列中）:"g"，已经完全考虑:"b"）
+    memset(color,'w',sizeof(color));//染色数组重置为白色
+    
+    for(int i=1;i&lt;=m;i++){
+        int a,b;
+        cin&gt;&gt;a&gt;&gt;b;//输入每条线的起点和终点
+        save[a].push_back(Edge(b,1));//因为是无向图，所以在起点连接的点中增加终点
+        save[b].push_back(Edge(a,1));//还要在终点连接的点中增加起点
+    }
+    
+    d[s]=0;//起点距离起点的距离设为零
+    queue&lt;int&gt; q;//bfs处理队列
+    q.push(s);//起点入队
+    color[s]='g';//起点染色成灰色
+    while(!q.empty()){
+        int u=q.front();//取出队首的一项
+        q.pop();//弹出
+        color[u]='b';//标记为黑色
+        for(int i=0;i&lt;save[u].size();i++){//拓展出所有子节点
+            if(color[save[u][i].v]!='w') continue;
+            if(save[u][i].v==t){
+                cout&lt;&lt;d[u]+1;//如果这个位置是终点，则输出
+                return 0;
+            }
+            d[save[u][i].v]=d[u]+1;//计算距离
+            color[save[u][i].v]='g';//染灰色
+            q.push(save[u][i].v);//进队
+        }
+    }
+    cout&lt;&lt;"No path";
+    return 0;
+}
+</code></pre>
+:ET

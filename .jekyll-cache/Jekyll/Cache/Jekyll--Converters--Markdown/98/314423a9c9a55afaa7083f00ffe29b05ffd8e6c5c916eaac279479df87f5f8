@@ -1,0 +1,104 @@
+I"]<p>题目在此：<a href="https://www.luogu.com.cn/problem/P7287">P7287</a></p>
+
+<h2 id="结论">结论</h2>
+
+<ol>
+  <li>所有的 1 操作一定在所有的 2 操作之前进行</li>
+  <li>每个 1 操作的范围一定是 [1,n]</li>
+  <li>每次 2 操作都是对当前序列的最大字段和那个区间进行的。</li>
+  <li>最终选的区间是最终序列的最大子段和</li>
+</ol>
+
+<p>1，2，4 都很显然，3 结论可感性理解<del>（这个野鸡博主不会证）</del>：</p>
+
+<p>如果每次都选那个最大子段和进行操作，那得到的结果一定是最优的。
+否则一旦在操作过程中有操作的区间不是最大子段和区间的话，在进行同样次操作之后的结果是不优的。</p>
+
+<h2 id="算法">算法</h2>
+
+<p>现在，我们只需要知道 1 操作以及 2 操作的次数，就能算出最终数列的最大最大字段和。接着观察发现2操作的次数是不超过\(log(值域)\)次的。</p>
+
+<p>所以我们只需枚举 2 操作的次数，再二分出 1 操作的次数即可。</p>
+
+<h2 id="代码">代码</h2>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define pb push_back
+#define mp make_pair
+#define rd scanf
+#define pt printf
+#define setp(x) setprecision(x)
+#define mem(x,y) memset(x,y,sizeof(x))
+#define sz(x) (int)x.size()
+#define umn(x,y) x=min(x,y)
+#define umx(x,y) x=max(x,y)
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;ll,ll&gt; pi;
+typedef vector&lt;ll&gt; vi;
+typedef vector&lt;pi&gt; vpi;
+
+const double eps=1e-9;
+const ll INF=1e18;
+const ll P=998244353;
+const ll MXN=1e5+5;
+
+inline ll mod(ll x){return x&gt;=P?x-P:x;}
+inline ll mul(ll x,ll y){if(x&lt;y)swap(x,y);ll res=0;while(y){if(y&amp;1)res=mod(res+x);x=mod(x&lt;&lt;1);y&gt;&gt;=1;}return res;}
+inline ll qpow(ll x,ll y){ll res=1;while(y){if(y&amp;1)res=res*x%P;x=x*x%P;y&gt;&gt;=1;}return res;}
+ll gcd(ll x,ll y){return !y?x:gcd(y,x%y);}
+inline void pbin(ll x,ll y){for(;~y;y--)cerr&lt;&lt;char('0'+((x&gt;&gt;y)&amp;1));cerr&lt;&lt;endl;}
+
+
+
+ll n,a,b,s;
+ll arr[MXN];
+inline ll cal(ll add){
+	ll last=0,ans=0;
+	for(int i=1;i&lt;=n;i++){
+		last=max(last,0ll)+arr[i]+add;
+		umx(ans,last);
+	}
+	return ans;
+}
+inline bool chk(ll add,ll pwr){
+	ll tmp=cal(add);
+	for(int i=0;i&lt;=pwr;i++)
+		if((tmp&lt;&lt;i)&gt;=s)return 1;
+	return 0;
+}
+
+
+inline void solve(){
+    //codes
+	cin&gt;&gt;n&gt;&gt;a&gt;&gt;b&gt;&gt;s;
+	for(int i=1;i&lt;=n;i++)cin&gt;&gt;arr[i];
+
+	ll ans=INF;
+	for(int i=0;i&lt;=32;i++){
+		ll l=0,r=2e9;
+		while(l&lt;r){
+			ll mid=(l+r)&gt;&gt;1;
+			if(chk(mid,i))r=mid;
+			else l=mid+1;
+		}
+		ans=min(ans,a*l+b*i);
+	}
+	cout&lt;&lt;ans;
+    
+}
+int main(){
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
+	ios_base::sync_with_stdio(0);cin.tie(0);
+	cout&lt;&lt;setiosflags(ios::fixed);
+	srand(time(NULL));
+
+	solve();
+	return 0;
+}
+</code></pre>
+
+:ET

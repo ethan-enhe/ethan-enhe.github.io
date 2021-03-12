@@ -1,0 +1,99 @@
+I"o	<h2 id="关于dfs">关于dfs</h2>
+
+<p><strong>dfs伪代码：</strong></p>
+
+<pre><code class="language-cpp">void dfs(s){
+    for(int i=0;i&lt;s的出度;i++){
+        if(used[i]为真) continue;
+        used[i]=1;
+        dfs(i);
+    }
+    return;
+}
+</code></pre>
+
+<h2 id="统计无向图的连通分量">统计无向图的连通分量</h2>
+
+<p>显然，你在洛谷上是搜不到这题的，因为这是我们学校团队的题。所以还是找个小板凳专心听我讲吧。</p>
+
+<h3 id="题目描述">题目描述：</h3>
+<p>给定无向图G(V,E)，请统计G中连通分量的数量。</p>
+<ul>
+  <li>连通分量：结点V的一个子集V’，保证V’中任意两点间都有路径</li>
+  <li>需要在主循环中进行多次dfs</li>
+</ul>
+
+<h3 id="输入输出格式">输入输出格式：</h3>
+
+<p><strong>输入格式：</strong></p>
+
+<p>第一行包含两个整数N、M，表示该图共有N个结点和M条无向边（N&lt;= 5000，M&lt;=200000）；</p>
+
+<p>接下来M行，每行包含2个整数{u,v}，表示有一条无向边(u,v)。</p>
+
+<p><strong>输出格式：</strong></p>
+
+<p>一个整数，代表图G连通分量的数量</p>
+
+<h3 id="样例">样例：</h3>
+
+<p><strong>输入：</strong></p>
+
+<pre><code>5 4
+1 5
+2 3
+3 4
+4 2
+</code></pre>
+
+<p><strong>输出：</strong></p>
+
+<pre><code>2
+</code></pre>
+
+<h3 id="代码">代码：</h3>
+
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+#include&lt;cstdlib&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#include&lt;algorithm&gt;
+#include&lt;string&gt;
+#include&lt;iostream&gt;
+#include&lt;queue&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int NR=5005;
+bool color[NR];//used数组
+int cnt=0,n,m;
+vector&lt;int&gt; link[NR];
+void dfs(int a){//dfs函数
+    int sz=link[a].size();
+    for(int i=0;i&lt;sz;i++){
+        int nx=link[a][i];
+        if(color[nx]==false){
+            color[nx]=true;
+            dfs(nx); 
+        }
+    }
+    return;
+} 
+int main(){
+    scanf("%d%d",&amp;n,&amp;m);
+    for(int i=0;i&lt;m;i++){
+        int st,en;
+        scanf("%d%d",&amp;st,&amp;en);
+        link[st].push_back(en);
+        link[en].push_back(st);
+    }
+    for(int i=1;i&lt;=n;i++){//对于每个没有去过的点，将其所有可以到达的点标为true，计数加一，重复
+        if(color[i])continue;
+        color[i]=true;
+        dfs(i);
+        cnt++;
+    }
+    cout&lt;&lt;cnt;
+    return 0;
+}
+</code></pre>
+:ET

@@ -1,0 +1,142 @@
+I"�<p>注：本文有一小部分截图为桌面端，但所有内容都亲测在移动端上可用。</p>
+
+<hr />
+
+<p>你曾否在洛谷上用<code>&lt;F12&gt;</code>把错的数据点改成AC？是否有过自己尝试搭建网站，在移动端上js代码运行出错？如果你的回答是肯定的，那么eruda就正好适合你！</p>
+
+<h2 id="1-eruda简介">1. eruda简介</h2>
+
+<p><img src="https://github.com/liriliri/eruda/raw/master/doc/screenshot.jpg" alt="1" /></p>
+
+<p>github开源项目网址：<strong><a href="https://github.com/liriliri/eruda">eruda</a></strong></p>
+
+<p><strong><a href="https://eruda.liriliri.io/">Demo演示</a></strong></p>
+
+<hr />
+
+<blockquote>
+  <p>Eruda是一个专为手机网页前端设计的调试面板，类似 DevTools 的迷你版，其主要功能包括：捕获 console 日志、检查元素状态、捕获XHR请求、显示本地存储和 Cookie 信息等等。</p>
+</blockquote>
+
+<p>其有以下功能：</p>
+
+<ul>
+  <li>
+    <p>Console面板：捕获Console日志，支持log、error、info、warn、dir、time/timeEnd、clear、count、assert、table；支持占位符，包括%c自定义样式输出；支持按日志类型及正则表达式过滤；支持快捷命令加载underscore、jQuery库；支持JavaScript脚本执行。</p>
+  </li>
+  <li>
+    <p>Elements面板：查看标签内容及属性；查看应用在Dom上的样式；支持页面元素高亮；支持屏幕直接点击选取；查看Dom上绑定的各类事件。</p>
+  </li>
+  <li>
+    <p>Network面板：捕获请求，查看发送数据、返回头、返回内容等信息。</p>
+  </li>
+  <li>
+    <p>Resources面板：查看并清除localStorage、sessionStorage及cookie；查看页面加载脚本及样式文件；查看页面加载图片。</p>
+  </li>
+  <li>
+    <p>Sources面板：查看页面源码；格式化html，css，js代码及json数据。</p>
+  </li>
+  <li>
+    <p>Info面板：输出URL及User Agent；支持自定义输出内容。</p>
+  </li>
+  <li>
+    <p>Snippets面板：页面元素添加边框；加时间戳刷新页面；支持自定义代码片段。</p>
+  </li>
+</ul>
+
+<p><strong>说白了，就是等同于大家电脑浏览器上的 <code>&lt;F12&gt;</code>，甚至功能更加强大！</strong></p>
+
+<h2 id="2-简单的实现">2. 简单的实现</h2>
+
+<p>说起来这么高级，那么怎么用呢？
+首先，复制以下的代码：</p>
+<pre><code class="language-javascript">javascript:(function () { var script = document.createElement('script'); script.src="//cdn.jsdelivr.net/npm/eruda"; document.body.appendChild(script); script.onload = function () { eruda.init() } })();
+</code></pre>
+<p>然后随便打开一个网页，把以上代码粘贴到手机浏览器的地址栏里面去，接着，奇迹发生了！
+你会发现网页右下角出现一个齿轮的图标！</p>
+
+<p><img src="https://i.loli.net/2019/01/30/5c513de3a25eb.png" alt="2" /></p>
+
+<p>点开它，就是浏览器的控制台，你可以在这里写js或者jQuery代码。</p>
+
+<p><img src="https://i.loli.net/2019/01/30/5c513de3ac1b3.png" alt="3" /></p>
+
+<p>而eruda更高级的功能则是在snippets这一栏，包括网站编辑，显示元素边界等等有趣的插件。</p>
+
+<p><img src="https://i.loli.net/2019/01/30/5c513de3de9ae.png" alt="4" /></p>
+
+<h2 id="3-与小书签搭配实现部分系统浏览器不支持">3. 与小书签搭配实现（部分系统浏览器不支持）</h2>
+
+<hr />
+
+<p><strong>注意！！！via浏览器用户请移步下一小节，via上的小书签将无法删除！</strong></p>
+
+<hr />
+
+<p>为了更方便使用eruda，而不是每次使用都要重新复制一遍代码，我们可以用小书签的形式将代码存下来。</p>
+
+<p>首先，将随便一个网站添加为收藏，然后选择“编辑”，把它的网址替换成上述的代码，然后把名字改一下即可。</p>
+
+<p>打开网站以后，在浏览器地址栏上面搜一下你之前给这个书签命的名，找到以后点一下即可<del>（这不是废话吗）</del>。</p>
+
+<h2 id="4-与via浏览器搭配食用">4. 与via浏览器搭配食用</h2>
+
+<p>首先，点击via浏览器首页右下角的菜单：</p>
+
+<p><img src="https://i.loli.net/2019/01/31/5c52a2ffe5373.png" alt="5" /></p>
+
+<p>进入设置：</p>
+
+<p><img src="https://i.loli.net/2019/01/31/5c52a35696a80.png" alt="6" /></p>
+
+<p>选择脚本那一栏，然后点击右上角的加号，新建脚本</p>
+
+<p><img src="https://i.loli.net/2019/01/31/5c52a3a2878ae.png" alt="7" /></p>
+
+<p>域名填写 <code>*</code> ，代码栏填写以下代码：</p>
+<pre><code>(function(){var script=document.createElement('script');script.src="//cdn.jsdelivr.net/npm/eruda";document.body.appendChild(script);script.onload=function(){eruda.init()}})();
+</code></pre>
+
+<p><strong>大功告成！</strong></p>
+
+<h2 id="5-与tampermonkey和yandex浏览器搭配食用">5. 与tampermonkey和yandex浏览器搭配食用</h2>
+
+<p>首先，在你的安卓机上下载yandex浏览器，然后再chorme扩展商店或者“其他途径”安装tamper monkey插件。因为某种原因，在此不再赘述。
+安装完毕之后，点开插件栏中tamper monkey的图标。
+<img src="https://i.loli.net/2019/01/31/5c52a4abde28f.png" alt="8" />
+再点击弹出菜单中的“添加新脚本”
+<img src="https://i.loli.net/2019/01/31/5c52a4abc7d55.png" alt="9" />
+在编辑器中输入以下代码：</p>
+<pre><code class="language-javascript">// ==UserScript==
+// @name         网页调试
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @include      *
+// @description  在安卓上进行前端调试
+// @author       You
+// @grant        none
+// ==/UserScript==
+var script=document.createElement('script');
+script.src="//cdn.jsdelivr.net/npm/eruda";
+document.body.appendChild(script);
+script.onload=function(){
+    eruda.init()
+}
+</code></pre>
+<p>点击左上角的文件-&gt;保存
+<img src="https://i.loli.net/2019/01/31/5c52a4abe0244.png" alt="10" /></p>
+
+<p><strong>大功告成！</strong></p>
+
+<h2 id="6-致谢">6. 致谢</h2>
+
+<ul>
+  <li><strong>感谢eruda原作者，开发出如此优秀的调试工具</strong></li>
+  <li><strong>感谢via，yandex，tampermonkey等作者</strong></li>
+  <li><strong>感谢sm.ms图床，提供这篇文章的图床</strong></li>
+  <li><strong>感谢我妈对我表示支持</strong></li>
+  <li><strong>感谢信息老师对我表示支持</strong></li>
+  <li><strong>感谢我们班里一直“在精神上支持我”的同学</strong></li>
+  <li><strong>感谢机房的电脑&amp;我的手机</strong></li>
+</ul>
+:ET

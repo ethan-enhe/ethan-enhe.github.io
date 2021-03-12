@@ -1,0 +1,87 @@
+I"1<p>线段树是一种能实现\(O(\log n + k)\)的时间内对一个区间的数进行更新，和维护区间的和以及最大最小值的数据结构，相信大家对此都有一点了解。</p>
+
+<p>而学习线段树时较难理解的就是所谓的“懒标签”，本文就尽量用浅（晦）显（涩）易（难）懂的方式来介绍其在区间查改中的作用，原理，和实现。</p>
+
+<!--more-->
+
+<p>本文有不少图解，是我用ppt画的，可能有点丑QAQ。</p>
+
+<h2 id="作用">作用</h2>
+
+<p>在线段树中，以\(O(\log n)\)的时间实现单点修改是十分容易的，只需要一路从父亲回溯并同时更新，一直到根节点停止，过程大致如下。</p>
+
+<p><img src="https://pic.superbed.cn/item/5d3574d5451253d17892ec26.jpg" alt="" />
+<img src="https://pic1.superbed.cn/item/5d3574d5451253d17892ec28.jpg" alt="" />
+<img src="https://pic.superbed.cn/item/5d3574d5451253d17892ec2c.jpg" alt="" />
+<img src="https://pic1.superbed.cn/item/5d3574d5451253d17892ec32.jpg" alt="" />
+<img src="https://pic2.superbed.cn/item/5d3574d5451253d17892ec36.jpg" alt="" /></p>
+
+<p>而如果对于区间更新的话，如果更新区间内的每个节点都回溯到根并更新一次的话，那么复杂度就会降到\(O(m \times \log n)\)（m是修改区间的长度）。那么这时候就需要引入本文的“说明对象”——懒标记了。</p>
+
+<h2 id="原理">原理</h2>
+
+<p>如果我们将懒标签理解为一种“欠条”，则会更加好懂一些。</p>
+
+<p>懒标记起到的效果就是：对于每个更新的操作，从根节点开始向下分解区间，直到将这一区间分为数个不可分解的节点（注意不是叶子节点），然后在这些节点上做个标记，表示“我的每个孙子都挣了k元钱！只是我太懒了，等待会查询操作来了我再分给泥萌吧！”于是该节点记录的的钱财总数（他下面叶子节点的钱财）就加上了\(k \times 他下面叶子结点的数量\)。</p>
+
+<p>接下来是<del>高清无码</del>图解：</p>
+
+<p><img src="https://pic2.superbed.cn/item/5d3574ec451253d17892ee27.jpg" alt="" />
+<img src="https://pic.superbed.cn/item/5d3574ec451253d17892ee2b.jpg" alt="" />
+<img src="https://pic2.superbed.cn/item/5d3574ec451253d17892ee2e.jpg" alt="" />
+<img src="https://pic.superbed.cn/item/5d3574ec451253d17892ee20.jpg" alt="" />
+<img src="https://pic.superbed.cn/item/5d3574ec451253d17892ee22.jpg" alt="" />
+<img src="https://pic2.superbed.cn/item/5d3574f3451253d17892ef47.jpg" alt="" />
+<img src="https://pic.superbed.cn/item/5d3574f3451253d17892ef43.jpg" alt="" /></p>
+
+<p>而查询的操作则和原来的单点修改时的查询操作类似，不过区别在于每次查到一个节点时，都要让这个节点将其欠的“债务”向子孙还清。</p>
+
+<h2 id="实现">实现</h2>
+
+<p>贴代码（这些代码粘上来就相当于大半个线段树模板了吧）：</p>
+
+<pre><code class="language-cpp">struct SegmentTree{
+    long long t[NR],tag[NR];
+    //返回左右儿子
+    inline int ls(int p){return p&lt;&lt;1;}
+    inline int rs(int p){return p&lt;&lt;1|1;}
+    inline void add_tag(int p,int l,int r,int k){
+        tag[p]+=k;//记录懒标记，过后向下更新
+        t[p]+=(r-l+1)*k;//范围l-r的每个叶子都加k
+    }
+    inline void push_down(int p,int l,int r){//向下更新
+        int mid=l+((r-l)&gt;&gt;1);
+        add_tag(ls(p),l,mid,tag[p]);
+        add_tag(rs(p),mid+1,r,tag[p]);
+        tag[p]=0;//更新完成，标签可以删了
+    }
+    void update(int p,int l,int r,int add_l,int add_r,int k){
+        /*
+         * @p当前节点
+         * @l,r当前节点范围
+         * @add_l,add_r操作的范围
+         * @k操作的值
+         */
+        if(add_l&lt;=l &amp;&amp; r&lt;=add_r){//操作范围大于该节点，说明该节点不可分解了
+            add_tag(p,l,r,k);
+            return;
+        }
+        push_down(p,l,r);
+        int mid=l+((r-l)&gt;&gt;1);
+        if(add_l&lt;=mid)update(ls(p),l,mid,add_l,add_r,k);//更新左儿子
+        if(add_r&gt;mid)update(rs(p),mid+1,r,add_l,add_r,k);//更新右儿子
+        push_up(p);//根据左右儿子的改变，重新计算当前节点
+    }
+    long long query(int p,int l,int r,int que_l,int que_r){
+        long long res=0;
+        if(que_l&lt;=l &amp;&amp; r&lt;=que_r)return t[p];
+        int mid=l+((r-l)&gt;&gt;1);
+        //向下更新标签，避免得到的结果是未更新的
+        push_down(p,l,r);
+        if(que_l&lt;=mid)res+=query(ls(p),l,mid,que_l,que_r);
+        if(que_r&gt;mid)res+=query(rs(p),mid+1,r,que_l,que_r);
+        return res;
+    }
+};
+</code></pre>
+:ET
