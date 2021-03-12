@@ -51,7 +51,7 @@ vmap <C-c> "+y
 map <C-a> :!cat % \| clip.exe<cr>
 
 map <F10> :NERDTreeToggle<CR>
-set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall\ -O2
+set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall
 map <F5> :cp<CR>
 map <F6> :cn<CR>
 map <F7> :call RunCode(0)<CR>
@@ -66,6 +66,7 @@ endfunction
 func! RunCode(interm)
     exec "w"
     if &filetype == 'cpp'
+		exec "ccl"
 		if (has('nvim') && a:interm==1)
             exec "te time ./%<"
 		else
