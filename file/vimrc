@@ -47,33 +47,42 @@ inoremap ( ()<LEFT>
 inoremap [ []<LEFT>
 inoremap { {}<LEFT>
 inoremap jj <ESC>
+if has('nvim')
+	tnoremap jj <c-\><c-n>
+endif
+
 vmap <C-c> "+y
 map <C-a> :!cat % \| clip.exe<cr>
 
-map <F10> :NERDTreeToggle<CR>
+
 set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall
 map <F5> :cp<CR>
 map <F6> :cn<CR>
 map <F7> :call RunCode(0)<CR>
 map <F8> :call RunCode(1)<CR>
 map <F9> :call CompileCode()<CR>
+map <F10> :NERDTreeToggle<CR>
 func! CompileCode()
     exec "w"
 	exec "ccl"
-	exec "silent make"
+	if has('nvim')
+		exec "silent make"
+	else
+		exec "make"
+	endif
 	exec "cw 6"
 endfunction
 func! RunCode(interm)
     exec "w"
     if &filetype == 'cpp'
 		exec "ccl"
-		if (has('nvim') && a:interm==1)
+		if has('nvim') && a:interm==1
             exec "te time ./%<"
 		else
             exec "!time ./%<"
 		endif
     elseif &filetype == 'python'
-		if (has('nvim') && a:interm==1)
+		if has('nvim') && a:interm==1
             exec "te !python %"
 		else
 			exec "!python %"
