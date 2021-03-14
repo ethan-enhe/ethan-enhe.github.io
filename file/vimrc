@@ -59,6 +59,17 @@ map <silent> <F6> :cn<CR>
 map <silent> <F8> :call RunCode()<CR>
 map <silent> <F9> :call CompileCode()<CR>
 map <silent> <F10> :NERDTreeToggle<CR>
+
+if !exists("g:os")
+	if has("win64") || has("win32") || has("win16")
+		let g:os = "Windows"
+	else
+		let g:os = substitute(system('uname'), '\n', '', '')
+	endif
+endif
+
+
+
 func! CompileCode()
     exec "w"
 	exec "ccl"
@@ -70,10 +81,18 @@ func! RunCode()
     exec "w"
     if &filetype == 'cpp'
 		exec "ccl"
-		if has('nvim')
-			exec "bel 7sp term://time ./%<"
+		if g:os == "Linux"
+			if has('nvim')
+				exec "bel 7sp term://time ./%<"
+			else
+				exec "!time ./%<"
+			endif
 		else
-            exec "!time ./%<"
+			if has('nvim')
+				exec "bel 7sp term://./%<"
+			else
+				exec "!./%<"
+			endif
 		endif
     elseif &filetype == 'python'
 		if has('nvim')
