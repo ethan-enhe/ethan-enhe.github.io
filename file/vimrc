@@ -47,45 +47,39 @@ inoremap ( ()<LEFT>
 inoremap [ []<LEFT>
 inoremap { {}<LEFT>
 inoremap jj <ESC>
-if has('nvim')
-	tnoremap jj <c-\><c-n>
-endif
+tnoremap jj <c-\><c-n>
 
 vmap <C-c> "+y
 map <C-a> :!cat % \| clip.exe<cr>
 
 
 set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall
-map <F5> :cp<CR>
-map <F6> :cn<CR>
-map <F7> :call RunCode(0)<CR>
-map <F8> :call RunCode(1)<CR>
-map <F9> :call CompileCode()<CR>
-map <F10> :NERDTreeToggle<CR>
+map <silent> <F5> :cp<CR>
+map <silent> <F6> :cn<CR>
+map <silent> <F8> :call RunCode()<CR>
+map <silent> <F9> :call CompileCode()<CR>
+map <silent> <F10> :NERDTreeToggle<CR>
 func! CompileCode()
     exec "w"
 	exec "ccl"
-	if has('nvim')
-		exec "silent make"
-	else
-		exec "make"
-	endif
-	exec "cw 6"
+	exec "silent make"
+	exec "redraw!"
+	exec "cw 7"
 endfunction
-func! RunCode(interm)
+func! RunCode()
     exec "w"
     if &filetype == 'cpp'
 		exec "ccl"
-		if has('nvim') && a:interm==1
-            exec "te time ./%<"
+		if has('nvim')
+			exec "bel 7sp term://time ./%<"
 		else
             exec "!time ./%<"
 		endif
     elseif &filetype == 'python'
-		if has('nvim') && a:interm==1
-            exec "te !python %"
+		if has('nvim')
+			exec "bel 7sp term://python %"
 		else
-			exec "!python %"
+            exec "!python %"
 		endif
     endif
 endfunction
