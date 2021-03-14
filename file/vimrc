@@ -19,8 +19,6 @@ if &filetype == 'cpp'
 endif
 set ts=4
 set sw=4
-set cursorline
-set cursorcolumn
 " 代码折叠
 set foldenable
 " 折叠方法
@@ -68,8 +66,6 @@ if !exists("g:os")
 	endif
 endif
 
-
-
 func! CompileCode()
     exec "w"
 	exec "ccl"
@@ -116,3 +112,5 @@ call plug#end()
 syntax enable
 color gruvbox
 set background=dark
+hi Normal guibg=NONE ctermbg=NONE
+hi NonText guibg=NONE ctermbg=NONE
