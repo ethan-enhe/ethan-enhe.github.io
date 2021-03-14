@@ -79,13 +79,13 @@ func! RunCode()
 		exec "ccl"
 		if g:os == "Linux"
 			if has('nvim')
-				exec "bel 7sp term://time ./%<"
+				exec "bel 10sp term://time ./%<"
 			else
 				exec "!time ./%<"
 			endif
 		else
 			if has('nvim')
-				exec "bel 7sp term://./%<"
+				exec "bel 10sp term://./%<"
 			else
 				exec "!./%<"
 			endif
