@@ -46,8 +46,7 @@ inoremap [ []<LEFT>
 inoremap { {}<LEFT>
 inoremap jj <ESC>
 tnoremap jj <c-\><c-n>
-tnoremap <C-a> <c-\><c-n>:q!<cr>
-map <C-a> :q!<cr>
+tnoremap <ESC> <c-\><c-n>
 map <C-c> :!cat % \| clip.exe<cr>
 
 
@@ -58,36 +57,19 @@ map <F8> :call RunCode()<CR>
 map <F9> :call CompileCode()<CR>
 map <F10> :NERDTreeToggle<CR>
 
-"if !exists("g:os")
-"	if has("win64") || has("win32") || has("win16")
-"		let g:os = "Windows"
-"	else
-"		let g:os = substitute(system('uname'), '\n', '', '')
-"	endif
-"endif
-
 func! CompileCode()
     exec "w"
-	exec "ccl"
 	exec "silent make"
 	exec "redraw!"
-	exec "cw 7"
+	exec "cc"
 endfunction
 func! RunCode()
     exec "w"
     if &filetype == 'cpp'
 		exec "ccl"
-		if has('nvim')
-			exec "bel 9sp term://./%<"
-		else
-			exec "bel ter ++rows=9 ./%<"
-		endif
+		exec "H ./".expand("%<")
     elseif &filetype == 'python'
-		if has('nvim')
-			exec "bel 7sp term://python %"
-		else
-            exec "bel ter ++rows=9 python %"
-		endif
+		exec "H python".expand("%")
     endif
 endfunction
 
@@ -98,7 +80,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
+Plug 'skywind3000/vim-terminal-help'
 call plug#end()
+
+
+let g:terminal_height=8
 
 " COLOR
 syntax enable
