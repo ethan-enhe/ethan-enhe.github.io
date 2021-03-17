@@ -58,10 +58,12 @@ map <F9> :call CompileCode()<CR>
 map <F10> :NERDTreeToggle<CR>
 
 func! CompileCode()
+	call TerminalClose()
     exec "w"
+	exec "ccl"
 	exec "silent make"
 	exec "redraw!"
-	exec "cc"
+	exec "cw 8"
 endfunction
 func! RunCode()
     exec "w"
@@ -80,11 +82,10 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
-Plug 'skywind3000/vim-terminal-help'
+Plug 'ethan-enhe/vim-terminal-help'
 call plug#end()
 
 
-let g:terminal_height=8
 
 " COLOR
 syntax enable
