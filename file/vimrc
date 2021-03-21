@@ -91,5 +91,3 @@ call plug#end()
 syntax enable
 color gruvbox
 set background=dark
-hi Normal guibg=NONE ctermbg=NONE
-hi NonText guibg=NONE ctermbg=NONE
