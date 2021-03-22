@@ -58,7 +58,6 @@ map <F9> :call CompileCode()<CR>
 map <F10> :NERDTreeToggle<CR>
 
 func! CompileCode()
-	call TerminalClose()
     exec "w"
 	exec "ccl"
 	exec "silent make"
@@ -69,9 +68,17 @@ func! RunCode()
     exec "w"
     if &filetype == 'cpp'
 		exec "ccl"
-		exec "H ./".expand("%<")
+		if has('nvim')
+			exec "bel 8sp term://./%<"
+		else
+			exec "!./%<"
+		endif
     elseif &filetype == 'python'
-		exec "H python".expand("%")
+		if has('nvim')
+			exec "bel 8sp term://python %"
+		else
+			exec "!python %"
+		endif
     endif
 endfunction
 
@@ -81,8 +88,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
-Plug 'tomasr/molokai'
-Plug 'ethan-enhe/vim-terminal-help'
 call plug#end()
 
 
@@ -90,4 +95,4 @@ call plug#end()
 " COLOR
 syntax enable
 color gruvbox
-set background=dark
+s
