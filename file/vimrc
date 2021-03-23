@@ -95,4 +95,4 @@ call plug#end()
 " COLOR
 syntax enable
 color gruvbox
-s
+set background=dark
