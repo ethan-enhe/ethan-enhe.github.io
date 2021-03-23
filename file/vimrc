@@ -47,7 +47,8 @@ inoremap { {}<LEFT>
 inoremap jj <ESC>
 tnoremap jj <c-\><c-n>
 tnoremap <ESC> <c-\><c-n>
-map <C-c> :!cat % \| clip.exe<cr>
+map <c-a> :!cat % \| clip.exe<cr>
+map <c-c> "+y
 
 
 set makeprg=g++\ %<.cpp\ -o\ %<\ -Wall
