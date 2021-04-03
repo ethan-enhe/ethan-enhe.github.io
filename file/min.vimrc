@@ -6,7 +6,7 @@ set hlsearch
 set mouse=a
 set cursorline
 set cursorcolumn
-map <f9> :! g++ %<.cpp -o %< -Wall<cr>
+map <f9> :! g++ -Wall -O2 %<.cpp -o %<<cr>
 map <f8> :! time ./%<<cr>
 inoremap jj <ESC>
 inoremap " ""<left>
