@@ -47,7 +47,7 @@ inoremap { {}<LEFT>
 inoremap jj <ESC>
 tnoremap jj <c-\><c-n>
 tnoremap <ESC> <c-\><c-n>
-map <c-a> :!cat % \| clip.exe<cr>
+map <c-a> :!cat '%' \| clip.exe<cr>
 map <c-c> "+y
 
 
@@ -97,3 +97,4 @@ call plug#end()
 syntax enable
 color gruvbox
 set background=dark
+et background=dark
