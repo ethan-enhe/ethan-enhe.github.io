@@ -1,0 +1,183 @@
+I"<h2 id="united-cows-of-farmer-john">United Cows of Farmer John</h2>
+<h3 id="题意">题意：</h3>
+<p>给定一个长度为 n 的数列 $a_i$，求符合下列条件的三元组 ${i,j,k}$ 个数：</p>
+<ul>
+  <li>$1\le i &lt; j &lt; k \le n$</li>
+  <li>$a_i,a_j,a_k$ 的值在 $a_{[i,k]}$ 各只出现一次（即他们自己）。</li>
+</ul>
+
+<h3 id="思路">思路：</h3>
+
+<p>为了方便描述，我们称 $a_i$ 为 i 点的颜色，记 $pre_i$ 表示 $a_i$ 的前驱（即 i 之前与 $a_i$ 相同的最后一个数），记集合 $last$ 表示右端点扫描到 r 时，每个颜色最后一次出现的位置。</p>
+
+<h4 id="朴素想法">朴素想法</h4>
+
+<p>考虑固定右端点 r，然后枚举左端点 l 的位置，求此时 m 有多少种选择。发现答案即为 $a_{[l+1,r-1]}$ 中仅出现过一次的颜色数。</p>
+
+<p>为了方便计算，我们可以使用代表元法。即随着 r 的向右推进，维护一个序列 $appear_i$：</p>
+
+\[appear_i=\left\{
+\begin{aligned}
+1\qquad&amp;(a_{[i+1,r]}中没有与a_i相同的颜色)\cr
+-1\qquad&amp;(a_{[i+1,r]}中恰有一个与a_i相同的颜色)\cr
+0\qquad&amp;(a_{[i+1,r]}中有多于一个与a_i相同的颜色)
+\end{aligned}
+\right.\]
+
+<p>具体的维护方式就是每当 r 右移到新的一位，就进行以下操作：</p>
+
+<pre><code class="language-cpp">appear[i]++;
+appear[pre[i]]-=2;
+appear[pre[pre[i]]]++;
+</code></pre>
+
+<p>然后每次暴力枚举 l，并将后缀和加起来，我们就得到了一个 $O(n^2)$ 的做法。</p>
+
+<blockquote>
+  <p>注：
+当然，在 r 固定的情况下，l 也是有限制的，即：$l &gt; pre[r]$ 并且 $l \in last$。</p>
+</blockquote>
+
+<h4 id="线段树优化">线段树优化</h4>
+
+<p>虽然在枚举 l 的时候有 $l \in last$ 的限制，但是这个二重后缀求和仍有希望用数据结构维护。</p>
+
+<p>记数组 $sumappear_i$ 表示以下的内容：</p>
+
+\[sumappear_i=\left\{
+\begin{aligned}
+\sum_{j=i+1}^{r-1}appear_j \qquad&amp;(i \in last)\cr
+0\qquad&amp;(i \notin last)
+\end{aligned}
+\right.\]
+
+<p>则对 $appear_i$ 的修改可以转化为对 $sumappear$ 前缀第 $j(j\in last \cap [1,i])$ 位的修改。而枚举 l 的过程也可以转化为对 $sumappear$ 第 $j,j\in[pre_r+1,r-1]$ 的求和。</p>
+
+<p>考虑用线段树维护这个信息，在每个节点上不仅要存区间的权值和，还要存一个 <code>cnt</code> 表示区间内有多少项在 $last$ 集合里，每当 r 右移到新的一位，就将 $sumappear_i$ 的 <code>cnt</code> 设为 1，并将 $sumappear_{pre_i}$ 的 <code>cnt</code> 设为 0，给区间打 tag 时也按照 <code>sum+=cnt*tag</code> 加，于是这就是一个 $O(n\log n)$ 的算法。</p>
+
+<h3 id="代码">代码</h3>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define pb push_back
+#define mp make_pair
+#define rd scanf
+#define pt printf
+#define setp(x) setprecision(x)
+#define mem(x,y) memset(x,y,sizeof(x))
+#define umn(x,y) x=min(x,y)
+#define umx(x,y) x=max(x,y)
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;ll,ll&gt; pi;
+typedef queue&lt;ll&gt; qi;
+typedef vector&lt;ll&gt; vi;
+typedef vector&lt;pi&gt; vpi;
+
+const ll INF=1e18;
+const ll P=1e9+7;
+const ll MXN=2e5+5;
+
+inline ll mod(const ll &amp;x){return x&gt;=P?x-P:x;}
+inline ll mul(ll x,ll y){if(x&lt;y)swap(x,y);ll res=0;while(y){if(y&amp;1)res=mod(res+x);x=mod(x&lt;&lt;1);y&gt;&gt;=1;}return res;}
+inline ll qpow(ll x,ll y){ll res=1;while(y){if(y&amp;1)res=res*x%P;x=x*x%P;y&gt;&gt;=1;}return res;}
+ll gcd(const ll &amp;x,const ll &amp;y){return !y?x:gcd(y,x%y);}
+inline void pbin(const ll &amp;x,ll y){for(;~y;y--)cerr&lt;&lt;char('0'+((x&gt;&gt;y)&amp;1));cerr&lt;&lt;endl;}
+
+ll n,arr[MXN],res;
+ll last[MXN],pre[MXN];
+
+#define ls (p&lt;&lt;1)
+#define rs (p&lt;&lt;1|1)
+const ll NR=MXN&lt;&lt;2;
+struct node{
+	ll va,sz,tag;
+	inline node(ll va=0,ll sz=0,ll tag=0):va(va),sz(sz),tag(tag){}
+	inline void addt(ll k){
+		tag+=k;
+		va+=sz*k;
+	}
+	inline node operator + (const node &amp;y)const{return node(va+y.va,sz+y.sz);}
+}t[NR];
+inline void pushu(ll p){t[p]=t[ls]+t[rs];}
+inline void pushd(ll p){
+	t[ls].addt(t[p].tag);
+	t[rs].addt(t[p].tag);
+	t[p].tag=0;
+}
+void build(ll p,ll l,ll r){
+	if(l==r){
+		t[p]=node(-2,1);
+		return;
+	}
+	ll mid=(l+r)&gt;&gt;1;
+	build(ls,l,mid);
+	build(rs,mid+1,r);
+	pushu(p);
+}
+void del(ll p,ll l,ll r,ll dx){
+	if(l==r){
+		t[p].sz=t[p].va=0;
+		return;
+	}
+	ll mid=(l+r)&gt;&gt;1;
+	pushd(p);
+	if(dx&lt;=mid)del(ls,l,mid,dx);
+	else del(rs,mid+1,r,dx);
+	pushu(p);
+}
+void mod(ll p,ll l,ll r,ll ml,ll mr,ll mx){
+	if(ml&lt;=l &amp;&amp; r&lt;=mr){
+		t[p].addt(mx);
+		return;
+	}
+	ll mid=(l+r)&gt;&gt;1;
+	pushd(p);
+	if(ml&lt;=mid)mod(ls,l,mid,ml,mr,mx);
+	if(mr&gt;mid)mod(rs,mid+1,r,ml,mr,mx);
+	pushu(p);
+}
+node que(ll p,ll l,ll r,ll ql,ll qr){
+	if(ql&lt;=l &amp;&amp; r&lt;=qr)return t[p];
+	ll mid=(l+r)&gt;&gt;1;node res;
+	pushd(p);
+	if(ql&lt;=mid)res=res+que(ls,l,mid,ql,qr);
+	if(qr&gt;mid)res=res+que(rs,mid+1,r,ql,qr);
+	return res;
+}
+
+
+inline void solve(){
+	scanf("%lld",&amp;n);
+	build(1,1,n);
+	for(int i=1;i&lt;=n;i++){
+		scanf("%lld",arr+i);
+		pre[i]=last[arr[i]];
+		last[arr[i]]=i;
+		
+		if(pre[i])del(1,1,n,pre[i]);
+		mod(1,1,n,1,i,1);
+		if(pre[i])mod(1,1,n,1,pre[i],-2);
+		if(pre[pre[i]])mod(1,1,n,1,pre[pre[i]],1);
+		if(pre[i]+2&lt;=i)res+=que(1,1,n,pre[i]+1,i-1).va;
+	}
+	printf("%lld",res);
+    
+}
+int main(){
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
+	//ios_base::sync_with_stdio(0);cin.tie(0);
+	cout&lt;&lt;setiosflags(ios::fixed);
+	srand(time(NULL));
+
+	ll tq=1;
+	//cin&gt;&gt;tq;
+	while(tq--)solve();
+	return 0;
+}
+</code></pre>
+
+:ET
