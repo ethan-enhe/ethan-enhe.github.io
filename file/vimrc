@@ -70,13 +70,13 @@ func! RunCode()
     if &filetype == 'cpp'
 		exec "ccl"
 		if has('nvim')
-			exec "bel 8sp term://./%<"
+			exec "bel 10sp term://./%<"
 		else
 			exec "!./%<"
 		endif
     elseif &filetype == 'python'
 		if has('nvim')
-			exec "bel 8sp term://python %"
+			exec "bel 10sp term://python %"
 		else
 			exec "!python %"
 		endif
@@ -89,12 +89,24 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
 call plug#end()
 
 
 
 " COLOR
 syntax enable
+let g:gruvbox_invert_indent_guides = '1'
 color gruvbox
 set background=dark
-et background=dark
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+	  \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator':    { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' },
+      \ }
+"autocmd VimEnter * hi Normal ctermbg=none
+t background=dark
