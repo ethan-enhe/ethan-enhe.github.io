@@ -109,4 +109,3 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': '' },
       \ }
 "autocmd VimEnter * hi Normal ctermbg=none
-t background=dark
