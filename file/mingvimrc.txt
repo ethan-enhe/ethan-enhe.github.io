@@ -1,0 +1,22 @@
+set guifont=Consolas:h14
+set backspace=indent,eol,start
+set guioptions-=m
+set guioptions-=T
+
+set nu
+set cindent
+set hls
+set st=4
+set sw=4
+
+inoremap jj <esc>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap " ""<left>
+map <f9> :!g++ -Wall -O2 % -o %<<cr>
+map <f9> :!%<<cr>
+
+syntax enable
+color evening
+
