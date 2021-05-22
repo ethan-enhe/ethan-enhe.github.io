@@ -6,7 +6,7 @@ set guioptions-=T
 set nu
 set cindent
 set hls
-set st=4
+set ts=4
 set sw=4
 
 inoremap jj <esc>
@@ -15,7 +15,7 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap " ""<left>
 map <f9> :!g++ -Wall -O2 % -o %<<cr>
-map <f9> :!%<<cr>
+map <f8> :!%<<cr>
 
 syntax enable
 color evening
