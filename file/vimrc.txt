@@ -95,10 +95,10 @@ endfunction
 
 " PLUG
 call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'morhetz/gruvbox'
-Plug 'tomasr/molokai'
+Plug 'https://hub.fastgit.org/itchyny/lightline.vim'
+Plug 'https://hub.fastgit.org/scrooloose/nerdtree'
+Plug 'https://hub.fastgit.org/morhetz/gruvbox'
+Plug 'https://hub.fastgit.org/tomasr/molokai'
 call plug#end()
 
 
