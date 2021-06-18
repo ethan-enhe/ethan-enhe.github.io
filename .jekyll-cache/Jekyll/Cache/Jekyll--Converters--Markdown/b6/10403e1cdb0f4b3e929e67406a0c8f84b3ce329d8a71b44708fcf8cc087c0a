@@ -1,31 +1,48 @@
-I"�<p>介绍一种 ${\rm O}(n \times 3^8)$ 的做法，目前是所有非打表代码中的最优解，<del>其实只是把其他题解中的算法优化了一下。</del></p>
+I"{<blockquote>
+  <p>upd 2021.6.18: 修改公式符号，更加形式化，添加 50 分做法</p>
+</blockquote>
 
-<h2 id="暴力">暴力</h2>
+<p>介绍一种 $O(n \times 3^8)$ 的做法，目前是所有非打表代码中的最优解，<del>其实只是把其他题解中的算法优化了一下。</del></p>
+
+<h2 id="定义">定义</h2>
+
+<ul>
+  <li>$fac_i$ 表示 i 的质因数集合</li>
+  <li>$P={x\mid x\ \text{is prime},\ x\le n}$</li>
+</ul>
+
+<h2 id="暴力-1">暴力 1</h2>
 
 <p>这题的暴力有很多种，在此只介绍可以优化成正解的暴力。</p>
 
-<p>两个数互质，等效于他们没有共同的质因子，所以只需把每个数都分解质质因数，如下dp：</p>
+<p>两个数互质，等效于他们没有共同的质因子，所以只需把每个数都分解质质因数，如下 dp：</p>
 
 <ul>
-  <li>状态：$dp[s1][s2]$ 表示考虑前 i 个数（i被滚动掉了），小 G 选的数的包含的质因数集合为 s1，小 W 的质因数集合为 s2 的情况数。</li>
+  <li>状态：$dp(s1,s2)$ 表示考虑前 i 个数（i 被滚动掉了），小 G 选的数的包含的质因数集合为 s1，小 W 的质因数集合为 s2 的情况数。</li>
   <li>转移：
-假设 $fac_i$ 表示 i 的质因数集合，则有转移：</li>
+<!--more--></li>
 </ul>
 
-<!--more-->
-
 \[\begin{aligned}
-dp[s1|fac_i][s2]\leftarrow dp[s1][s2]+dp[s1|fac_i][s2]&amp;\ &amp;(fac_i\&amp;s2=0)\cr
-dp[s1][s2|fac_i]\leftarrow dp[s1][s2]+dp[s1][s2|fac_i]&amp;&amp;(fac_i\&amp;s1=0)
+dp(s1\cup fac_i,s2)\leftarrow dp(s1,s2)+dp(s1\cup fac_i,s2)&amp;\ &amp;(fac_i\cap s2=\varnothing)\cr
+dp(s1,s2\cup fac_i)\leftarrow dp(s1,s2)+dp(s1,s2\cup fac_i)&amp;&amp;(fac_i\cap s1=\varnothing)
 \end{aligned}\]
 
 <ul>
   <li>答案：</li>
 </ul>
 
-\[\sum _{s1,s2 \in\{x|x\ is\ prime,\ x\in[2,n]\}}{dp[s1][s2]\ (s1\&amp;s2=0))}\]
+\[\sum _{s1,s2 \subset P}{dp(s1,s2)\ (s1\cap s2=0))}\]
 
-<p>虽然这个状态在 $n\le 30$ 时显然可以优化，但是优化了的话就没法做更大范围了，复杂度 ${\rm O}(n\times2^{20})$。</p>
+<p>复杂度 $O(n\times2^{20})$，能得 30 分。</p>
+
+<h2 id="暴力-2">暴力 2</h2>
+
+<p>（该部分分对正解启发不大，一笔带过）</p>
+
+<p>$dp(s)$ 表示在 前 i 个数中，选的数质因数集合恰好为 s 的情况数。然后再算出 dp 的子集和，即 $f(s)=\sum_{i \subset s} dp(i)$ ，答案便是 $\sum _{i\subset P}dp(i)f(P \setminus i)$。</p>
+
+<p>仅仅这样还是不够的，因为小于一百的质数有 25 个，但是发现大于 50  的每个质因数只可能出现一次，所以我们可以只考虑剩下的小于等于 50 的 15 个质数，最后将答案乘以 $3^{\pi(n)-\pi(50)}$ 即可，可得 50 分。</p>
 
 <h2 id="正解">正解</h2>
 
@@ -37,29 +54,29 @@ dp[s1][s2|fac_i]\leftarrow dp[s1][s2]+dp[s1][s2|fac_i]&amp;&amp;(fac_i\&amp;s1=0
 
 <p>考虑如下 dp：</p>
 <ul>
-  <li>$dp[s1][s2]$ 含义与上面的差不多，只不过这里的 s1，s2 只状压了前 8 个质数的状态。</li>
+  <li>$dp(s1,s2)$ 含义与**暴力 1 **中的差不多，只不过这里的 s1，s2 只状压了前 8 个质数的状态。</li>
   <li>每次进入一个新的连续段，把 dp 中的值复制到 t1，t2 中。
     <ul>
-      <li>用 $t1[s1][s2]$ 表示这个连续段中的数<strong>只被小 G 选或不被选</strong>的情况数</li>
-      <li>用 $t2[s1][s2]$ 表示这个连续段中的数<strong>只被小 W 选或不被选</strong>的情况数</li>
+      <li>用 $dp(s1,s2)$ 表示这个连续段中的数<strong>只被小 G 选或不被选</strong>的情况数</li>
+      <li>用 $dp(s1,s2)$ 表示这个连续段中的数<strong>只被小 W 选或不被选</strong>的情况数</li>
       <li>转移：</li>
     </ul>
 
 \[\begin{aligned}
-   t1[s1|fac_i][s2]\leftarrow t1[s1|fac_i][s2]+t1[s1][s2]&amp;\ &amp;(fac_i\&amp;s2=0)\cr
-   t2[s1][s2|fac_i]\leftarrow t2[s1][s2|fac_i]+t2[s1][s2]&amp;&amp;(fac_i\&amp;s1=0)\cr
-   \end{aligned}\]
+     dp(s1\cup fac_i,s2)\gets dp(s1\cup fac_i,s2)+dp(s1,s2)&amp;\ &amp;(fac_i\cap s2=\varnothing)\cr
+     dp(s1,s2\cup fac_i)\gets dp(s1,s2\cup fac_i)+dp(s1,s2)&amp;&amp;(fac_i\cap s1=\varnothing)\cr
+     \end{aligned}\]
   </li>
   <li>这个连续段结束之后，再用 t1，t2 中的值更新 dp 值：</li>
 </ul>
 
-\[dp[s1][s2]\leftarrow t1[s1][s2]+t2[s1][s2]-dp[s1][s2]\]
+\[dp(s1,s2)\gets dp(s1,s2)+dp(s1,s2)-dp(s1,s2)\]
 
-<p>为什么要减去 $dp[s1][s2]$ 呢？因为这一段中所有数都不选的情况被算了两次（t1，t2 各一次）。</p>
+<p>为什么要减去 $dp(s1,s2)$ 呢？因为这一段中所有数都不选的情况被算了两次（t1，t2 各一次）。</p>
 
 <h2 id="小优化">小优化</h2>
 
-<p>截止目前，算法复杂度还是 ${\rm O}(n \times 4^8)$ 的，但是不难发现对于一个合法状态，是要求 s1，s2 交为空的。因此真正有用的状态数只有 $3^8$ 量级。
+<p>截止目前，算法复杂度还是 $O(n \times 4^8)$ 的，但是不难发现对于一个合法状态，是要求 s1，s2 交为空的。因此真正有用的状态数只有 $3^8$ 量级。
 所以我们可以如下枚举 s1 和 s2：</p>
 
 <pre><code class="language-cpp">int ALL=1&lt;&lt;8;
@@ -127,5 +144,4 @@ int main(){
 	return 0;
 }
 </code></pre>
-
 :ET

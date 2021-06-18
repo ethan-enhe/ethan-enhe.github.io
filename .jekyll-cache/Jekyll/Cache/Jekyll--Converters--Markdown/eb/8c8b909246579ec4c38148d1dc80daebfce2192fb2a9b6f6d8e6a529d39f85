@@ -1,0 +1,67 @@
+I"<	<h2 id="第一类斯特林数">第一类斯特林数</h2>
+<h3 id="几何意义">几何意义</h3>
+<p>把 n 各不同的数放进为 k 个环的方案数，用 $\begin{bmatrix}n\cr k\end{bmatrix}$ 表示。</p>
+
+<h3 id="代数意义">代数意义</h3>
+
+\[\begin{aligned}
+x^{\overline{n}}&amp;=\sum_{i=1}^n \begin{bmatrix}n\cr i\end{bmatrix}x^i\cr
+x^{\underline{n}}&amp;=\sum_{i=1}^n (-1)^{n-i}\begin{bmatrix}n\cr i\end{bmatrix}x^i
+\end{aligned}\]
+
+<h3 id="计算方式">计算方式</h3>
+
+<p>$O(nk)$ 递推：</p>
+
+\[\begin{bmatrix}n\cr k\end{bmatrix}=(n-1)\begin{bmatrix}n-1\cr k\end{bmatrix}+\begin{bmatrix}n-1\cr k-1\end{bmatrix}\]
+
+<h2 id="第二类斯特林数">第二类斯特林数</h2>
+
+<h3 id="组合意义">组合意义</h3>
+<p>把 n 各不同的数放进为 k 个非空集合的方案数，用 $\begin{Bmatrix}n\cr k\end{Bmatrix}$ 表示。</p>
+
+<h3 id="代数意义-1">代数意义</h3>
+
+\[\begin{aligned}i^k&amp;=&amp;&amp;\sum_{j=1}^k i^{\underline{j}}\begin{Bmatrix}k\cr j\end{Bmatrix}\cr &amp;=&amp;&amp;\sum_{j=1}^k \binom i j j! \begin{Bmatrix}k\cr j\end{Bmatrix}\cr \end{aligned}\]
+
+<h3 id="计算方式-1">计算方式</h3>
+
+<p>$O(nk)$ 递推：</p>
+
+\[\begin{Bmatrix}n\cr k\end{Bmatrix}=k\begin{Bmatrix}n-1\cr k\end{Bmatrix}+\begin{Bmatrix}n-1\cr k-1\end{Bmatrix}\]
+
+<p>$O(k \log n)$ 容斥：</p>
+
+\[\begin{Bmatrix}n\cr k\end{Bmatrix}=\frac 1 {k!}\sum_{i=0}^k (-1)^i \binom k i (k-i)^n\]
+
+<h2 id="斯特林反演">斯特林反演</h2>
+
+<h3 id="哪些题可能是斯特林反演">哪些题可能是斯特林反演</h3>
+
+<ul>
+  <li>求和 $\sum_{i=1}^n (\cdots) i^k$</li>
+  <li>n 超级大，但 $k^2$ 能过</li>
+</ul>
+
+<h3 id="步骤">步骤</h3>
+
+<ul>
+  <li>反演
+\(\begin{aligned}i^k&amp;=&amp;&amp;\sum_{j=1}^k i^{\underline{j}}\begin{Bmatrix}k\cr j\end{Bmatrix}\cr &amp;=&amp;&amp;\sum_{j=1}^k \binom i j j! \begin{Bmatrix}k\cr j\end{Bmatrix}\cr \end{aligned}\)</li>
+  <li>换序求和
+\(=\sum_{j=1}^k j! \begin{Bmatrix}k\cr j\end{Bmatrix}\sum_{i=1}^n \binom i j (\cdots)\)</li>
+  <li>化简后面一部分：
+    <ul>
+      <li>重组组合数，尽量多凑成与 i 无关的形式，比如：</li>
+    </ul>
+
+    <p>\(\sum_{i=1}^n \binom i j \binom n i=\binom n j \sum_{i=1}^n \binom {n-j} {i-j}\)</p>
+    <ul>
+      <li>利用组合意义求和，比如：</li>
+    </ul>
+
+\[\sum_{i=1}^n \binom i j=\binom {n+1}{j+1}\]
+  </li>
+</ul>
+
+:ET
