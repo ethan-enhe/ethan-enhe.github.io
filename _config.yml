@@ -4,8 +4,8 @@ SEOTitle: Blog E
 header-img: img/home-bg-littleprince.jpg
 email: ethan_enhe@163.com
 description: "路漫漫其修远兮，吾将上下而求索。"
-keyword: "编程,天文,生活"
-url: "http://blog-e.tk"          # your host, for absolute URL
+keyword: "算法竞赛，天文"
+url: "https://blog-e.tk"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/ethan-enhe/ethan-enhe.github.io.git" # you code repository
 
@@ -113,10 +113,10 @@ service-worker: true
 # Friends
 friends: [
     {
-        title: "deadpool123的博客",
-        href: "http://filaret.ml/"
+        title: "_FILARET_ 的博客",
+        href: "https://www.luogu.com.cn/blog/84121/"
     },{
-        title: "Edsger_Wybe_Dijkstra(假的)的博客",
-        href: "https://www.luogu.org/blog/xiezihan123456789/"
+        title: "CLCN 的博客",
+        href: "https://www.luogu.com.cn/blog/61088/"
     }
 ]
