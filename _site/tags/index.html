@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="google-site-verification" content="EYD9voMamEorNvC4N4DPVs6Coue2YsUq4XiFvIHHbXQ" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索。">
+    <meta name="keywords"  content="编程,天文,生活">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Tags - Blog E</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://blog-e.tk/tags/">
+
+    <!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!--<link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/hux-blog.min.css">
+	<!--<link rel="stylesheet" href="/css/hux-blog.css">-->
+
+    <!-- Pygments Github CSS -->
+    <!--<link rel="stylesheet" href="/css/syntax.css">-->
+	<link rel="stylesheet" href="/css/prism.css">
+    <!-- Custom Fonts -->
+    <!-- ethan change font-awesome 4 to 5 -->
+	<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- ProgressBar -->
+<div id="myProgressBar"></div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog E</a>
+			<div id="searchbox" class="navbar-left">
+				<i id="search-trigger" class="fas fa-search"></i>
+				<div id="search-wrap" class="hidden">
+					<i class="fas fa-search"></i>
+					<input type="text" id="search-input" placeholder="Search...">
+				</div>
+				<ul id="results-container" class="hidden" >
+					<h4 style="padding-left: 30px;">Search Results</h4>
+					<div id="results-container-son">
+						<li>Nothing here...</li>
+					</div>
+				</ul>
+			</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/tag-bg-o.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>Tags</h1>
+                    <span class="subheading">路漫漫其修远兮，吾将上下而求索。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				
+				<a href="#算法" title="算法" rel="26">算法</a>
+				
+				<a href="#玩机" title="玩机" rel="3">玩机</a>
+				
+				<a href="#NOIP" title="NOIP" rel="2">NOIP</a>
+				
+				<a href="#javascript" title="javascript" rel="4">javascript</a>
+				
+				<a href="#博客" title="博客" rel="2">博客</a>
+				
+				<a href="#天文" title="天文" rel="2">天文</a>
+				
+				<a href="#星野摄影" title="星野摄影" rel="1">星野摄影</a>
+				
+				<a href="#python" title="python" rel="2">python</a>
+				
+				<a href="#图像处理" title="图像处理" rel="1">图像处理</a>
+				
+				<a href="#css" title="css" rel="1">css</a>
+				
+				<a href="#爬虫" title="爬虫" rel="1">爬虫</a>
+				
+				<a href="#线段树" title="线段树" rel="4">线段树</a>
+				
+				<a href="#前端" title="前端" rel="1">前端</a>
+				
+				<a href="#sql" title="sql" rel="1">sql</a>
+				
+				<a href="#题解" title="题解" rel="12">题解</a>
+				
+				<a href="#USACO" title="USACO" rel="3">USACO</a>
+				
+				<a href="#数论" title="数论" rel="1">数论</a>
+				
+				<a href="#高斯消元" title="高斯消元" rel="1">高斯消元</a>
+				
+				<a href="#游记" title="游记" rel="1">游记</a>
+				
+				<a href="#PKUSC" title="PKUSC" rel="1">PKUSC</a>
+				
+				<a href="#dp" title="dp" rel="1">dp</a>
+				
+				<a href="#斜率优化" title="斜率优化" rel="1">斜率优化</a>
+				
+				<a href="#笔记" title="笔记" rel="2">笔记</a>
+				
+				<a href="#组合" title="组合" rel="1">组合</a>
+				
+			</div>
+
+            <!--<blockquote class="tag-comments">
+                标签命名规范：
+                    <li>行业观察、职位、公司优先使用中文</li>
+                    <li>外国产品、术语优先使用英文</li>
+            </blockquote>-->
+
+            <!-- 标签列表 -->
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="算法">
+                    <span class="tag-text">算法</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-05-27">2021-05-27</time>
+				  <a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/" title="【题解】寿司晚宴">【题解】寿司晚宴</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/">
+				        <h2 class="post-title">
+                            【题解】寿司晚宴
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            最优解！
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-05-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-05-17">2021-05-17</time>
+				  <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/" title="PKUSC游记">PKUSC游记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/">
+				        <h2 class="post-title">
+                            PKUSC游记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            海星
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-05-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-06">2021-04-06</time>
+				  <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 铂金组 T1 题解">USACO 2021 US Open 铂金组 T1 题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 铂金组 T1 题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            想了挺久
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-03">2021-04-03</time>
+				  <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 金组题解">USACO 2021 US Open 金组题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 金组题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            终于 AK 了！
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-02-20">2021-02-20</time>
+				  <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/" title="【题解】P3747 相逢是问候">【题解】P3747 相逢是问候</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/">
+				        <h2 class="post-title">
+                            【题解】P3747 相逢是问候
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            麻烦得很
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-02-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-02-09">2021-02-09</time>
+				  <a href="/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/" title="【题解】洛谷二月月赛div2">【题解】洛谷二月月赛div2</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/">
+				        <h2 class="post-title">
+                            【题解】洛谷二月月赛div2
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            25%的时间获得了自己100%的得分
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-02-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-01-25">2021-01-25</time>
+				  <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/" title="【题解】P7287魔法">【题解】P7287魔法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/">
+				        <h2 class="post-title">
+                            【题解】P7287魔法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            听说有1log做法？
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-01-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-01-24">2021-01-24</time>
+				  <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/" title="USACO一月月赛金组游记">USACO一月月赛金组游记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/">
+				        <h2 class="post-title">
+                            USACO一月月赛金组游记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            暴力奇迹
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-01-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-10-22">2020-10-22</time>
+				  <a href="/2020/10/22/%E7%89%9B%E5%AE%A2%E7%AC%AC%E4%B8%89%E5%9C%BA%E6%8F%90%E9%AB%98%E7%BB%84%E6%A8%A1%E6%8B%9F%E8%B5%9BT2%E9%A2%98%E8%A7%A3/" title="牛客第三场提高组模拟赛T2题解">牛客第三场提高组模拟赛T2题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/10/22/%E7%89%9B%E5%AE%A2%E7%AC%AC%E4%B8%89%E5%9C%BA%E6%8F%90%E9%AB%98%E7%BB%84%E6%A8%A1%E6%8B%9F%E8%B5%9BT2%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            牛客第三场提高组模拟赛T2题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            队除我炸
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-10-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-08-18">2020-08-18</time>
+				  <a href="/2020/08/18/%E9%A2%98%E8%A7%A3-APIO2020-T1%E7%B2%89%E5%88%B7%E5%A2%99%E5%A3%81/" title="【题解】[APIO2020]T1粉刷墙壁">【题解】[APIO2020]T1粉刷墙壁</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/08/18/%E9%A2%98%E8%A7%A3-APIO2020-T1%E7%B2%89%E5%88%B7%E5%A2%99%E5%A3%81/">
+				        <h2 class="post-title">
+                            【题解】[APIO2020]T1粉刷墙壁
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            第一次参加apio
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-08-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-07-17">2020-07-17</time>
+				  <a href="/2020/07/17/cf-edu-round-49%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="cf-edu-round-49解题记录">cf-edu-round-49解题记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/07/17/cf-edu-round-49%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">
+				        <h2 class="post-title">
+                            cf-edu-round-49解题记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            罚时太长
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-07-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-07-10">2020-07-10</time>
+				  <a href="/2020/07/10/cf-edu-round-48%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="cf-edu-round-48解题记录">cf-edu-round-48解题记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/07/10/cf-edu-round-48%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">
+				        <h2 class="post-title">
+                            cf-edu-round-48解题记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            有点难
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-07-08">2020-07-08</time>
+				  <a href="/2020/07/08/cf-edu-round-47%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="cf-edu-round-47解题记录">cf-edu-round-47解题记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/07/08/cf-edu-round-47%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">
+				        <h2 class="post-title">
+                            cf-edu-round-47解题记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            水题翻车
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-07-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-04-26">2020-04-26</time>
+				  <a href="/2020/04/26/%E9%A2%98%E8%A7%A3-P6477-NOI-Online-t2-%E6%8F%90%E9%AB%98%E7%BB%84-%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/" title="【题解】P6477 [NOI Online t2 提高组]子序列问题">【题解】P6477 [NOI Online t2 提高组]子序列问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/04/26/%E9%A2%98%E8%A7%A3-P6477-NOI-Online-t2-%E6%8F%90%E9%AB%98%E7%BB%84-%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            【题解】P6477 [NOI Online t2 提高组]子序列问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            t1炸了
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-04-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-22">2020-01-22</time>
+				  <a href="/2020/01/22/%E4%B8%80%E4%B8%AA%E9%BB%91%E7%99%BD%E6%A3%8B%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="一个黑白棋机器人">一个黑白棋机器人</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/22/%E4%B8%80%E4%B8%AA%E9%BB%91%E7%99%BD%E6%A3%8B%E6%9C%BA%E5%99%A8%E4%BA%BA/">
+				        <h2 class="post-title">
+                            一个黑白棋机器人
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            棋力挺强
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-01">2019-11-01</time>
+				  <a href="/2019/11/01/%E4%B8%A4%E6%AC%A1CSP-J%E6%A8%A1%E6%8B%9F/" title="两次CSP-J模拟">两次CSP-J模拟</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/01/%E4%B8%A4%E6%AC%A1CSP-J%E6%A8%A1%E6%8B%9F/">
+				        <h2 class="post-title">
+                            两次CSP-J模拟
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            我该说什么
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-01</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-04-18">2019-04-18</time>
+				  <a href="/2019/04/18/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(13)-%E4%B8%80%E7%BB%B4dp-%E6%9C%AA%E5%AE%8C/" title="和小哥哥一起刷洛谷(13)【未完】">和小哥哥一起刷洛谷(13)【未完】</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/04/18/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(13)-%E4%B8%80%E7%BB%B4dp-%E6%9C%AA%E5%AE%8C/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(13)【未完】
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            一维dp
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-04-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-04-11">2019-04-11</time>
+				  <a href="/2019/04/11/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(12)-%E8%AE%B0%E6%90%9C/" title="和小哥哥一起刷洛谷(12)">和小哥哥一起刷洛谷(12)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/04/11/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(12)-%E8%AE%B0%E6%90%9C/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(12)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            记忆化搜索
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-04-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-03-21">2019-03-21</time>
+				  <a href="/2019/03/21/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(11)-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88%E8%BF%9B%E9%98%B6%E4%BA%8C/" title="和小哥哥一起刷洛谷(11)">和小哥哥一起刷洛谷(11)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/03/21/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(11)-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88%E8%BF%9B%E9%98%B6%E4%BA%8C/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(11)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            二分答案进阶二
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-03-21</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-03-14">2019-03-14</time>
+				  <a href="/2019/03/14/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(10)-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88%E8%BF%9B%E9%98%B6/" title="和小哥哥一起刷洛谷(10)">和小哥哥一起刷洛谷(10)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/03/14/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(10)-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88%E8%BF%9B%E9%98%B6/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(10)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            二分答案进阶
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-03-14</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-03-05">2019-03-05</time>
+				  <a href="/2019/03/05/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(9)-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/" title="和小哥哥一起刷洛谷(9)">和小哥哥一起刷洛谷(9)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/03/05/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(9)-%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(9)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            二分答案
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-03-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-10">2018-10-10</time>
+				  <a href="/2018/10/10/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(8)-%E5%9B%BE%E8%AE%BA%E4%B9%8BFloyd-%E7%AE%97%E6%B3%95/" title="和小哥哥一起刷洛谷(8)">和小哥哥一起刷洛谷(8)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/10/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(8)-%E5%9B%BE%E8%AE%BA%E4%B9%8BFloyd-%E7%AE%97%E6%B3%95/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(8)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            图论之Floyd“算法”
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-02">2018-10-02</time>
+				  <a href="/2018/10/02/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(7)-%E5%9B%BE%E8%AE%BA%E4%B9%8Bdijkistra%E7%AE%97%E6%B3%95/" title="和小哥哥一起刷洛谷(7)">和小哥哥一起刷洛谷(7)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/02/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(7)-%E5%9B%BE%E8%AE%BA%E4%B9%8Bdijkistra%E7%AE%97%E6%B3%95/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(7)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            图论之dijkistra算法
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-27">2018-09-27</time>
+				  <a href="/2018/09/27/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(6)-%E5%9B%BE%E8%AE%BA%E4%B9%8BSPFA%E7%AE%97%E6%B3%95/" title="和小哥哥一起刷洛谷(6)">和小哥哥一起刷洛谷(6)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/27/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(6)-%E5%9B%BE%E8%AE%BA%E4%B9%8BSPFA%E7%AE%97%E6%B3%95/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(6)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            图论之SPFA算法
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-20">2018-09-20</time>
+				  <a href="/2018/09/20/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(5)-%E5%9B%BE%E8%AE%BA%E4%B9%8B%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2DFS/" title="和小哥哥一起刷洛谷(5)">和小哥哥一起刷洛谷(5)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/20/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(5)-%E5%9B%BE%E8%AE%BA%E4%B9%8B%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2DFS/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(5)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            图论之深度优先搜索DFS
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-09">2018-09-09</time>
+				  <a href="/2018/09/09/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(4)-%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2BFS/" title="和小哥哥一起刷洛谷(4)">和小哥哥一起刷洛谷(4)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/09/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(4)-%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2BFS/">
+				        <h2 class="post-title">
+                            和小哥哥一起刷洛谷(4)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            图论之广度优先搜索BFS
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-09</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="玩机">
+                    <span class="tag-text">玩机</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-01">2019-02-01</time>
+				  <a href="/2019/02/01/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8eruda%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E8%B0%83%E8%AF%95%E7%BD%91%E9%A1%B5/" title="优雅地使用eruda在移动端上调试网页">优雅地使用eruda在移动端上调试网页</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/01/%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8eruda%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E8%B0%83%E8%AF%95%E7%BD%91%E9%A1%B5/">
+				        <h2 class="post-title">
+                            优雅地使用eruda在移动端上调试网页
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            本人乱搞前端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-01</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-30">2018-10-30</time>
+				  <a href="/2018/10/30/windows%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/" title="windows快捷键大全">windows快捷键大全</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/30/windows%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/">
+				        <h2 class="post-title">
+                            windows快捷键大全
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            黑科技~
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-20">2018-10-20</time>
+				  <a href="/2018/10/20/%E7%8E%A9%E6%9C%BA%E6%94%BB%E7%95%A5/" title="玩机攻略">玩机攻略</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/20/%E7%8E%A9%E6%9C%BA%E6%94%BB%E7%95%A5/">
+				        <h2 class="post-title">
+                            玩机攻略
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            安卓手机软件推荐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="NOIP">
+                    <span class="tag-text">NOIP</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-30">2019-11-30</time>
+				  <a href="/2019/11/30/%E9%A2%98%E8%A7%A3-P5664-Emiya-%E5%AE%B6%E4%BB%8A%E5%A4%A9%E7%9A%84%E9%A5%AD/" title="【题解】P5664 Emiya 家今天的饭">【题解】P5664 Emiya 家今天的饭</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/30/%E9%A2%98%E8%A7%A3-P5664-Emiya-%E5%AE%B6%E4%BB%8A%E5%A4%A9%E7%9A%84%E9%A5%AD/">
+				        <h2 class="post-title">
+                            【题解】P5664 Emiya 家今天的饭
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            虽然我没考提高
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-01-30">2019-01-30</time>
+				  <a href="/2019/01/30/NOIP%E6%8F%90%E9%AB%98%E7%BB%84%E5%88%9D%E6%88%98%E5%91%8A%E6%8D%B7/" title="NOIP提高组初战告捷">NOIP提高组初战告捷</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/01/30/NOIP%E6%8F%90%E9%AB%98%E7%BB%84%E5%88%9D%E6%88%98%E5%91%8A%E6%8D%B7/">
+				        <h2 class="post-title">
+                            NOIP提高组初战告捷
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            瞎写写
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-01-30</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="javascript">
+                    <span class="tag-text">javascript</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-07-23">2019-07-23</time>
+				  <a href="/2019/07/23/%E8%A7%A3%E5%86%B3Simple-Jekyll-Search%E4%B8%8D%E6%94%AF%E6%8C%81%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87/" title="解决Simple-Jekyll-Search不支持拼音输入中文">解决Simple-Jekyll-Search不支持拼音输入中文</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/07/23/%E8%A7%A3%E5%86%B3Simple-Jekyll-Search%E4%B8%8D%E6%94%AF%E6%8C%81%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87/">
+				        <h2 class="post-title">
+                            解决Simple-Jekyll-Search不支持拼音输入中文
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            html中input元素在输入中文拼音时出现的问题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-07-23</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-06-16">2019-06-16</time>
+				  <a href="/2019/06/16/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%BB%86%E8%8A%82%E7%BE%8E%E5%8C%96%E6%89%93%E7%A3%A8/" title="博客园细节美化打磨">博客园细节美化打磨</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/06/16/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%BB%86%E8%8A%82%E7%BE%8E%E5%8C%96%E6%89%93%E7%A3%A8/">
+				        <h2 class="post-title">
+                            博客园细节美化打磨
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            让你的cnblog更漂亮~
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-06-16</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-10">2019-02-10</time>
+				  <a href="/2019/02/10/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/" title="jQuery学习笔记(2)">jQuery学习笔记(2)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/10/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(2)/">
+				        <h2 class="post-title">
+                            jQuery学习笔记(2)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            了解jQuery事件
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-03">2019-02-03</time>
+				  <a href="/2019/02/03/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(1)/" title="jQuery学习笔记(1)">jQuery学习笔记(1)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/03/jQuery%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(1)/">
+				        <h2 class="post-title">
+                            jQuery学习笔记(1)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            基本了解jQuery
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-03</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="博客">
+                    <span class="tag-text">博客</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-06-26">2019-06-26</time>
+				  <a href="/2019/06/26/%E6%9C%AC%E7%AB%99%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E8%B0%83%E6%95%B4/" title="本站评论系统调整">本站评论系统调整</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/06/26/%E6%9C%AC%E7%AB%99%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E8%B0%83%E6%95%B4/">
+				        <h2 class="post-title">
+                            本站评论系统调整
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            leancloud挂了
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-06-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-03-09">2019-03-09</time>
+				  <a href="/2019/03/09/%E6%9B%B4%E6%8D%A2%E5%9F%9F%E5%90%8D%E9%80%9A%E7%9F%A5/" title="更换域名通知">更换域名通知</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/03/09/%E6%9B%B4%E6%8D%A2%E5%9F%9F%E5%90%8D%E9%80%9A%E7%9F%A5/">
+				        <h2 class="post-title">
+                            更换域名通知
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            更换到blog-e.tk
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-03-09</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="天文">
+                    <span class="tag-text">天文</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-06-08">2019-06-08</time>
+				  <a href="/2019/06/08/%E9%98%BF%E5%B0%94%E5%B1%B1%E8%A7%82%E6%B5%8B%E4%B9%8B%E8%A1%8C/" title="阿尔山观测之行">阿尔山观测之行</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/06/08/%E9%98%BF%E5%B0%94%E5%B1%B1%E8%A7%82%E6%B5%8B%E4%B9%8B%E8%A1%8C/">
+				        <h2 class="post-title">
+                            阿尔山观测之行
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            记本菜鸡的第一次专门外出观测
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-06-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-05-21">2019-05-21</time>
+				  <a href="/2019/05/21/%E5%89%8D%E5%A4%A9%E6%8B%8D%E7%9A%84%E5%AE%A4%E5%A5%B3%E5%BA%A7%E6%98%9F%E9%87%8E%E6%91%84%E5%BD%B1/" title="前天拍的室女座星野摄影">前天拍的室女座星野摄影</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/05/21/%E5%89%8D%E5%A4%A9%E6%8B%8D%E7%9A%84%E5%AE%A4%E5%A5%B3%E5%BA%A7%E6%98%9F%E9%87%8E%E6%91%84%E5%BD%B1/">
+				        <h2 class="post-title">
+                            前天拍的室女座星野摄影
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            第一次发我的天文摄影
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-05-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="星野摄影">
+                    <span class="tag-text">星野摄影</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-05-21">2019-05-21</time>
+				  <a href="/2019/05/21/%E5%89%8D%E5%A4%A9%E6%8B%8D%E7%9A%84%E5%AE%A4%E5%A5%B3%E5%BA%A7%E6%98%9F%E9%87%8E%E6%91%84%E5%BD%B1/" title="前天拍的室女座星野摄影">前天拍的室女座星野摄影</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/05/21/%E5%89%8D%E5%A4%A9%E6%8B%8D%E7%9A%84%E5%AE%A4%E5%A5%B3%E5%BA%A7%E6%98%9F%E9%87%8E%E6%91%84%E5%BD%B1/">
+				        <h2 class="post-title">
+                            前天拍的室女座星野摄影
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            第一次发我的天文摄影
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-05-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="python">
+                    <span class="tag-text">python</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-07-15">2019-07-15</time>
+				  <a href="/2019/07/15/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98(1)/" title="爬虫实战(1)">爬虫实战(1)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/07/15/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98(1)/">
+				        <h2 class="post-title">
+                            爬虫实战(1)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            爬取社会实践活动感想
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-07-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-05-28">2019-05-28</time>
+				  <a href="/2019/05/28/%E5%9B%BE%E5%83%8F%E5%9D%87%E5%80%BC%E6%BB%A4%E6%B3%A2%E4%B8%8E%E4%B8%AD%E5%80%BC%E6%BB%A4%E6%B3%A2%E5%AF%B9%E6%AF%94%E7%A0%94%E7%A9%B6/" title="图像均值滤波与中值滤波对比研究">图像均值滤波与中值滤波对比研究</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/05/28/%E5%9B%BE%E5%83%8F%E5%9D%87%E5%80%BC%E6%BB%A4%E6%B3%A2%E4%B8%8E%E4%B8%AD%E5%80%BC%E6%BB%A4%E6%B3%A2%E5%AF%B9%E6%AF%94%E7%A0%94%E7%A9%B6/">
+				        <h2 class="post-title">
+                            图像均值滤波与中值滤波对比研究
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            python实现图像读取，椒盐和高斯噪点生成，以及中值和均值滤波
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-05-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="图像处理">
+                    <span class="tag-text">图像处理</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-05-28">2019-05-28</time>
+				  <a href="/2019/05/28/%E5%9B%BE%E5%83%8F%E5%9D%87%E5%80%BC%E6%BB%A4%E6%B3%A2%E4%B8%8E%E4%B8%AD%E5%80%BC%E6%BB%A4%E6%B3%A2%E5%AF%B9%E6%AF%94%E7%A0%94%E7%A9%B6/" title="图像均值滤波与中值滤波对比研究">图像均值滤波与中值滤波对比研究</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/05/28/%E5%9B%BE%E5%83%8F%E5%9D%87%E5%80%BC%E6%BB%A4%E6%B3%A2%E4%B8%8E%E4%B8%AD%E5%80%BC%E6%BB%A4%E6%B3%A2%E5%AF%B9%E6%AF%94%E7%A0%94%E7%A9%B6/">
+				        <h2 class="post-title">
+                            图像均值滤波与中值滤波对比研究
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            python实现图像读取，椒盐和高斯噪点生成，以及中值和均值滤波
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-05-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="css">
+                    <span class="tag-text">css</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-06-16">2019-06-16</time>
+				  <a href="/2019/06/16/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%BB%86%E8%8A%82%E7%BE%8E%E5%8C%96%E6%89%93%E7%A3%A8/" title="博客园细节美化打磨">博客园细节美化打磨</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/06/16/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%BB%86%E8%8A%82%E7%BE%8E%E5%8C%96%E6%89%93%E7%A3%A8/">
+				        <h2 class="post-title">
+                            博客园细节美化打磨
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            让你的cnblog更漂亮~
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-06-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="爬虫">
+                    <span class="tag-text">爬虫</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-07-15">2019-07-15</time>
+				  <a href="/2019/07/15/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98(1)/" title="爬虫实战(1)">爬虫实战(1)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/07/15/%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98(1)/">
+				        <h2 class="post-title">
+                            爬虫实战(1)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            爬取社会实践活动感想
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-07-15</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="线段树">
+                    <span class="tag-text">线段树</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-06-07">2021-06-07</time>
+				  <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="斜率优化学习笔记">斜率优化学习笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				        <h2 class="post-title">
+                            斜率优化学习笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            顺便学了个李超树
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-06-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-06">2021-04-06</time>
+				  <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 铂金组 T1 题解">USACO 2021 US Open 铂金组 T1 题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 铂金组 T1 题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            想了挺久
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-02-20">2021-02-20</time>
+				  <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/" title="【题解】P3747 相逢是问候">【题解】P3747 相逢是问候</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/">
+				        <h2 class="post-title">
+                            【题解】P3747 相逢是问候
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            麻烦得很
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-02-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-07-22">2019-07-22</time>
+				  <a href="/2019/07/22/%E6%B5%85%E6%9E%90%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E6%87%92%E6%A0%87%E8%AE%B0/" title="浅析线段树的懒标记">浅析线段树的懒标记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/07/22/%E6%B5%85%E6%9E%90%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E6%87%92%E6%A0%87%E8%AE%B0/">
+				        <h2 class="post-title">
+                            浅析线段树的懒标记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            “难上加难”
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-07-22</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="前端">
+                    <span class="tag-text">前端</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-07-23">2019-07-23</time>
+				  <a href="/2019/07/23/%E8%A7%A3%E5%86%B3Simple-Jekyll-Search%E4%B8%8D%E6%94%AF%E6%8C%81%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87/" title="解决Simple-Jekyll-Search不支持拼音输入中文">解决Simple-Jekyll-Search不支持拼音输入中文</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/07/23/%E8%A7%A3%E5%86%B3Simple-Jekyll-Search%E4%B8%8D%E6%94%AF%E6%8C%81%E6%8B%BC%E9%9F%B3%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87/">
+				        <h2 class="post-title">
+                            解决Simple-Jekyll-Search不支持拼音输入中文
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            html中input元素在输入中文拼音时出现的问题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-07-23</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="sql">
+                    <span class="tag-text">sql</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-04">2019-09-04</time>
+				  <a href="/2019/09/04/sql%E6%B3%A8%E5%85%A5%E5%A4%A9%E4%B9%A6-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" title="《sql注入天书》基础知识梳理">《sql注入天书》基础知识梳理</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/04/sql%E6%B3%A8%E5%85%A5%E5%A4%A9%E4%B9%A6-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/">
+				        <h2 class="post-title">
+                            《sql注入天书》基础知识梳理
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            上古bug
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="题解">
+                    <span class="tag-text">题解</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-06">2021-04-06</time>
+				  <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 铂金组 T1 题解">USACO 2021 US Open 铂金组 T1 题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 铂金组 T1 题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            想了挺久
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-03">2021-04-03</time>
+				  <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 金组题解">USACO 2021 US Open 金组题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 金组题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            终于 AK 了！
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-02-20">2021-02-20</time>
+				  <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/" title="【题解】P3747 相逢是问候">【题解】P3747 相逢是问候</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/">
+				        <h2 class="post-title">
+                            【题解】P3747 相逢是问候
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            麻烦得很
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-02-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-02-09">2021-02-09</time>
+				  <a href="/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/" title="【题解】洛谷二月月赛div2">【题解】洛谷二月月赛div2</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/">
+				        <h2 class="post-title">
+                            【题解】洛谷二月月赛div2
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            25%的时间获得了自己100%的得分
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-02-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-01-25">2021-01-25</time>
+				  <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/" title="【题解】P7287魔法">【题解】P7287魔法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/">
+				        <h2 class="post-title">
+                            【题解】P7287魔法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            听说有1log做法？
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-01-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-01-24">2021-01-24</time>
+				  <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/" title="USACO一月月赛金组游记">USACO一月月赛金组游记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/">
+				        <h2 class="post-title">
+                            USACO一月月赛金组游记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            暴力奇迹
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-01-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-10-22">2020-10-22</time>
+				  <a href="/2020/10/22/%E7%89%9B%E5%AE%A2%E7%AC%AC%E4%B8%89%E5%9C%BA%E6%8F%90%E9%AB%98%E7%BB%84%E6%A8%A1%E6%8B%9F%E8%B5%9BT2%E9%A2%98%E8%A7%A3/" title="牛客第三场提高组模拟赛T2题解">牛客第三场提高组模拟赛T2题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/10/22/%E7%89%9B%E5%AE%A2%E7%AC%AC%E4%B8%89%E5%9C%BA%E6%8F%90%E9%AB%98%E7%BB%84%E6%A8%A1%E6%8B%9F%E8%B5%9BT2%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            牛客第三场提高组模拟赛T2题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            队除我炸
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-10-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-08-18">2020-08-18</time>
+				  <a href="/2020/08/18/%E9%A2%98%E8%A7%A3-APIO2020-T1%E7%B2%89%E5%88%B7%E5%A2%99%E5%A3%81/" title="【题解】[APIO2020]T1粉刷墙壁">【题解】[APIO2020]T1粉刷墙壁</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/08/18/%E9%A2%98%E8%A7%A3-APIO2020-T1%E7%B2%89%E5%88%B7%E5%A2%99%E5%A3%81/">
+				        <h2 class="post-title">
+                            【题解】[APIO2020]T1粉刷墙壁
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            第一次参加apio
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-08-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-07-17">2020-07-17</time>
+				  <a href="/2020/07/17/cf-edu-round-49%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="cf-edu-round-49解题记录">cf-edu-round-49解题记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/07/17/cf-edu-round-49%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">
+				        <h2 class="post-title">
+                            cf-edu-round-49解题记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            罚时太长
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-07-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-07-10">2020-07-10</time>
+				  <a href="/2020/07/10/cf-edu-round-48%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="cf-edu-round-48解题记录">cf-edu-round-48解题记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/07/10/cf-edu-round-48%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">
+				        <h2 class="post-title">
+                            cf-edu-round-48解题记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            有点难
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-07-08">2020-07-08</time>
+				  <a href="/2020/07/08/cf-edu-round-47%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/" title="cf-edu-round-47解题记录">cf-edu-round-47解题记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/07/08/cf-edu-round-47%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/">
+				        <h2 class="post-title">
+                            cf-edu-round-47解题记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            水题翻车
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-07-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-04-26">2020-04-26</time>
+				  <a href="/2020/04/26/%E9%A2%98%E8%A7%A3-P6477-NOI-Online-t2-%E6%8F%90%E9%AB%98%E7%BB%84-%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/" title="【题解】P6477 [NOI Online t2 提高组]子序列问题">【题解】P6477 [NOI Online t2 提高组]子序列问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/04/26/%E9%A2%98%E8%A7%A3-P6477-NOI-Online-t2-%E6%8F%90%E9%AB%98%E7%BB%84-%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            【题解】P6477 [NOI Online t2 提高组]子序列问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            t1炸了
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-04-26</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="USACO">
+                    <span class="tag-text">USACO</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-06">2021-04-06</time>
+				  <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 铂金组 T1 题解">USACO 2021 US Open 铂金组 T1 题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 铂金组 T1 题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            想了挺久
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-03">2021-04-03</time>
+				  <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/" title="USACO 2021 US Open 金组题解">USACO 2021 US Open 金组题解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/">
+				        <h2 class="post-title">
+                            USACO 2021 US Open 金组题解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            终于 AK 了！
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-01-24">2021-01-24</time>
+				  <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/" title="USACO一月月赛金组游记">USACO一月月赛金组游记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/">
+				        <h2 class="post-title">
+                            USACO一月月赛金组游记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            暴力奇迹
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-01-24</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="数论">
+                    <span class="tag-text">数论</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-02-20">2021-02-20</time>
+				  <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/" title="【题解】P3747 相逢是问候">【题解】P3747 相逢是问候</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/">
+				        <h2 class="post-title">
+                            【题解】P3747 相逢是问候
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            麻烦得很
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-02-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="高斯消元">
+                    <span class="tag-text">高斯消元</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-04-09">2021-04-09</time>
+				  <a href="/2021/04/09/%E4%B8%80%E7%A7%8D%E5%BE%88%E4%BC%98%E9%9B%85%E7%9A%84%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%E5%86%99%E6%B3%95/" title="一种很优雅的高斯消元写法">一种很优雅的高斯消元写法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/04/09/%E4%B8%80%E7%A7%8D%E5%BE%88%E4%BC%98%E9%9B%85%E7%9A%84%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%E5%86%99%E6%B3%95/">
+				        <h2 class="post-title">
+                            一种很优雅的高斯消元写法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            类似线性基
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-04-09</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="游记">
+                    <span class="tag-text">游记</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-05-17">2021-05-17</time>
+				  <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/" title="PKUSC游记">PKUSC游记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/">
+				        <h2 class="post-title">
+                            PKUSC游记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            海星
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-05-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="PKUSC">
+                    <span class="tag-text">PKUSC</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-05-17">2021-05-17</time>
+				  <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/" title="PKUSC游记">PKUSC游记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/">
+				        <h2 class="post-title">
+                            PKUSC游记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            海星
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-05-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="dp">
+                    <span class="tag-text">dp</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-05-27">2021-05-27</time>
+				  <a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/" title="【题解】寿司晚宴">【题解】寿司晚宴</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/">
+				        <h2 class="post-title">
+                            【题解】寿司晚宴
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            最优解！
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-05-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="斜率优化">
+                    <span class="tag-text">斜率优化</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-06-07">2021-06-07</time>
+				  <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="斜率优化学习笔记">斜率优化学习笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				        <h2 class="post-title">
+                            斜率优化学习笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            顺便学了个李超树
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-06-07</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="笔记">
+                    <span class="tag-text">笔记</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-06-18">2021-06-18</time>
+				  <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="斯特林数学习笔记">斯特林数学习笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				        <h2 class="post-title">
+                            斯特林数学习笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            怎么感觉组合数用 C 几几更方便写
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-06-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-06-07">2021-06-07</time>
+				  <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="斜率优化学习笔记">斜率优化学习笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				        <h2 class="post-title">
+                            斜率优化学习笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            顺便学了个李超树
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-06-07</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="组合">
+                    <span class="tag-text">组合</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2021-06-18">2021-06-18</time>
+				  <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="斯特林数学习笔记">斯特林数学习笔记</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+				        <h2 class="post-title">
+                            斯特林数学习笔记
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            怎么感觉组合数用 C 几几更方便写
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2021-06-18</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+				Copyright &copy; <a href="/">Blog E</a> 2021
+                    <br>
+					Proudly hosted by GitHub Pages and Coding Pages
+					<br />
+                    Theme on <a href="https://github.com/ethan-enhe/ethan-enhe.github.io.git">GitHub</a>
+					
+					<br />
+					<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>|<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<!--<script src="/js/jquery.min.js "></script>-->
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+<!--<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>-->
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- ProgressBar -->
+<script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载顶部进度条
+		NProgress.start();
+		NProgress.done();
+		$("#myProgressBar").hide();
+	})
+	$("pre").addClass("line-numbers");
+</script>
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--search-->
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+	var trigger=$("#search-trigger");
+	var searchwrap=$("#search-wrap");
+	var input=$("#search-input");
+	var res=$("#results-container");
+	var reson=false;
+	trigger.click(function(){
+		if(searchwrap.hasClass("hidden")){
+			trigger.attr("class","fas fa-times");
+			searchwrap.removeClass("hidden");
+			/*hide on mobile*/
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
+			input.val("");
+			input.focus();
+		}
+		else{
+			searchwrap.addClass("hidden");
+			if(reson){
+				res.addClass("hidden");
+				$(".navbar").css("height","initial");
+				$("body").removeClass("no-scroll");
+				reson=false;
+			}
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
+			trigger.attr("class","fas fa-search");
+		}
+	})
+	input.on("input",function(){
+		if(!reson){
+			$("body").addClass("no-scroll");
+			$(".navbar").css("height","100%");
+			res.removeClass("hidden");
+			reson=true;
+		}
+	})
+	var sjs = SimpleJekyllSearch({
+		searchInput: document.getElementById('search-input'),
+		resultsContainer: document.getElementById('results-container-son'),
+		json: '/search.json',
+		searchResultTemplate: '<hr><li><a href="{url}"><b>{title}</b><br>{subtitle}</a></li>',
+		noResultsText: '<li>Nothing here...</li>',
+		limit: 5,
+		fuzzy: true
+	})
+</script>
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-173022260-1';
+    var _gaDomain = 'blog-e.tk';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

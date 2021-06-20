@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://blog-e.tk/sitemap.xml

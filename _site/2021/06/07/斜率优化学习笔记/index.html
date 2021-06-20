@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="google-site-verification" content="EYD9voMamEorNvC4N4DPVs6Coue2YsUq4XiFvIHHbXQ" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索。">
+    <meta name="keywords"  content="编程,天文,生活">
+    <meta name="theme-color" content="#000000">
+    
+    <title>斜率优化学习笔记 - Blog E</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://blog-e.tk/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!--<link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/hux-blog.min.css">
+	<!--<link rel="stylesheet" href="/css/hux-blog.css">-->
+
+    <!-- Pygments Github CSS -->
+    <!--<link rel="stylesheet" href="/css/syntax.css">-->
+	<link rel="stylesheet" href="/css/prism.css">
+    <!-- Custom Fonts -->
+    <!-- ethan change font-awesome 4 to 5 -->
+	<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- ProgressBar -->
+<div id="myProgressBar"></div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog E</a>
+			<div id="searchbox" class="navbar-left">
+				<i id="search-trigger" class="fas fa-search"></i>
+				<div id="search-wrap" class="hidden">
+					<i class="fas fa-search"></i>
+					<input type="text" id="search-input" placeholder="Search...">
+				</div>
+				<ul id="results-container" class="hidden" >
+					<h4 style="padding-left: 30px;">Search Results</h4>
+					<div id="results-container-son">
+						<li>Nothing here...</li>
+					</div>
+				</ul>
+			</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-re-vs-ng2.jpg" width="0" height="0"> -->
+
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-re-vs-ng2.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#线段树" title="线段树">线段树</a>
+                        
+                        <a class="tag" href="/tags/#斜率优化" title="斜率优化">斜率优化</a>
+                        
+                        <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
+                        
+                    </div>
+                    <h1>斜率优化学习笔记</h1>
+                    
+                    
+                    <h2 class="subheading">顺便学了个李超树</h2>
+                    
+                    <span class="meta">Posted by ethan-zhou on June 7, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+				<h2 id="问题形式">问题形式</h2>
+
+<p>用来优化一类 dp，其转移方程满足：</p>
+
+\[dp_i=f_i(\max_{j&lt;i}(k_j\times x_i+b_j))\]
+
+<p>（式子中取 min 也可，与 max 类似，不再赘述）</p>
+
+<p>其中 $k_j,b_j$ 是只与 j 相关的数，$x_i$ 是只与 i 相关的数，$f_i$ 是只与 i 有关的函数。</p>
+
+<p>斜率优化就是优化的求 $\max_{j&lt;i}(k_j\times x_i+b_j)$ 的过程。</p>
+
+<!--more-->
+
+<h2 id="两种理解">两种理解</h2>
+
+<h3 id="截距法">截距法</h3>
+
+<p>将每个 j 对应到平面上一点 $(k_j,b_j)$，然后用一个斜率为 $-x_i$ 的直线从上往下移动，直到碰到一个点，此时 y 轴截距即为答案。</p>
+
+<h3 id="函数法">函数法</h3>
+
+<p>将 $g_j(x)=k_j\times x+b_j$ 看成只与 j 有关的的<strong>一次函数</strong>，原式等价于在 $x=x_i$ 处所有函数的极值。</p>
+
+<p>感觉这个方法比较好理解，后文都以此方法为例。</p>
+
+<h2 id="如何维护">如何维护</h2>
+
+<p>因为是将所有一次函数取 max，所以所有可能成为答案的直线必定是一个<strong>斜率递增</strong>的<strong>下凸壳</strong>，在不同情况下，可采用不同的方法维护凸壳上的函数。</p>
+
+<h3 id="k_ix_i-都随-i-递增单调队列">$k_i,x_i$ 都随 i 递增——单调队列</h3>
+
+<p>插入直线时，不断弹出队尾，直到队尾的直线在凸壳上没有被新直线<strong>完全覆盖</strong>，再将新队列加入队尾。</p>
+
+<p>查询时，不断弹出队首，直到队列前两条直线的交点大于 $x_i$，此时队首的函数即为答案。</p>
+
+<h3 id="k_i-随-i-递增x_i-不随-i-递增单调队列二分">$k_i$ 随 i 递增，$x_i$ 不随 i 递增——单调队列+二分</h3>
+
+<p>插入方法同上，查询时不能直接弹队首了，应该在队列上二分，找到凸壳上包含 $x_i$ 的一段直线。</p>
+
+<h3 id="k_ix_i-都不随-i-递增李超树">$k_i,x_i$ 都不随 i 递增——李超树</h3>
+
+<p>可以用李超树维护这个凸壳，后文有介绍，（听说也可以用平衡树，CDQ 分治维护，但不太好写）。</p>
+
+<h2 id="简单快捷李超树">简单快捷李超树</h2>
+
+<p>李超树是一个支持以 $O(\log n)$ 复杂度插入一条直线（如果是插入线段，则复杂度为 $O(\log^2 n)$），并以同样复杂度查询某一个位置的最大值的线段树。</p>
+
+<h3 id="插入操作">插入操作</h3>
+
+<p>李超树的每个节点上维护的是：在当前区间的<strong>中点</strong>，函数值最大的函数（下称最优函数），可以如下更新：</p>
+
+<ul>
+  <li>考虑新插入的函数，与区间的原最优函数：</li>
+  <li>将两者中较<strong>优</strong>的存到这个节点上</li>
+  <li>用两者中较<strong>劣</strong>的更新子区间：
+    <ul>
+      <li>如果较劣的函数比较优的函数斜率<strong>大</strong>，则用其递归更新<strong>右子区间</strong>（如下面图 1 所示，这条线段仍然有可能在右子区间里成为最优函数）</li>
+      <li>否则用其递归更新<strong>左子区间</strong>（同理）</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://pic.imgdb.cn/item/60bf0f33844ef46bb24a61d4.jpg" alt="图 1" /></p>
+
+<h3 id="查询操作">查询操作</h3>
+
+<p>求 x 处最大的函数值，只需将线段树上 x 所在区间，以及它祖先上所有区间的最优函数，在x处的函数值取 max 即可。</p>
+
+<h2 id="题目">题目</h2>
+
+<h3 id="acwing-301-任务安排2"><a href="https://www.acwing.com/problem/content/303/">AcWing 301. 任务安排2</a></h3>
+
+<p>费用提前计算，记 $t_i,c_i$ 的前缀和为 $st_i,sc_i$，列出转移方程：</p>
+
+\[dp_i=\min_{j&lt;i}(\underbrace{-sc_j}_{k_j}\times \underbrace{st_i}_{x_i}+\underbrace{dp_j+s\times(sc_n-sc_j)}_{b_j})+st_i*sc_i\]
+
+<p>其中斜率与横坐标 $-sc_j,st_i$ 都单调，只需单调队列维护即可 <del>但我是拿二分的代码过的</del>。</p>
+
+<h3 id="acwing-302-任务安排3"><a href="https://www.acwing.com/problem/content/303/">AcWing 302. 任务安排3</a></h3>
+
+<p>与上一题题意相同，区别在 $st_i$ 不单调，只需在单调队列上二分即可。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define fi first
+#define se second
+#define mp make_pair
+using namespace std;
+typedef long long ll;
+typedef pair&lt;ll,ll&gt; pi;
+const ll INF=1e18;
+const ll MXN=3e5+5;
+
+inline long double inter(const pi &amp;x,const pi &amp;y){return x.fi==y.fi?(x.se&gt;y.se?-INF:INF):(long double)(y.se-x.se)/(x.fi-y.fi);}
+
+ll n,s,sc[MXN],st[MXN],dp[MXN];
+pi q[MXN];ll ql=1,qr;
+int main(){
+	scanf("%lld%lld",&amp;n,&amp;s);
+	for(int i=1;i&lt;=n;i++){
+		scanf("%lld%lld",st+i,sc+i);
+		st[i]+=st[i-1],sc[i]+=sc[i-1];
+	}
+	q[++qr]=mp(0,s*sc[n]);
+	for(int i=1;i&lt;=n;i++){
+		ll l=ql,r=qr;
+		while(l&lt;r){
+			ll mid=(l+r)&gt;&gt;1;
+			if(inter(q[mid],q[mid+1])&gt;=st[i])r=mid;
+			else l=mid+1;
+		}
+		dp[i]=q[l].fi*st[i]+q[l].se+st[i]*sc[i];
+		pi curseg=mp(-sc[i],dp[i]+s*(sc[n]-sc[i]));
+		while(ql&lt;qr &amp;&amp; inter(q[qr-1],q[qr])&gt;=inter(q[qr],curseg))qr--;
+		q[++qr]=curseg;
+	}
+	printf("%lld",dp[n]);
+
+	return 0;
+}
+</code></pre>
+
+<h3 id="p3628-apio2010特别行动队"><a href="https://www.luogu.com.cn/problem/P3628">P3628 [APIO2010]特别行动队</a></h3>
+
+<p>直接推式子，方程为：</p>
+
+\[dp_i=(a s_i^2+b s_i+c) + \max_{j&lt;i}(\underbrace{-2a s_j}_{k_j}\times\underbrace{s_i}_{x_i} +\underbrace{dp_j+a s_j^2-b s_j}_{b_j})\]
+
+<p>其中斜率与 x 坐标 $-2a s_i,s_i$ 都单调变化，所以单调队列维护即可。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define fi first
+#define se second
+#define mp make_pair
+using namespace std;
+typedef long long ll;
+typedef pair&lt;ll,ll&gt; pi;
+
+const long double INF=1e18;
+const long double EPS=1e-9;
+const ll MXN=1e6+5;
+ll n,a,b,c,ql=1,qr,dp[MXN];
+pi q[MXN];
+
+long double intersec(pi x,pi y){
+	if(x.fi==y.fi)return y.se&gt;x.se?-INF:INF;
+	return (long double)(y.se-x.se)/(x.fi-y.fi);
+}
+int main(){
+	scanf("%lld%lld%lld%lld",&amp;n,&amp;a,&amp;b,&amp;c);
+	q[++qr]=mp(0,0);
+	for(ll i=1,tmp,s=0;i&lt;=n;i++){
+		scanf("%lld",&amp;tmp);s+=tmp;
+		while(ql&lt;qr &amp;&amp; intersec(q[ql],q[ql+1])+EPS&lt;s)ql++;
+		dp[i]=s*q[ql].fi+q[ql].se+(a*s*s+b*s+c);
+		pi cseg=mp(-2*a*s,dp[i]+a*s*s-b*s);
+		while(ql&lt;qr &amp;&amp; intersec(q[qr-1],q[qr])&gt;intersec(q[qr-1],cseg)+EPS)qr--;
+		q[++qr]=cseg;
+	}
+	printf("%lld",dp[n]);
+
+	return 0;
+}
+</code></pre>
+
+<h3 id="p3648-apio2014序列分割"><a href="https://www.luogu.com.cn/problem/P3648">P3648 [APIO2014]序列分割</a></h3>
+
+<p>发现结果与切割顺序无关，不难推出 dp 式，其中斜率与 x 坐标单调增。</p>
+
+<p>注意特判两条线平行的情况，返回正负无穷，至于具体返回哪个，因题而异。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define fi first
+#define se second
+#define mp make_pair
+using namespace std;
+typedef long long ll;
+typedef pair&lt;ll,ll&gt; pi;
+
+const long double INF=1e18;
+const ll MXN=1e5+5;
+const ll MXK=205;
+
+ll ql,qr;pi q[MXN];
+long double inter(pi x,pi y){
+	if(x.fi==y.fi)return y.se&gt;x.se?-INF:-INF;
+	return (long double)(y.se-x.se)/(x.fi-y.fi);
+}
+ll n,k,arr[MXN];
+ll dp[MXK][MXN];
+int main(){
+
+	scanf("%lld%lld",&amp;n,&amp;k);
+	for(int i=1;i&lt;=n;i++){
+		scanf("%lld",arr+i);
+		arr[i]+=arr[i-1];
+	}
+	for(int i=1;i&lt;=k;i++){
+		q[qr=ql=1]=mp(0,0);
+		for(int j=1;j&lt;=n;j++){
+			while(ql&lt;qr &amp;&amp; arr[j]&gt;=inter(q[ql],q[ql+1]))ql++;
+			dp[i][j]=arr[j]*q[ql].fi+q[ql].se;
+			pi cseg=mp(arr[j],dp[i-1][j]-arr[j]*arr[j]);
+			while(ql&lt;qr &amp;&amp; inter(q[qr-1],q[qr])&gt;=inter(q[qr-1],cseg))qr--;
+			q[++qr]=cseg;
+		}
+	}
+	printf("%lld\n",dp[k][n]);
+	for(int i=k,cur=n;i;i--){
+		for(int j=1;j&lt;cur;j++)
+			if(dp[i-1][j]+arr[j]*(arr[cur]-arr[j])==dp[i][cur]){
+				cur=j;
+				break;
+			}
+		printf("%lld\n",cur);
+	}
+	return 0;
+
+}
+</code></pre>
+
+<h3 id="p5017-noip2018-普及组-摆渡车"><a href="https://www.luogu.com.cn/problem/P5017">P5017 [NOIP2018 普及组] 摆渡车</a></h3>
+
+<p>dp 转移不难变成斜率优化的形式，可以线性解决。</p>
+
+<p>还可以进一步利用两人到达时间相差超过 $2m$ 可以当成 $2m$ 的性质，缩短时间轴。</p>
+
+<p>复杂度 $O(\min(nm,T))$</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define fi first
+#define se second
+#define mp make_pair
+using namespace std;
+typedef long long ll;
+typedef pair&lt;ll,ll&gt; pi;
+const ll MXN=505;
+const ll MXT=1.1e5;
+const ll INF=1e18;
+ll n,m,ans=INF;
+ll arr[MXN],s[MXT],si[MXT],dp[MXT];
+ll ql=1,qr;
+pi q[MXT];
+inline long double inter(const pi &amp;a,const pi &amp;b){return a.fi==b.fi?(a.se&gt;b.se?-INF:INF):(long double)(a.se-b.se)/(b.fi-a.fi);}
+int main(){
+	scanf("%lld%lld",&amp;n,&amp;m);
+	for(ll i=1;i&lt;=n;i++)scanf("%lld",arr+i);
+	sort(arr+1,arr+1+n);
+	for(ll i=n;i;i--)arr[i]=min(m&lt;&lt;1,arr[i]-arr[i-1]);
+	for(ll i=1;i&lt;=n;i++){
+		arr[i]+=arr[i-1];
+		s[arr[i]]++;
+		si[arr[i]]+=arr[i];
+	}
+
+	for(ll i=1;i&lt;=arr[n]+m;i++){
+		s[i]+=s[i-1],si[i]+=si[i-1];
+		if(i&gt;=m){
+			pi cseg=mp(-s[i-m],dp[i-m]+si[i-m]);
+			while(ql&lt;qr &amp;&amp; inter(q[qr-1],q[qr])&gt;=inter(q[qr],cseg))qr--;
+			q[++qr]=cseg;
+			while(ql&lt;qr &amp;&amp; i&gt;=inter(q[ql],q[ql+1]))ql++;
+			dp[i]=q[ql].fi*i+q[ql].se;
+		}
+		dp[i]+=s[i]*i-si[i];
+		if(i&gt;=arr[n])ans=min(ans,dp[i]);
+	}
+	printf("%lld",ans);
+	return 0;
+}
+</code></pre>
+
+<h3 id="p4027-noi2007-货币兑换-李超树"><a href="https://www.luogu.com.cn/problem/P4027">P4027 [NOI2007] 货币兑换</a> （李超树）</h3>
+
+<p>发现最优情况下每一次买入必定把所有钱都用了，每次卖出都必定把所有金券卖了。</p>
+
+<p>于是不难推出转移方程为（$dp_i$ 表示第 i 天，卖币之后，买币之前，最多拥有多少钱）：</p>
+
+\[dp_i=max(dp_{i-1},\max(\underbrace{(B_i/A_i)}_{x_i}\times \underbrace{A_i dp_j/(A_j Rate_j+B_j)}_{k_j}+\underbrace{Rate_j A_i dp_j/(A_j Rate_j+B_j)}_{b_j}))\]
+
+<p>发现斜率与横坐标都不一定单调，只能用李超树维护。</p>
+
+<p>又因为用李超树查询的横坐标是浮点数，不太好搞，可以提前将会查询到的 x 坐标离散化。</p>
+
+<p><strong>代码（甚短）：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define mp make_pair
+#define fi first
+#define se second
+using namespace std;
+typedef long long ll;
+typedef pair&lt;double,double&gt; pr;
+const ll MXN=1e5+5;
+const ll INF=1e18;
+ll n;
+double arr[MXN],brr[MXN],rate[MXN],dp[MXN],pool[MXN];
+
+
+struct node{ll ls,rs;pr line;}t[MXN&lt;&lt;2];ll rt,nodec;
+inline double f(pr line,ll x){return line.fi*pool[x]+line.se;}
+inline double f(pr line,double x){return line.fi*x+line.se;}
+inline ll nnode(){return t[++nodec].line=mp(0,-INF),nodec;}
+inline void mod(ll &amp;p,ll l,ll r,pr ml){
+	ll mid=(l+r)&gt;&gt;1;
+	if(!p)p=nnode();
+	if(f(ml,mid)&gt;f(t[p].line,mid))swap(ml,t[p].line);
+	if(l==r)return;
+	ml.fi&lt;t[p].line.fi?mod(t[p].ls,l,mid,ml):mod(t[p].rs,mid+1,r,ml);
+}
+inline double que(ll p,ll l,ll r,double qx){
+	if(!p || l==r)return f(t[p].line,qx);
+	ll mid=(l+r)&gt;&gt;1;
+	return max(f(t[p].line,qx),qx&gt;pool[mid]?que(t[p].rs,mid+1,r,qx):que(t[p].ls,l,mid,qx));
+}
+int main(){
+	scanf("%lld%lf",&amp;n,&amp;dp[0]);
+	for(int i=1;i&lt;=n;i++){
+		scanf("%lf%lf%lf",arr+i,brr+i,rate+i);
+		pool[i]=brr[i]/arr[i];
+	}
+	sort(pool+1,pool+1+n);
+	for(int i=1;i&lt;=n;i++){
+		dp[i]=max(dp[i-1],arr[i]*que(rt,1,n,brr[i]/arr[i]));
+		double k=dp[i]/(arr[i]*rate[i]+brr[i]);
+		mod(rt,1,n,mp(k,k*rate[i]));
+	}
+	printf("%.3f",dp[n]);
+	
+	return 0;
+}
+</code></pre>
+
+				
+				<hr></hr>
+				<p>作者：<a target="_blank">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">本文链接</a></p>
+                
+                
+                <span id="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="leancloud-visitors">
+                    <em class="post-meta-item-text">阅读量 </em>
+                    <i class="leancloud-visitors-count"></i>
+                </span>
+                
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/" data-toggle="tooltip" data-placement="top" title="【题解】寿司晚宴">
+                        Previous<br>
+                        <span>【题解】寿司晚宴</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="斯特林数学习笔记">
+                        Next<br>
+                        <span>斯特林数学习笔记</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+				<!-- Valine -->
+				
+				<hr style="visibility: hidden;">
+				<script src="//cdn.bootcdn.net/ajax/libs/valine/1.4.4/Valine.min.js"></script>
+				<div id="vcomments"></div>
+				<script>
+					new Valine({
+						el: '#vcomments',
+						appId: 'xc3PBlgpE3UXRAJaXWVeazFX-MdYXbMMI',
+						appKey: 'Q5ec2duzeuLbvP5ut4AeWF8E',
+						avatar: 'identicon',
+                        visitor: true
+					})
+				</script>
+				
+		    
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="26">
+                                    算法
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#javascript" title="javascript" rel="4">
+                                    javascript
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#线段树" title="线段树" rel="4">
+                                    线段树
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#题解" title="题解" rel="12">
+                                    题解
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://filaret.ml/">deadpool123的博客</a></li>
+                    
+                        <li><a href="https://www.luogu.org/blog/xiezihan123456789/">Edsger_Wybe_Dijkstra(假的)的博客</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<script src="/js/prism.js"></script>
+<!-- mathjax -->
+<link href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.css" rel="stylesheet">
+<script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/contrib/auto-render.min.js"></script>
+<script>
+    renderMathInElement(document.body,{
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "\\[", right: "\\]", display: true},
+                  {left: "$", right: "$", display: false},
+                  {left: "\\(", right: "\\)", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+				Copyright &copy; <a href="/">Blog E</a> 2021
+                    <br>
+					Proudly hosted by GitHub Pages and Coding Pages
+					<br />
+                    Theme on <a href="https://github.com/ethan-enhe/ethan-enhe.github.io.git">GitHub</a>
+					
+					<br />
+					<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>|<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<!--<script src="/js/jquery.min.js "></script>-->
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+<!--<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>-->
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- ProgressBar -->
+<script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载顶部进度条
+		NProgress.start();
+		NProgress.done();
+		$("#myProgressBar").hide();
+	})
+	$("pre").addClass("line-numbers");
+</script>
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--search-->
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+	var trigger=$("#search-trigger");
+	var searchwrap=$("#search-wrap");
+	var input=$("#search-input");
+	var res=$("#results-container");
+	var reson=false;
+	trigger.click(function(){
+		if(searchwrap.hasClass("hidden")){
+			trigger.attr("class","fas fa-times");
+			searchwrap.removeClass("hidden");
+			/*hide on mobile*/
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
+			input.val("");
+			input.focus();
+		}
+		else{
+			searchwrap.addClass("hidden");
+			if(reson){
+				res.addClass("hidden");
+				$(".navbar").css("height","initial");
+				$("body").removeClass("no-scroll");
+				reson=false;
+			}
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
+			trigger.attr("class","fas fa-search");
+		}
+	})
+	input.on("input",function(){
+		if(!reson){
+			$("body").addClass("no-scroll");
+			$(".navbar").css("height","100%");
+			res.removeClass("hidden");
+			reson=true;
+		}
+	})
+	var sjs = SimpleJekyllSearch({
+		searchInput: document.getElementById('search-input'),
+		resultsContainer: document.getElementById('results-container-son'),
+		json: '/search.json',
+		searchResultTemplate: '<hr><li><a href="{url}"><b>{title}</b><br>{subtitle}</a></li>',
+		noResultsText: '<li>Nothing here...</li>',
+		limit: 5,
+		fuzzy: true
+	})
+</script>
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-173022260-1';
+    var _gaDomain = 'blog-e.tk';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="google-site-verification" content="EYD9voMamEorNvC4N4DPVs6Coue2YsUq4XiFvIHHbXQ" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索。">
+    <meta name="keywords"  content="编程,天文,生活">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Blog E</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://blog-e.tk/page5/">
+
+    <!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!--<link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/hux-blog.min.css">
+	<!--<link rel="stylesheet" href="/css/hux-blog.css">-->
+
+    <!-- Pygments Github CSS -->
+    <!--<link rel="stylesheet" href="/css/syntax.css">-->
+	<link rel="stylesheet" href="/css/prism.css">
+    <!-- Custom Fonts -->
+    <!-- ethan change font-awesome 4 to 5 -->
+	<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- ProgressBar -->
+<div id="myProgressBar"></div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog E</a>
+			<div id="searchbox" class="navbar-left">
+				<i id="search-trigger" class="fas fa-search"></i>
+				<div id="search-wrap" class="hidden">
+					<i class="fas fa-search"></i>
+					<input type="text" id="search-input" placeholder="Search...">
+				</div>
+				<ul id="results-container" class="hidden" >
+					<h4 style="padding-left: 30px;">Search Results</h4>
+					<div id="results-container-son">
+						<li>Nothing here...</li>
+					</div>
+				</ul>
+			</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg-littleprince.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Blog E</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">路漫漫其修远兮，吾将上下而求索。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2018/10/30/windows%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%A4%A7%E5%85%A8/">
+        <h2 class="post-title">
+            windows快捷键大全
+        </h2>
+        
+        <h3 class="post-subtitle">
+            黑科技~
+        </h3>
+        
+        <div class="post-content-preview">
+			
+
+作者本人整理的快捷键：
+
+
+  批量删除所有超链接：word文档中，全选文章内容，然后 Ctrl+Shift+F9 超链接就全没了（嘿嘿嘿，可以安心的抄维基百科了）。
+
+
+更多快捷键详见微软官方说明
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on October 30, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/10/20/%E7%8E%A9%E6%9C%BA%E6%94%BB%E7%95%A5/">
+        <h2 class="post-title">
+            玩机攻略
+        </h2>
+        
+        <h3 class="post-subtitle">
+            安卓手机软件推荐
+        </h3>
+        
+        <div class="post-content-preview">
+			
+
+我十二岁了，自从有了自己的智能手机及个人电脑，便开始了我的玩机历程，直至现在，应该能算得上“高中级玩家”了。我一直很想把我的一些“搞机”经验分享给大家。 今天，我就给刚步入玩机领域大门的大小盆友们推荐了一些常用的app。这些都是我独自多方钻研，亲身试用，第一手经验。干货满满，倾情巨献， 与大家分享。 等我有时间我还将写一个电脑专题的攻略，敬请期待。这篇文章是我在旅行途中空闲时间写的，时间仓促，若有纰漏，望大家指正。 注：不喜勿喷，大神可飘过
+
+手机各类APP推荐（每类下按推荐程度排序）
+
+1.浏览器: 
+1.yandex浏览器：体积大，费电，但是…但是——支持电脑板chorme插件！...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on October 20, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/10/10/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(8)-%E5%9B%BE%E8%AE%BA%E4%B9%8BFloyd-%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            和小哥哥一起刷洛谷(8)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            图论之Floyd“算法”
+        </h3>
+        
+        <div class="post-content-preview">
+			关于floyd
+floyd是一种可以计算图中所有端点之间的最短的“算法”，其伪代码如下：
+for(所有起点i)
+    for(所有终点j)
+        如果i=j: i到j最短路设为0
+        如果i与j相连: i到j最短路设为已知i到j的距离
+        如果都不满足: i到j距离设为无限
+
+for(枚举所有中间点k)
+    for(枚举所有起点i)
+        for(枚举所有终点j)
+            如果(从i到k的最短路+从k到j的最短路&lt;目前得出从i到j的最短路): 更新i到j最短路
+
+别问我复杂度，看看这华丽的三重循环就知道了
+大家也许注...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on October 10, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/10/02/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(7)-%E5%9B%BE%E8%AE%BA%E4%B9%8Bdijkistra%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            和小哥哥一起刷洛谷(7)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            图论之dijkistra算法
+        </h3>
+        
+        <div class="post-content-preview">
+			关于dijkstra
+维基百科
+
+(动图被作者吃了)
+
+戴克斯特拉算法（英语：Dijkstra’s algorithm，又译迪杰斯特拉算法）由荷兰计算机科学家艾兹赫尔·戴克斯特拉在1956年提出。戴克斯特拉算法使用了广度优先搜索解决赋权有向图的单源最短路径问题。该算法存在很多变体；戴克斯特拉的原始版本找到两个顶点之间的最短路径，但是更常见的变体固定了一个顶点作为源节点然后找到该顶点到图中所有其它节点的最短路径，产生一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。举例来说，如果图中的顶点表示城市，而边上的权重表示城市间开车行经的距离，该算法可以用来找到两个城市之间的最短...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on October 2, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/09/27/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(6)-%E5%9B%BE%E8%AE%BA%E4%B9%8BSPFA%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            和小哥哥一起刷洛谷(6)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            图论之SPFA算法
+        </h3>
+        
+        <div class="post-content-preview">
+			关于spfa
+
+spfa伪代码：
+
+void spfa(s){
+    最短路数组全部设为无限大;
+    队列 q;
+    起点s入队;
+    s离s的距离设为零;
+    while(队列非空){
+        取出队首;弹出队首;
+        for(int i=0;i&lt;u的出度;i++){
+            v=第i个终点;
+            w=到v的权值;
+            if(到u点的最短路+w&lt;目前到v点的最短路){//松弛
+                更新目前到v点的最短路;
+                v入队;
+   ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on September 27, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/09/20/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(5)-%E5%9B%BE%E8%AE%BA%E4%B9%8B%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2DFS/">
+        <h2 class="post-title">
+            和小哥哥一起刷洛谷(5)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            图论之深度优先搜索DFS
+        </h3>
+        
+        <div class="post-content-preview">
+			关于dfs
+
+dfs伪代码：
+
+void dfs(s){
+    for(int i=0;i&lt;s的出度;i++){
+        if(used[i]为真) continue;
+        used[i]=1;
+        dfs(i);
+    }
+    return;
+}
+
+
+统计无向图的连通分量
+
+显然，你在洛谷上是搜不到这题的，因为这是我们学校团队的题。所以还是找个小板凳专心听我讲吧。
+
+题目描述：
+给定无向图G(V,E)，请统计G中连通分量的数量。
+
+  连通分量：结点V的一个子集V’，保证V’中任意两点间都有路径
+  需要在主循环中进行多次dfs
+
+
+输入输...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on September 20, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/09/09/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(4)-%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2BFS/">
+        <h2 class="post-title">
+            和小哥哥一起刷洛谷(4)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            图论之广度优先搜索BFS
+        </h3>
+        
+        <div class="post-content-preview">
+			关于bfs：
+你怎么会连这个都不知道！！！自己好好谷歌一下！！！（其实我也刚学）
+
+bfs伪代码：
+
+while(队列非空){
+    取出队首元素u;
+    弹出队首元素;
+    u染色为黑色;
+    for(int i=0;i&lt;u的出度){
+        if(i非白色) continue;
+        u的第i个出线连着的点入队;
+        i染为灰色;
+    }
+}
+
+
+可爱的分割线
+
+
+
+无权最短路
+
+显然，你在洛谷上是搜不到这题的，因为这是我们学校团队的题。所以还是找个小板凳专心听我讲吧。
+
+题目描述：
+
+给定无权无向图G(V,E)和源点s/终点t，...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on September 9, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/09/02/%E5%92%8C%E5%B0%8F%E5%93%A5%E5%93%A5%E4%B8%80%E8%B5%B7%E5%88%B7%E6%B4%9B%E8%B0%B7(1)/">
+        <h2 class="post-title">
+            和小哥哥一起刷洛谷(1)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            四道水题
+        </h3>
+        
+        <div class="post-content-preview">
+			小哥我是编程爱好者，正在学习摸索中，此文就是我最近编的代码以及编程中的思路，易错点等心得体会。
+
+今天小哥我作为cpp党就来带大家刷几道很有意思的题目。
+
+由于微信不支持插入代码，只能用markdown写文章，markdown的排版功能尚不熟悉，小试一下。
+
+P1029最大公约数和最小公倍数问题
+
+题目：
+输入 2 个正整数x0,y0,求出满足下列条件的 P,Q 的个数
+条件：
+P,Q 是正整数
+要求：
+P,Q 以 x0 为最大公约数,以 y0 为最小公倍数.
+试求:满足条件的所有可能的 2 个正整数的个数.
+
+思路：
+1.枚举a/y0的值
+
+代码：
+#include&lt;bits/s...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on September 2, 2018
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page4">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#算法" title="算法" rel="26">
+                                    算法
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#javascript" title="javascript" rel="4">
+                                    javascript
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#线段树" title="线段树" rel="4">
+                                    线段树
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#题解" title="题解" rel="12">
+                                    题解
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/myavatar2.png"/>
+                            </a>
+                        
+                        
+                            <p>BJ 初三菜鸡 OIER，喜欢天文，爱好编程，理工男一枚～</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            <li>
+                                <a href="/feed.xml">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/ethan-enhe">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ ethan_enhe@163.com</p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://filaret.ml/">deadpool123的博客</a></li>
+                    
+                        <li><a href="https://www.luogu.org/blog/xiezihan123456789/">Edsger_Wybe_Dijkstra(假的)的博客</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+				Copyright &copy; <a href="/">Blog E</a> 2021
+                    <br>
+					Proudly hosted by GitHub Pages and Coding Pages
+					<br />
+                    Theme on <a href="https://github.com/ethan-enhe/ethan-enhe.github.io.git">GitHub</a>
+					
+					<br />
+					<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>|<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<!--<script src="/js/jquery.min.js "></script>-->
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+<!--<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>-->
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- ProgressBar -->
+<script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载顶部进度条
+		NProgress.start();
+		NProgress.done();
+		$("#myProgressBar").hide();
+	})
+	$("pre").addClass("line-numbers");
+</script>
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--search-->
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+	var trigger=$("#search-trigger");
+	var searchwrap=$("#search-wrap");
+	var input=$("#search-input");
+	var res=$("#results-container");
+	var reson=false;
+	trigger.click(function(){
+		if(searchwrap.hasClass("hidden")){
+			trigger.attr("class","fas fa-times");
+			searchwrap.removeClass("hidden");
+			/*hide on mobile*/
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
+			input.val("");
+			input.focus();
+		}
+		else{
+			searchwrap.addClass("hidden");
+			if(reson){
+				res.addClass("hidden");
+				$(".navbar").css("height","initial");
+				$("body").removeClass("no-scroll");
+				reson=false;
+			}
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
+			trigger.attr("class","fas fa-search");
+		}
+	})
+	input.on("input",function(){
+		if(!reson){
+			$("body").addClass("no-scroll");
+			$(".navbar").css("height","100%");
+			res.removeClass("hidden");
+			reson=true;
+		}
+	})
+	var sjs = SimpleJekyllSearch({
+		searchInput: document.getElementById('search-input'),
+		resultsContainer: document.getElementById('results-container-son'),
+		json: '/search.json',
+		searchResultTemplate: '<hr><li><a href="{url}"><b>{title}</b><br>{subtitle}</a></li>',
+		noResultsText: '<li>Nothing here...</li>',
+		limit: 5,
+		fuzzy: true
+	})
+</script>
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-173022260-1';
+    var _gaDomain = 'blog-e.tk';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="google-site-verification" content="EYD9voMamEorNvC4N4DPVs6Coue2YsUq4XiFvIHHbXQ" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索。">
+    <meta name="keywords"  content="编程,天文,生活">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Blog E</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://blog-e.tk/">
+
+    <!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!--<link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/hux-blog.min.css">
+	<!--<link rel="stylesheet" href="/css/hux-blog.css">-->
+
+    <!-- Pygments Github CSS -->
+    <!--<link rel="stylesheet" href="/css/syntax.css">-->
+	<link rel="stylesheet" href="/css/prism.css">
+    <!-- Custom Fonts -->
+    <!-- ethan change font-awesome 4 to 5 -->
+	<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- ProgressBar -->
+<div id="myProgressBar"></div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog E</a>
+			<div id="searchbox" class="navbar-left">
+				<i id="search-trigger" class="fas fa-search"></i>
+				<div id="search-wrap" class="hidden">
+					<i class="fas fa-search"></i>
+					<input type="text" id="search-input" placeholder="Search...">
+				</div>
+				<ul id="results-container" class="hidden" >
+					<h4 style="padding-left: 30px;">Search Results</h4>
+					<div id="results-container-son">
+						<li>Nothing here...</li>
+					</div>
+				</ul>
+			</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg-littleprince.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Blog E</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">路漫漫其修远兮，吾将上下而求索。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <h2 class="post-title">
+            斯特林数学习笔记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            怎么感觉组合数用 C 几几更方便写
+        </h3>
+        
+        <div class="post-content-preview">
+			第一类斯特林数
+几何意义
+把 n 各不同的数放进为 k 个环的方案数，用 $\begin{bmatrix}n\cr k\end{bmatrix}$ 表示。
+
+代数意义
+
+\[\begin{aligned}
+x^{\overline{n}}&amp;=\sum_{i=1}^n \begin{bmatrix}n\cr i\end{bmatrix}x^i\cr
+x^{\underline{n}}&amp;=\sum_{i=1}^n (-1)^{n-i}\begin{bmatrix}n\cr i\end{bmatrix}x^i
+\end{aligned}\]
+
+计算方式
+
+$O(nk)$ 递推：...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on June 18, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <h2 class="post-title">
+            斜率优化学习笔记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            顺便学了个李超树
+        </h3>
+        
+        <div class="post-content-preview">
+			问题形式
+
+用来优化一类 dp，其转移方程满足：
+
+\[dp_i=f_i(\max_{j&lt;i}(k_j\times x_i+b_j))\]
+
+（式子中取 min 也可，与 max 类似，不再赘述）
+
+其中 $k_j,b_j$ 是只与 j 相关的数，$x_i$ 是只与 i 相关的数，$f_i$ 是只与 i 有关的函数。
+
+斜率优化就是优化的求 $\max_{j&lt;i}(k_j\times x_i+b_j)$ 的过程。
+
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on June 7, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/">
+        <h2 class="post-title">
+            【题解】寿司晚宴
+        </h2>
+        
+        <h3 class="post-subtitle">
+            最优解！
+        </h3>
+        
+        <div class="post-content-preview">
+			
+  upd 2021.6.18: 修改公式符号，更加形式化，添加 50 分做法
+
+
+介绍一种 $O(n \times 3^8)$ 的做法，目前是所有非打表代码中的最优解，其实只是把其他题解中的算法优化了一下。
+
+定义
+
+
+  $fac_i$ 表示 i 的质因数集合
+  $P={x\mid x\ \text{is prime},\ x\le n}$
+
+
+暴力 1
+
+这题的暴力有很多种，在此只介绍可以优化成正解的暴力。
+
+两个数互质，等效于他们没有共同的质因子，所以只需把每个数都分解质质因数，如下 dp：
+
+
+  状态：$dp(s1,s2)$ 表示考虑前 i 个数（i 被滚动掉了），小 G...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on May 27, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/05/17/PKUSC%E6%B8%B8%E8%AE%B0/">
+        <h2 class="post-title">
+            PKUSC游记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            海星
+        </h3>
+        
+        <div class="post-content-preview">
+			Day 0
+
+坐火车到余姚，晚上到余姚宾馆，颓了一会，复习了下教练说往年都考了的ntt和线段树合并，又打了一遍网络流和sa(然而都没用上)，就睡觉了。
+
+Day 1
+
+到考场试机发现是windows系统，好在提供gvim安装包，不过由于我平时都用的是neovim，对gvim的配置不太熟，只好又现查了查，改了下之前背的vimrc。
+
+第一题，发现每个矩阵只和它前一个矩阵每行每列的和有关，于是就推了下这个东西的递推方法，矩阵快速幂搞定因为交错题又wa又re的调了一个小时。
+
+第二题，先写了个暴力，发现整体修改的部分分相当是把询问的l，r移一下，于是写了个st表，把询问离线之后从后往前，在单调...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on May 17, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/09/%E4%B8%80%E7%A7%8D%E5%BE%88%E4%BC%98%E9%9B%85%E7%9A%84%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%E5%86%99%E6%B3%95/">
+        <h2 class="post-title">
+            一种很优雅的高斯消元写法
+        </h2>
+        
+        <h3 class="post-subtitle">
+            类似线性基
+        </h3>
+        
+        <div class="post-content-preview">
+			rt，自己胡出来的算法。用类似线性基的写法写，代码简短，常数小，并且对无解和无穷解的判断都很简单。
+
+以下为毒瘤题 P2455 线性方程组 代码（之前用正常写法怎么都过不了，面向数据才过的。。）：
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MXN=105;
+const double eps=1e-8;
+int n;
+bool used[MXN];
+double arr[MXN][MXN],tmp[MXN];
+inline bool is0(double x){return fabs(x)&lt;=eps;}...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on April 9, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/06/USACO-2021-US-Open-%E9%93%82%E9%87%91%E7%BB%84-T1-%E9%A2%98%E8%A7%A3/">
+        <h2 class="post-title">
+            USACO 2021 US Open 铂金组 T1 题解
+        </h2>
+        
+        <h3 class="post-subtitle">
+            想了挺久
+        </h3>
+        
+        <div class="post-content-preview">
+			United Cows of Farmer John
+题意：
+给定一个长度为 n 的数列 $a_i$，求符合下列条件的三元组 ${i,j,k}$ 个数：
+
+  $1\le i &lt; j &lt; k \le n$
+  $a_i,a_j,a_k$ 的值在 $a_{[i,k]}$ 各只出现一次（即他们自己）。
+
+
+思路：
+
+为了方便描述，我们称 $a_i$ 为 i 点的颜色，记 $pre_i$ 表示 $a_i$ 的前驱（即 i 之前与 $a_i$ 相同的最后一个数），记集合 $last$ 表示右端点扫描到 r 时，每个颜色最后一次出现的位置。
+
+朴素想法
+
+考虑固定右端点 r，然后枚举左...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on April 6, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/03/USACO-2021-US-Open-%E9%87%91%E7%BB%84%E9%A2%98%E8%A7%A3/">
+        <h2 class="post-title">
+            USACO 2021 US Open 金组题解
+        </h2>
+        
+        <h3 class="post-subtitle">
+            终于 AK 了！
+        </h3>
+        
+        <div class="post-content-preview">
+			T1 United Cows of Farmer John
+
+思路
+
+这题比较水，记 $pre_i$ 为 i 号奶牛的前驱（即 i 前面最靠后的与 i 号奶牛颜色相同的奶牛）。
+
+令这两个奶牛领导中，在序列中靠后的那个为 i，考虑靠前的奶牛领导有几种可能，不难发现其个数为 $[pre_i+1,i-1]$ 这段区间内奶牛的种类数。于是直接上树状数组，用代表元法（将每种种类的最后出现位置加一）即可求出答案。复杂度 $O(n\log n)$
+
+代码
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#def...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on April 3, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/02/20/%E9%A2%98%E8%A7%A3-P3747-%E7%9B%B8%E9%80%A2%E6%98%AF%E9%97%AE%E5%80%99/">
+        <h2 class="post-title">
+            【题解】P3747 相逢是问候
+        </h2>
+        
+        <h3 class="post-subtitle">
+            麻烦得很
+        </h3>
+        
+        <div class="post-content-preview">
+			题意
+
+定义函数 $f(x)=c^x$
+
+维护给定序列 $a_i$，支持两种操作（p，c 由输入给定）：
+
+
+  
+    将数列第 l 到 r 项中的每一项 $a_i$，赋值为 $f(a_i)$
+  
+  
+    查询 $\sum_{i=l}^{i\leq r}a_i\ \pmod p$
+  
+
+
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on February 20, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/">
+        <h2 class="post-title">
+            【题解】洛谷二月月赛div2
+        </h2>
+        
+        <h3 class="post-subtitle">
+            25%的时间获得了自己100%的得分
+        </h3>
+        
+        <div class="post-content-preview">
+			这次月赛感觉考的海星，估计是 WC 爆炸时失去的 RP 又回来了吧。前一个小时多点把 abc 都切了，后面都没骗到分（
+
+T1 『MdOI R4』Fun
+傻子题，直接模拟即可。
+ll n,m,k;
+ll arr[MXN];
+inline void solve(){
+	//codes
+	cin&gt;&gt;n&gt;&gt;m&gt;&gt;k;
+	for(int i=1;i&lt;=n;i++)
+		cin&gt;&gt;arr[i];
+	ll cnt=0;
+	for(int i=1;i&lt;=n;i++){
+		ll tmp;
+		cin&gt;&gt;tmp;
+		cnt+=tm...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on February 9, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/">
+        <h2 class="post-title">
+            【题解】P7287魔法
+        </h2>
+        
+        <h3 class="post-subtitle">
+            听说有1log做法？
+        </h3>
+        
+        <div class="post-content-preview">
+			题目在此：P7287
+
+结论
+
+
+  所有的 1 操作一定在所有的 2 操作之前进行
+  每个 1 操作的范围一定是 [1,n]
+  每次 2 操作都是对当前序列的最大字段和那个区间进行的。
+  最终选的区间是最终序列的最大子段和
+
+
+1，2，4 都很显然，3 结论可感性理解（这个野鸡博主不会证）：
+
+如果每次都选那个最大子段和进行操作，那得到的结果一定是最优的。
+否则一旦在操作过程中有操作的区间不是最大子段和区间的话，在进行同样次操作之后的结果是不优的。
+
+算法
+
+现在，我们只需要知道 1 操作以及 2 操作的次数，就能算出最终数列的最大最大字段和。接着观察发现2操作的次数是不超过\(...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on January 25, 2021
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page2">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#算法" title="算法" rel="26">
+                                    算法
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#javascript" title="javascript" rel="4">
+                                    javascript
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#线段树" title="线段树" rel="4">
+                                    线段树
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#题解" title="题解" rel="12">
+                                    题解
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/myavatar2.png"/>
+                            </a>
+                        
+                        
+                            <p>BJ 初三菜鸡 OIER，喜欢天文，爱好编程，理工男一枚～</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            <li>
+                                <a href="/feed.xml">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/ethan-enhe">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ ethan_enhe@163.com</p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://filaret.ml/">deadpool123的博客</a></li>
+                    
+                        <li><a href="https://www.luogu.org/blog/xiezihan123456789/">Edsger_Wybe_Dijkstra(假的)的博客</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+				Copyright &copy; <a href="/">Blog E</a> 2021
+                    <br>
+					Proudly hosted by GitHub Pages and Coding Pages
+					<br />
+                    Theme on <a href="https://github.com/ethan-enhe/ethan-enhe.github.io.git">GitHub</a>
+					
+					<br />
+					<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>|<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<!--<script src="/js/jquery.min.js "></script>-->
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+<!--<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>-->
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- ProgressBar -->
+<script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载顶部进度条
+		NProgress.start();
+		NProgress.done();
+		$("#myProgressBar").hide();
+	})
+	$("pre").addClass("line-numbers");
+</script>
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--search-->
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+	var trigger=$("#search-trigger");
+	var searchwrap=$("#search-wrap");
+	var input=$("#search-input");
+	var res=$("#results-container");
+	var reson=false;
+	trigger.click(function(){
+		if(searchwrap.hasClass("hidden")){
+			trigger.attr("class","fas fa-times");
+			searchwrap.removeClass("hidden");
+			/*hide on mobile*/
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
+			input.val("");
+			input.focus();
+		}
+		else{
+			searchwrap.addClass("hidden");
+			if(reson){
+				res.addClass("hidden");
+				$(".navbar").css("height","initial");
+				$("body").removeClass("no-scroll");
+				reson=false;
+			}
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
+			trigger.attr("class","fas fa-search");
+		}
+	})
+	input.on("input",function(){
+		if(!reson){
+			$("body").addClass("no-scroll");
+			$(".navbar").css("height","100%");
+			res.removeClass("hidden");
+			reson=true;
+		}
+	})
+	var sjs = SimpleJekyllSearch({
+		searchInput: document.getElementById('search-input'),
+		resultsContainer: document.getElementById('results-container-son'),
+		json: '/search.json',
+		searchResultTemplate: '<hr><li><a href="{url}"><b>{title}</b><br>{subtitle}</a></li>',
+		noResultsText: '<li>Nothing here...</li>',
+		limit: 5,
+		fuzzy: true
+	})
+</script>
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-173022260-1';
+    var _gaDomain = 'blog-e.tk';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

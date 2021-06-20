@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="google-site-verification" content="EYD9voMamEorNvC4N4DPVs6Coue2YsUq4XiFvIHHbXQ" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索。">
+    <meta name="keywords"  content="编程,天文,生活">
+    <meta name="theme-color" content="#000000">
+    
+    <title>USACO一月月赛金组游记 - Blog E</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://blog-e.tk/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/">
+
+    <!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!--<link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/hux-blog.min.css">
+	<!--<link rel="stylesheet" href="/css/hux-blog.css">-->
+
+    <!-- Pygments Github CSS -->
+    <!--<link rel="stylesheet" href="/css/syntax.css">-->
+	<link rel="stylesheet" href="/css/prism.css">
+    <!-- Custom Fonts -->
+    <!-- ethan change font-awesome 4 to 5 -->
+	<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- ProgressBar -->
+<div id="myProgressBar"></div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog E</a>
+			<div id="searchbox" class="navbar-left">
+				<i id="search-trigger" class="fas fa-search"></i>
+				<div id="search-wrap" class="hidden">
+					<i class="fas fa-search"></i>
+					<input type="text" id="search-input" placeholder="Search...">
+				</div>
+				<ul id="results-container" class="hidden" >
+					<h4 style="padding-left: 30px;">Search Results</h4>
+					<div id="results-container-son">
+						<li>Nothing here...</li>
+					</div>
+				</ul>
+			</div>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg-m42.jpg" width="0" height="0"> -->
+
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg-m42.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+                        
+                        <a class="tag" href="/tags/#题解" title="题解">题解</a>
+                        
+                        <a class="tag" href="/tags/#USACO" title="USACO">USACO</a>
+                        
+                    </div>
+                    <h1>USACO一月月赛金组游记</h1>
+                    
+                    
+                    <h2 class="subheading">暴力奇迹</h2>
+                    
+                    <span class="meta">Posted by ethan-zhou on January 24, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+				<h2 id="t1">T1</h2>
+
+<h3 id="转化">转化</h3>
+<p>上来一看这题蒙了，猜了几个结论，又打了个贪心，结果只过了样例，就先去打 T2 了。</p>
+
+<p>打完 T2 回到这题，仔细想想，发现这个答案是很难直接在输入字符串序列上 dp 的，故考虑构造牛文字母表的顺序，使得结果最小。</p>
+
+<p>先跳过构造的过程，假设我们目前已经知道，牛文字母表的顺序就是 abcdefg… 我们如何快速的求出输入序列的答案呢？</p>
+
+<p>不妨设输入序列为<code>abcba</code>，我们发现这个序列最少需要唱3次才能出现，为什么呢？唱第一次可以出现到<code>abc</code>但是下一项<code>b</code>的字典序比<code>c</code>靠前，所以<code>b</code>就只能再唱一次了，下一项<code>a</code>也是同理，所以这个序列的答案是 3 。</p>
+
+<p>总结一下，答案为：</p>
+
+<p>$1+\sum_{i \in [1,n-1]}{(dict[str[i]]&gt;=dict[str[i+1]])}$</p>
+
+<p>其中 dict[x] 表示 x 字符在牛文字母表中排在第几个</p>
+
+<h3 id="如何dp">如何dp</h3>
+
+<h4 id="状态">状态</h4>
+
+<p>现在我们要构造一个牛文序列，26! 的算法肯定是不行的，但是观察数据范围我们发现暗藏玄机：</p>
+
+<blockquote>
+  <ul>
+    <li>测试点 6-16 中，Farmer Nhoj 从未听到任何出现在 Mildred 名字中的字母。</li>
+  </ul>
+</blockquote>
+
+<p>也就是说字符集只有 20 个，是可以状压 dp 的。</p>
+
+<p>于是我们从小到大构造一个牛文字母表，dp[s] （s是状压出来的数）表示当前构造的字母表中，已经包含了 s 这些字符的时候，答案的最小值。</p>
+
+<h4 id="转移">转移：</h4>
+
+<p>采用“我为人人”的 dp 方式，当我们新加入一个字符 x 的时候，如何计算答案会增加多少呢？</p>
+
+<p>我们只需知道有多少个 i 满足 \((str[i]==x)\ and\ str[i+1]\in (s\cup\{x\})\)，于是我开了个桶并暴力实现这个，详见代码</p>
+
+<p>此题复杂度 \(O(2^{20}\times 20^2)\)</p>
+
+<h3 id="代码">代码</h3>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define pb push_back
+#define mp make_pair
+#define rd scanf
+#define pt printf
+#define setp(x) setprecision(x)
+#define mem(x,y) memset(x,y,sizeof(x))
+#define sz(x) (int)x.size()
+#define umn(x,y) x=min(x,y)
+#define umx(x,y) x=max(x,y)
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;ll,ll&gt; pi;
+typedef vector&lt;ll&gt; vi;
+typedef vector&lt;pi&gt; vpi;
+
+const double eps=1e-9;
+const ll INF=1e18;
+const ll P=998244353;
+const ll MXN=1e5+5;
+
+inline ll mod(ll x){return x&gt;=P?x-P:x;}
+inline ll mul(ll x,ll y){if(x&lt;y)swap(x,y);ll res=0;while(y){if(y&amp;1)res=mod(res+x);x=mod(x&lt;&lt;1);y&gt;&gt;=1;}return res;}
+inline ll qpow(ll x,ll y){ll res=1;while(y){if(y&amp;1)res=res*x%P;x=x*x%P;y&gt;&gt;=1;}return res;}
+ll gcd(ll x,ll y){return !y?x:gcd(y,x%y);}
+inline void pbin(ll x,ll y){for(;~y;y--)cerr&lt;&lt;char('0'+((x&gt;&gt;y)&amp;1));cerr&lt;&lt;endl;}
+
+
+
+const int CSZ=26;
+const int MXSZ=20;
+ll n;
+char str[MXN];
+ll cnt[MXSZ][MXSZ];
+ll dp[1&lt;&lt;MXSZ];
+ll table[CSZ],sz;
+
+
+#define toi(x) table[(x)-'a']
+
+
+
+inline void solve(){
+    //codes
+	cin&gt;&gt;(str+1);
+	n=strlen(str+1);
+	mem(table,-1);
+	for(int i=1;i&lt;=n;i++)
+		if(toi(str[i])==-1)
+			toi(str[i])=sz++;
+
+	for(int i=1;i&lt;n;i++)
+		cnt[toi(str[i])][toi(str[i+1])]++;
+
+	mem(dp,0x3f);
+	dp[0]=1;
+	for(int i=0;i&lt;(1&lt;&lt;sz);i++){
+		/*pbin(i,5);
+		cout&lt;&lt;dp[i]&lt;&lt;endl;*/
+		for(int j=0;j&lt;sz;j++)
+			if(!((i&gt;&gt;j)&amp;1)){
+				ll tmp=dp[i]+cnt[j][j];
+				for(int k=0;k&lt;sz;k++)
+					if((i&gt;&gt;k)&amp;1)
+						tmp+=cnt[j][k];
+				umn(dp[i^(1&lt;&lt;j)],tmp);
+			}
+	}
+	cout&lt;&lt;dp[(1&lt;&lt;sz)-1];
+
+
+}
+int main(){
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
+	ios_base::sync_with_stdio(0);cin.tie(0);
+	cout&lt;&lt;setiosflags(ios::fixed);
+	srand(time(NULL));
+
+	solve();
+	return 0;
+}
+</code></pre>
+
+<h2 id="t2">T2</h2>
+
+<p>打了一个裸的 spfa，得到92分的好成绩</p>
+
+<h3 id="代码-1">代码</h3>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define pb push_back
+#define mp make_pair
+#define rd scanf
+#define pt printf
+#define setp(x) setprecision(x)
+#define mem(x,y) memset(x,y,sizeof(x))
+#define sz(x) (int)x.size()
+#define umn(x,y) x=min(x,y)
+#define umx(x,y) x=max(x,y)
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;ll,ll&gt; pi;
+typedef vector&lt;ll&gt; vi;
+typedef vector&lt;pi&gt; vpi;
+
+const double eps=1e-9;
+const ll INF=1e18;
+const ll P=998244353;
+const ll MXN=1e5+5;
+const ll MXK=55;
+
+inline ll mod(ll x){return x&gt;=P?x-P:x;}
+inline ll mul(ll x,ll y){if(x&lt;y)swap(x,y);ll res=0;while(y){if(y&amp;1)res=mod(res+x);x=mod(x&lt;&lt;1);y&gt;&gt;=1;}return res;}
+inline ll qpow(ll x,ll y){ll res=1;while(y){if(y&amp;1)res=res*x%P;x=x*x%P;y&gt;&gt;=1;}return res;}
+ll gcd(ll x,ll y){return !y?x:gcd(y,x%y);}
+inline void pbin(ll x,ll y){for(;~y;y--)cerr&lt;&lt;char('0'+((x&gt;&gt;y)&amp;1));cerr&lt;&lt;endl;}
+
+
+
+ll n,k;
+ll dis[MXN],tp[MXN];
+vi ec[MXK],ek[MXK];
+bool inq[MXN];
+inline void spfa(){
+	mem(dis,0x3f);
+	deque&lt;ll&gt; q;
+	q.push_front(1);
+	dis[1]=0;
+	while(!q.empty()){
+		ll p=q.front();
+		q.pop_front();
+		inq[p]=0;
+		int ctp=tp[p];
+		for(int i=0;i&lt;sz(ek[ctp]);i++){
+			int ntp=ek[ctp][i];
+			for(int j=0;j&lt;sz(ec[ntp]);j++){
+				int nc=ec[ntp][j];
+				int nw=dis[p]+abs(nc-p);
+				if(nw&lt;dis[nc]){
+					dis[nc]=nw;
+					if(!inq[nc]){
+						inq[nc]=1;
+						q.empty() || dis[nc]&lt;=dis[q.front()] ? q.push_front(nc):q.push_back(nc);
+					}
+				}
+			}
+		}
+	}
+}
+inline void solve(){
+    //codes
+	cin&gt;&gt;n&gt;&gt;k;
+	for(int i=1;i&lt;=n;i++){
+		cin&gt;&gt;tp[i];
+		ec[tp[i]].pb(i);
+	}
+	for(int i=1;i&lt;=k;i++){
+		char str[MXK];
+		cin&gt;&gt;(str+1);
+		for(int j=1;j&lt;=k;j++)
+			if(str[j]=='1')
+				ek[i].pb(j);
+	}
+	spfa();
+	cout&lt;&lt;(dis[n]&lt;1e16?dis[n]:-1);
+}
+int main(){
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
+	ios_base::sync_with_stdio(0);cin.tie(0);
+	cout&lt;&lt;setiosflags(ios::fixed);
+	srand(time(NULL));
+
+	solve();
+	return 0;
+}
+</code></pre>
+
+<h2 id="t3">T3</h2>
+
+<p>打了一个暴力，得到 25 分的好成绩，时间不太够，懒得想 50 分了，听说 50 分是银组 T1。</p>
+<h3 id="代码-2">代码</h3>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define fi first
+#define se second
+#define pb push_back
+#define mp make_pair
+#define rd scanf
+#define pt printf
+#define setp(x) setprecision(x)
+#define mem(x,y) memset(x,y,sizeof(x))
+#define sz(x) (int)x.size()
+#define umn(x,y) x=min(x,y)
+#define umx(x,y) x=max(x,y)
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair&lt;ll,ll&gt; pi;
+typedef vector&lt;ll&gt; vi;
+typedef vector&lt;pi&gt; vpi;
+
+const double eps=1e-9;
+const ll INF=1e18;
+const ll P=998244353;
+const ll MXN=200+5;
+
+inline ll mod(ll x){return x&gt;=P?x-P:x;}
+inline ll mul(ll x,ll y){if(x&lt;y)swap(x,y);ll res=0;while(y){if(y&amp;1)res=mod(res+x);x=mod(x&lt;&lt;1);y&gt;&gt;=1;}return res;}
+inline ll qpow(ll x,ll y){ll res=1;while(y){if(y&amp;1)res=res*x%P;x=x*x%P;y&gt;&gt;=1;}return res;}
+ll gcd(ll x,ll y){return !y?x:gcd(y,x%y);}
+inline void pbin(ll x,ll y){for(;~y;y--)cerr&lt;&lt;char('0'+((x&gt;&gt;y)&amp;1));cerr&lt;&lt;endl;}
+
+
+
+ll n,m,k;
+pi arr[MXN],suf[MXN];
+ll last[MXN];
+
+bool vis[MXN],cc[MXN][MXN];
+inline void cal(ll x){
+	mem(vis,0);
+	mem(cc,0);
+
+	ll ans=1,ct=last[x],tot=last[x];
+	vis[x]=1,cc[0][x]=1;
+	while(tot&lt;=m &amp;&amp; !cc[ct][x]){
+		cc[ct][x]=1;
+		if(!vis[x]){
+			ans++;
+			vis[x]=1;
+		}
+		if(x==arr[ct].fi){
+			x=arr[ct].se;
+			ll nx=suf[ct].se;
+			tot+=nx-ct&lt;=0?nx-ct+k:nx-ct;
+			ct=nx;
+		}
+		else{
+			x=arr[ct].fi;
+			ll nx=suf[ct].fi;
+			tot+=nx-ct&lt;=0?nx-ct+k:nx-ct;
+			ct=nx;
+		}
+	}
+		if(!vis[x]){
+			ans++;
+			vis[x]=1;
+		}
+	cout&lt;&lt;ans&lt;&lt;endl;
+}
+
+
+inline void solve(){
+    //codes
+	cin&gt;&gt;n&gt;&gt;k&gt;&gt;m;
+	for(int i=1;i&lt;=k;i++)
+		cin&gt;&gt;arr[i].fi&gt;&gt;arr[i].se;
+	for(int i=k;i;i--){
+		suf[i].fi=last[arr[i].fi];
+		suf[i].se=last[arr[i].se];
+		last[arr[i].fi]=last[arr[i].se]=i;
+	}
+	for(int i=k;i;i--){
+		suf[i].fi=last[arr[i].fi];
+		suf[i].se=last[arr[i].se];
+		last[arr[i].fi]=last[arr[i].se]=i;
+	}
+	for(int i=1;i&lt;=n;i++)cal(i);
+}
+int main(){
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
+	ios_base::sync_with_stdio(0);cin.tie(0);
+	cout&lt;&lt;setiosflags(ios::fixed);
+	srand(time(NULL));
+
+	solve();
+	return 0;
+}
+</code></pre>
+
+				
+				<hr></hr>
+				<p>作者：<a target="_blank">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/">本文链接</a></p>
+                
+                
+                <span id="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/" class="leancloud-visitors">
+                    <em class="post-meta-item-text">阅读量 </em>
+                    <i class="leancloud-visitors-count"></i>
+                </span>
+                
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/10/22/%E7%89%9B%E5%AE%A2%E7%AC%AC%E4%B8%89%E5%9C%BA%E6%8F%90%E9%AB%98%E7%BB%84%E6%A8%A1%E6%8B%9F%E8%B5%9BT2%E9%A2%98%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="牛客第三场提高组模拟赛T2题解">
+                        Previous<br>
+                        <span>牛客第三场提高组模拟赛T2题解</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="【题解】P7287魔法">
+                        Next<br>
+                        <span>【题解】P7287魔法</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+				<!-- Valine -->
+				
+				<hr style="visibility: hidden;">
+				<script src="//cdn.bootcdn.net/ajax/libs/valine/1.4.4/Valine.min.js"></script>
+				<div id="vcomments"></div>
+				<script>
+					new Valine({
+						el: '#vcomments',
+						appId: 'xc3PBlgpE3UXRAJaXWVeazFX-MdYXbMMI',
+						appKey: 'Q5ec2duzeuLbvP5ut4AeWF8E',
+						avatar: 'identicon',
+                        visitor: true
+					})
+				</script>
+				
+		    
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="26">
+                                    算法
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#javascript" title="javascript" rel="4">
+                                    javascript
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#线段树" title="线段树" rel="4">
+                                    线段树
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#题解" title="题解" rel="12">
+                                    题解
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://filaret.ml/">deadpool123的博客</a></li>
+                    
+                        <li><a href="https://www.luogu.org/blog/xiezihan123456789/">Edsger_Wybe_Dijkstra(假的)的博客</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<script src="/js/prism.js"></script>
+<!-- mathjax -->
+<link href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.css" rel="stylesheet">
+<script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/contrib/auto-render.min.js"></script>
+<script>
+    renderMathInElement(document.body,{
+              delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "\\[", right: "\\]", display: true},
+                  {left: "$", right: "$", display: false},
+                  {left: "\\(", right: "\\)", display: false}
+              ]
+          }
+  );
+</script>
+
+
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/a6a6cdbb4aa5">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/ethan-enhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+				Copyright &copy; <a href="/">Blog E</a> 2021
+                    <br>
+					Proudly hosted by GitHub Pages and Coding Pages
+					<br />
+                    Theme on <a href="https://github.com/ethan-enhe/ethan-enhe.github.io.git">GitHub</a>
+					
+					<br />
+					<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>|<span id="busuanzi_container_site_uv">本站总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<!--<script src="/js/jquery.min.js "></script>-->
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+<!--<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>-->
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- ProgressBar -->
+<script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/nprogress/0.2.0/nprogress.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载顶部进度条
+		NProgress.start();
+		NProgress.done();
+		$("#myProgressBar").hide();
+	})
+	$("pre").addClass("line-numbers");
+</script>
+<!-- 不蒜子 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--search-->
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+	var trigger=$("#search-trigger");
+	var searchwrap=$("#search-wrap");
+	var input=$("#search-input");
+	var res=$("#results-container");
+	var reson=false;
+	trigger.click(function(){
+		if(searchwrap.hasClass("hidden")){
+			trigger.attr("class","fas fa-times");
+			searchwrap.removeClass("hidden");
+			/*hide on mobile*/
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").addClass("hom");
+			input.val("");
+			input.focus();
+		}
+		else{
+			searchwrap.addClass("hidden");
+			if(reson){
+				res.addClass("hidden");
+				$(".navbar").css("height","initial");
+				$("body").removeClass("no-scroll");
+				reson=false;
+			}
+			$("#huxblog_navbar, .navbar-toggle, .navbar-brand").removeClass("hom");
+			trigger.attr("class","fas fa-search");
+		}
+	})
+	input.on("input",function(){
+		if(!reson){
+			$("body").addClass("no-scroll");
+			$(".navbar").css("height","100%");
+			res.removeClass("hidden");
+			reson=true;
+		}
+	})
+	var sjs = SimpleJekyllSearch({
+		searchInput: document.getElementById('search-input'),
+		resultsContainer: document.getElementById('results-container-son'),
+		json: '/search.json',
+		searchResultTemplate: '<hr><li><a href="{url}"><b>{title}</b><br>{subtitle}</a></li>',
+		noResultsText: '<li>Nothing here...</li>',
+		limit: 5,
+		fuzzy: true
+	})
+</script>
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-173022260-1';
+    var _gaDomain = 'blog-e.tk';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
