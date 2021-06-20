@@ -209,7 +209,7 @@
 
 <ul>
   <li>$fac_i$ 表示 i 的质因数集合</li>
-  <li>$P={x\mid x\ \text{is prime},\ x\le n}$</li>
+  <li>$P=\{x\mid x\ \text{is prime},\ x\le n\}$</li>
 </ul>
 
 <h2 id="暴力-1">暴力 1</h2>
@@ -233,7 +233,7 @@ dp(s1,s2\cup fac_i)\leftarrow dp(s1,s2)+dp(s1,s2\cup fac_i)&amp;&amp;(fac_i\cap 
   <li>答案：</li>
 </ul>
 
-\[\sum _{s1,s2 \subset P}{dp(s1,s2)\ (s1\cap s2=0))}\]
+\[\sum _{s1,s2 \subset P}{dp(s1,s2)\ (s1\cap s2=\varnothing))}\]
 
 <p>复杂度 $O(n\times2^{20})$，能得 30 分。</p>
 
@@ -255,7 +255,7 @@ dp(s1,s2\cup fac_i)\leftarrow dp(s1,s2)+dp(s1,s2\cup fac_i)&amp;&amp;(fac_i\cap 
 
 <p>考虑如下 dp：</p>
 <ul>
-  <li>$dp(s1,s2)$ 含义与**暴力 1 **中的差不多，只不过这里的 s1，s2 只状压了前 8 个质数的状态。</li>
+  <li>$dp(s1,s2)$ 含义与 <strong>暴力 1</strong> 中的差不多，只不过这里的 s1，s2 只状压了前 8 个质数的状态。</li>
   <li>每次进入一个新的连续段，把 dp 中的值复制到 t1，t2 中。
     <ul>
       <li>用 $dp(s1,s2)$ 表示这个连续段中的数<strong>只被小 G 选或不被选</strong>的情况数</li>
@@ -348,7 +348,7 @@ int main(){
 
 				
 				<hr></hr>
-				<p>作者：<a target="_blank">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/">本文链接</a></p>
+				<p>作者：<a href="/">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/">本文链接</a></p>
                 
                 
                 <span id="/2021/05/27/%E9%A2%98%E8%A7%A3-%E5%AF%BF%E5%8F%B8%E6%99%9A%E5%AE%B4/" class="leancloud-visitors">
@@ -797,7 +797,7 @@ int main(){
 
 
 <!-- Image to hack wechat -->
-<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<img src="/img/apple-touch-icon.png" width="0" height="0" alt="icon"/>
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>

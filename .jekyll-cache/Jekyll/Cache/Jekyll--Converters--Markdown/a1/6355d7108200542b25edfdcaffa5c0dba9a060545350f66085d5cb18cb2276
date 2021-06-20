@@ -1,4 +1,4 @@
-I"o<blockquote>
+I"q<blockquote>
   <p>upd 2021.6.18: 修改公式符号，更加形式化，添加 50 分做法</p>
 </blockquote>
 
@@ -8,7 +8,7 @@
 
 <ul>
   <li>$fac_i$ 表示 i 的质因数集合</li>
-  <li>$P={x\mid x\ \text{is prime},\ x\le n}$</li>
+  <li>$P=\{x\mid x\ \text{is prime},\ x\le n\}$</li>
 </ul>
 
 <h2 id="暴力-1">暴力 1</h2>

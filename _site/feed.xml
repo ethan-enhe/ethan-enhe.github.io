@@ -5,8 +5,8 @@
     <description>路漫漫其修远兮，吾将上下而求索。</description>
     <link>https://blog-e.tk/</link>
     <atom:link href="https://blog-e.tk/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Jun 2021 12:53:47 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Jun 2021 12:53:47 +0800</lastBuildDate>
+    <pubDate>Sun, 20 Jun 2021 13:40:08 +0800</pubDate>
+    <lastBuildDate>Sun, 20 Jun 2021 13:40:08 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -466,7 +466,7 @@ int main(){
 
 &lt;ul&gt;
   &lt;li&gt;$fac_i$ 表示 i 的质因数集合&lt;/li&gt;
-  &lt;li&gt;$P={x\mid x\ \text{is prime},\ x\le n}$&lt;/li&gt;
+  &lt;li&gt;$P=\{x\mid x\ \text{is prime},\ x\le n\}$&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;暴力-1&quot;&gt;暴力 1&lt;/h2&gt;
@@ -490,7 +490,7 @@ dp(s1,s2\cup fac_i)\leftarrow dp(s1,s2)+dp(s1,s2\cup fac_i)&amp;amp;&amp;amp;(fa
   &lt;li&gt;答案：&lt;/li&gt;
 &lt;/ul&gt;
 
-\[\sum _{s1,s2 \subset P}{dp(s1,s2)\ (s1\cap s2=0))}\]
+\[\sum _{s1,s2 \subset P}{dp(s1,s2)\ (s1\cap s2=\varnothing))}\]
 
 &lt;p&gt;复杂度 $O(n\times2^{20})$，能得 30 分。&lt;/p&gt;
 
@@ -512,7 +512,7 @@ dp(s1,s2\cup fac_i)\leftarrow dp(s1,s2)+dp(s1,s2\cup fac_i)&amp;amp;&amp;amp;(fa
 
 &lt;p&gt;考虑如下 dp：&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;$dp(s1,s2)$ 含义与**暴力 1 **中的差不多，只不过这里的 s1，s2 只状压了前 8 个质数的状态。&lt;/li&gt;
+  &lt;li&gt;$dp(s1,s2)$ 含义与 &lt;strong&gt;暴力 1&lt;/strong&gt; 中的差不多，只不过这里的 s1，s2 只状压了前 8 个质数的状态。&lt;/li&gt;
   &lt;li&gt;每次进入一个新的连续段，把 dp 中的值复制到 t1，t2 中。
     &lt;ul&gt;
       &lt;li&gt;用 $dp(s1,s2)$ 表示这个连续段中的数&lt;strong&gt;只被小 G 选或不被选&lt;/strong&gt;的情况数&lt;/li&gt;

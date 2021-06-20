@@ -61,7 +61,7 @@ layout: default
 				{{ content }}
 				{% if site.copyright.enable %}
 				<hr></hr>
-				<p>作者：<a target="_blank">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="{{page.url}}">本文链接</a></p>
+				<p>作者：<a href="{{ site.baseurl }}/">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="{{page.url}}">本文链接</a></p>
                 {% endif %}
                 {% if site.valine.enable %}
                 <span id="{{page.url}}" class="leancloud-visitors">
