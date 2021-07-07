@@ -200,7 +200,7 @@
                 post-container">
 				<p>参考 <a href="https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp">肖然的博客</a></p>
 
-<h2 id="什么是四边形不等式">什么是四边形不等式</h2>
+<h2 id="四边形不等式">四边形不等式</h2>
 
 <h3 id="原形式">原形式</h3>
 
@@ -394,7 +394,94 @@ dp(i,j)=&amp;\min_{k\in[i,j)}(dp(i-1,k)+w(k+1,j))\cr
   <li>$\forall a\le b\le c\le d, w(a,d) \ge w(b,c)$</li>
 </ul>
 
-<p>可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$。</p>
+<p>可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$，k 只需在这个范围内枚举，复杂度变为 $O(n^2)$，不会证，详见 <a href="https://oi-wiki.org/dp/opt/quadrangle/#2d1d">OI-wiki</a>。
+实际运用中打个表就知道满不满足决策单调性了。</p>
+
+<h3 id="acwing-282-石子合并">AcWing 282. 石子合并</h3>
+
+<p>转移：</p>
+
+\[dp(i,j)=\min_{k\in[i,j)}(dp(i,k)+dp(k+1,j))+\underbrace{s[j]-s[i-1]}_{w(i,j)};\]
+
+<p>$w(i,j)$ 满足条件，所以有决策单调性。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MXN=305;
+int n,arr[MXN],dp[MXN][MXN],t[MXN][MXN];
+int main(){
+	scanf("%d",&amp;n);
+	for(int i=1;i&lt;=n;i++){
+		scanf("%d",arr+i);
+		t[i][i]=i;
+		arr[i]+=arr[i-1];
+	}
+	for(int i=n;i;i--)
+		for(int j=i+1;j&lt;=n;j++){
+		    dp[i][j]=1e9;
+			for(int k=t[i][j-1];k&lt;=t[i+1][j];k++)
+				if(dp[i][j]&gt;dp[i][k]+dp[k+1][j]){
+					dp[i][j]=dp[i][k]+dp[k+1][j];
+					t[i][j]=k;
+				}
+			dp[i][j]+=arr[j]-arr[i-1];
+		}
+	/*for(int i=1;i&lt;=n;i++,putchar('\n'))
+		for(int j=1;j&lt;=n;j++)
+			printf("%3d",t[i][j]);*/
+	printf("%d",dp[1][n]);
+	return 0;
+}
+</code></pre>
+
+<h3 id="acwing-336-邮局">AcWing 336. 邮局</h3>
+
+<p>山区建小学，每个区间都建在中位数上，依然有决策单调性。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MXP=35;
+const int MXN=305;
+int n,p,x[MXN],sx[MXN];
+int dp[MXP][MXN],t[MXP][MXN];
+inline int w(int l,int r){
+	int mid=(l+r)&gt;&gt;1;
+	return sx[r]+sx[l-1]-(sx[mid]&lt;&lt;1)+x[mid]*((mid&lt;&lt;1)-l-r+1);
+}
+int main(){
+	scanf("%d%d",&amp;n,&amp;p);
+	for(int i=1;i&lt;=n;i++){
+		scanf("%d",x+i);
+		sx[i]=sx[i-1]+x[i];
+		if(i&lt;=p)t[i+1][i]=i-1;
+	}
+	memset(dp,0x3f,sizeof(dp));
+	dp[0][0]=0;
+	for(int j=1;j&lt;=n;j++){
+		t[p+1][j]=j-1;
+		for(int i=min(j,p);i;i--)
+			for(int k=t[i][j-1];k&lt;=t[i+1][j];k++){
+				if(dp[i][j]&gt;dp[i-1][k]+w(k+1,j)){
+					dp[i][j]=dp[i-1][k]+w(k+1,j);
+					t[i][j]=k;
+				}
+			}
+	}
+	/*
+	for(int i=1;i&lt;=p+1;i++,putchar('\n'))
+		for(int j=1;j&lt;=n;j++)
+			cerr&lt;&lt;t[i][j]&lt;&lt;" ";
+			*/
+
+	printf("%d",dp[p][n]);
+
+	return 0;
+}
+</code></pre>
 
 				
 				<hr></hr>

@@ -5,15 +5,15 @@
     <description>路漫漫其修远兮，吾将上下而求索。</description>
     <link>https://blog-e.tk/</link>
     <atom:link href="https://blog-e.tk/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 07 Jul 2021 16:31:10 +0800</pubDate>
-    <lastBuildDate>Wed, 07 Jul 2021 16:31:10 +0800</lastBuildDate>
+    <pubDate>Wed, 07 Jul 2021 17:45:57 +0800</pubDate>
+    <lastBuildDate>Wed, 07 Jul 2021 17:45:57 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>四边形不等式优化学习笔记</title>
         <description>&lt;p&gt;参考 &lt;a href=&quot;https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp&quot;&gt;肖然的博客&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;什么是四边形不等式&quot;&gt;什么是四边形不等式&lt;/h2&gt;
+&lt;h2 id=&quot;四边形不等式&quot;&gt;四边形不等式&lt;/h2&gt;
 
 &lt;h3 id=&quot;原形式&quot;&gt;原形式&lt;/h3&gt;
 
@@ -207,7 +207,94 @@ dp(i,j)=&amp;amp;\min_{k\in[i,j)}(dp(i-1,k)+w(k+1,j))\cr
   &lt;li&gt;$\forall a\le b\le c\le d, w(a,d) \ge w(b,c)$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$。&lt;/p&gt;
+&lt;p&gt;可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$，k 只需在这个范围内枚举，复杂度变为 $O(n^2)$，不会证，详见 &lt;a href=&quot;https://oi-wiki.org/dp/opt/quadrangle/#2d1d&quot;&gt;OI-wiki&lt;/a&gt;。
+实际运用中打个表就知道满不满足决策单调性了。&lt;/p&gt;
+
+&lt;h3 id=&quot;acwing-282-石子合并&quot;&gt;AcWing 282. 石子合并&lt;/h3&gt;
+
+&lt;p&gt;转移：&lt;/p&gt;
+
+\[dp(i,j)=\min_{k\in[i,j)}(dp(i,k)+dp(k+1,j))+\underbrace{s[j]-s[i-1]}_{w(i,j)};\]
+
+&lt;p&gt;$w(i,j)$ 满足条件，所以有决策单调性。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;代码：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cpp&quot;&gt;#include&amp;lt;bits/stdc++.h&amp;gt;
+using namespace std;
+const int MXN=305;
+int n,arr[MXN],dp[MXN][MXN],t[MXN][MXN];
+int main(){
+	scanf(&quot;%d&quot;,&amp;amp;n);
+	for(int i=1;i&amp;lt;=n;i++){
+		scanf(&quot;%d&quot;,arr+i);
+		t[i][i]=i;
+		arr[i]+=arr[i-1];
+	}
+	for(int i=n;i;i--)
+		for(int j=i+1;j&amp;lt;=n;j++){
+		    dp[i][j]=1e9;
+			for(int k=t[i][j-1];k&amp;lt;=t[i+1][j];k++)
+				if(dp[i][j]&amp;gt;dp[i][k]+dp[k+1][j]){
+					dp[i][j]=dp[i][k]+dp[k+1][j];
+					t[i][j]=k;
+				}
+			dp[i][j]+=arr[j]-arr[i-1];
+		}
+	/*for(int i=1;i&amp;lt;=n;i++,putchar('\n'))
+		for(int j=1;j&amp;lt;=n;j++)
+			printf(&quot;%3d&quot;,t[i][j]);*/
+	printf(&quot;%d&quot;,dp[1][n]);
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;acwing-336-邮局&quot;&gt;AcWing 336. 邮局&lt;/h3&gt;
+
+&lt;p&gt;山区建小学，每个区间都建在中位数上，依然有决策单调性。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;代码：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cpp&quot;&gt;#include&amp;lt;bits/stdc++.h&amp;gt;
+using namespace std;
+const int MXP=35;
+const int MXN=305;
+int n,p,x[MXN],sx[MXN];
+int dp[MXP][MXN],t[MXP][MXN];
+inline int w(int l,int r){
+	int mid=(l+r)&amp;gt;&amp;gt;1;
+	return sx[r]+sx[l-1]-(sx[mid]&amp;lt;&amp;lt;1)+x[mid]*((mid&amp;lt;&amp;lt;1)-l-r+1);
+}
+int main(){
+	scanf(&quot;%d%d&quot;,&amp;amp;n,&amp;amp;p);
+	for(int i=1;i&amp;lt;=n;i++){
+		scanf(&quot;%d&quot;,x+i);
+		sx[i]=sx[i-1]+x[i];
+		if(i&amp;lt;=p)t[i+1][i]=i-1;
+	}
+	memset(dp,0x3f,sizeof(dp));
+	dp[0][0]=0;
+	for(int j=1;j&amp;lt;=n;j++){
+		t[p+1][j]=j-1;
+		for(int i=min(j,p);i;i--)
+			for(int k=t[i][j-1];k&amp;lt;=t[i+1][j];k++){
+				if(dp[i][j]&amp;gt;dp[i-1][k]+w(k+1,j)){
+					dp[i][j]=dp[i-1][k]+w(k+1,j);
+					t[i][j]=k;
+				}
+			}
+	}
+	/*
+	for(int i=1;i&amp;lt;=p+1;i++,putchar('\n'))
+		for(int j=1;j&amp;lt;=n;j++)
+			cerr&amp;lt;&amp;lt;t[i][j]&amp;lt;&amp;lt;&quot; &quot;;
+			*/
+
+	printf(&quot;%d&quot;,dp[p][n]);
+
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Tue, 22 Jun 2021 00:00:00 +0800</pubDate>
         <link>https://blog-e.tk/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
