@@ -1,9 +1,0 @@
-I"�<p>最近，我跟我的几个小伙伴写了一个黑白棋的AI，采用梯度下降法计算估价权值，minmax搜索计算棋步，又加以诸多优化，目前在botzone（一个挺专业的AI对战网站，上有许多大学生基于高级算法编写的程序），排名已经进入了100名大关（总共400个程序），并战胜了不少黑白棋游戏ai。</p>
-
-<!--more-->
-<p>下为论文（可以滑动观看）</p>
-
-<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fblog%2De%2Ega%3A443%2Fdemo%2FReversiAi%2Edocx&amp;wdStartOn=1" width="100%" height="500px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> document, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
-
-<p>这里是我们的项目地址：<a href="https://github.com/bdfzoier/Reversi">https://github.com/bdfzoier/Reversi</a>，大家如果有兴趣的话可以看看，欢迎star，fork！</p>
-:ET
