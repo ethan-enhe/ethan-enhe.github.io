@@ -34,9 +34,8 @@
     <!-- Pygments Github CSS -->
 	<link rel="stylesheet" href="/css/prism.css">
     <!-- Custom Fonts -->
-    <!-- ethan change font-awesome 4 to 5 -->
 	<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
-
+	<script src="https://cdn.bootcdn.net/ajax/libs/instant.page/5.1.0/instantpage.min.js"></script>
 
     <!-- ga & ba script hoook -->
     <script></script>
@@ -380,7 +379,22 @@ int main(){
 	return 0;
 }
 </code></pre>
+<h2 id="2d1d">2D1D</h2>
 
+<p>对于形式如下的 dp 转移：</p>
+
+\[\begin{aligned}
+dp(i,j)=&amp;\min_{k\in[i,j)}(dp(i,k)+dp(k+1,j))+w(i,j)\cr
+dp(i,j)=&amp;\min_{k\in[i,j)}(dp(i-1,k)+w(k+1,j))\cr
+\end{aligned}\]
+
+<p>且：</p>
+<ul>
+  <li>函数 w 满足四边形不等式</li>
+  <li>$\forall a\le b\le c\le d, w(a,d) \ge w(b,c)$</li>
+</ul>
+
+<p>可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$。</p>
 
 				
 				<hr></hr>

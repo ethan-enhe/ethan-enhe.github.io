@@ -5,8 +5,8 @@
     <description>路漫漫其修远兮，吾将上下而求索。</description>
     <link>https://blog-e.tk/</link>
     <atom:link href="https://blog-e.tk/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 07 Jul 2021 12:35:31 +0800</pubDate>
-    <lastBuildDate>Wed, 07 Jul 2021 12:35:31 +0800</lastBuildDate>
+    <pubDate>Wed, 07 Jul 2021 16:31:10 +0800</pubDate>
+    <lastBuildDate>Wed, 07 Jul 2021 16:31:10 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -192,7 +192,22 @@ int main(){
 	return 0;
 }
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;2d1d&quot;&gt;2D1D&lt;/h2&gt;
 
+&lt;p&gt;对于形式如下的 dp 转移：&lt;/p&gt;
+
+\[\begin{aligned}
+dp(i,j)=&amp;amp;\min_{k\in[i,j)}(dp(i,k)+dp(k+1,j))+w(i,j)\cr
+dp(i,j)=&amp;amp;\min_{k\in[i,j)}(dp(i-1,k)+w(k+1,j))\cr
+\end{aligned}\]
+
+&lt;p&gt;且：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;函数 w 满足四边形不等式&lt;/li&gt;
+  &lt;li&gt;$\forall a\le b\le c\le d, w(a,d) \ge w(b,c)$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$。&lt;/p&gt;
 </description>
         <pubDate>Tue, 22 Jun 2021 00:00:00 +0800</pubDate>
         <link>https://blog-e.tk/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>

@@ -1,4 +1,4 @@
-I"R<p>参考 <a href="https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp">肖然的博客</a></p>
+I"�<p>参考 <a href="https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp">肖然的博客</a></p>
 
 <h2 id="什么是四边形不等式">什么是四边形不等式</h2>
 
@@ -54,7 +54,7 @@ w(p(i),i+1)+w(j,i)&amp;\le w(p(i),i)+w(j,i+1)
 
 <p>所以 $p(i+1)\ge p(i)$。</p>
 
-<h4 id="p3515-poi2011lightning-conductor">P3515 [POI2011]Lightning Conductor</h4>
+<h3 id="p3515-poi2011lightning-conductor">P3515 [POI2011]Lightning Conductor</h3>
 
 <p><del>老师的代码交到黑暗爆炸 OJ 被卡了</del></p>
 
@@ -105,7 +105,7 @@ int main(){
 }
 </code></pre>
 
-<h4 id="p1912-noi2009-诗人小g">P1912 [NOI2009] 诗人小G</h4>
+<h3 id="p1912-noi2009-诗人小g">P1912 [NOI2009] 诗人小G</h3>
 
 <p>依然有决策单调性，推导甚是麻烦，略。这个答案超过 1e18 不太好搞，不妨用 <code>long double</code> 存答案，最后再判。</p>
 
@@ -179,5 +179,20 @@ int main(){
 	return 0;
 }
 </code></pre>
+<h2 id="2d1d">2D1D</h2>
 
+<p>对于形式如下的 dp 转移：</p>
+
+\[\begin{aligned}
+dp(i,j)=&amp;\min_{k\in[i,j)}(dp(i,k)+dp(k+1,j))+w(i,j)\cr
+dp(i,j)=&amp;\min_{k\in[i,j)}(dp(i-1,k)+w(k+1,j))\cr
+\end{aligned}\]
+
+<p>且：</p>
+<ul>
+  <li>函数 w 满足四边形不等式</li>
+  <li>$\forall a\le b\le c\le d, w(a,d) \ge w(b,c)$</li>
+</ul>
+
+<p>可以证明 $p(i,j-1) \le p(i,j) \le p(i+1,j)$。</p>
 :ET
