@@ -181,6 +181,47 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <h2 class="post-title">
+            四边形不等式优化学习笔记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            学会，但没完全学会
+        </h3>
+        
+        <div class="post-content-preview">
+			参考 肖然的博客
+
+什么是四边形不等式
+
+原形式
+
+
+  有一个双变量函数 $f(x,y)$，如果对于 $\forall a\le b\le c\le d$，都满足 $f(a,d)+f(b,c)\ge f(a,c)+f(b,d)$ 则称其满足 四边形不等式。
+
+
+等价形式
+
+
+  对于 $\forall a&lt;b$，都有 $f(a,b+1)+f(a+1,b)\ge f(a,b)+f(a+1,b+1)$。
+
+
+这一形式的必要性显然，下证其充分性：
+
+若 $a+1&lt;b$ 则：
+
+\[\begin{aligned}
+f(a,b+1)+f(a+1,b)&amp;\ge f(a,b)+f...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on June 22, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <h2 class="post-title">
             斯特林数学习笔记
@@ -479,44 +520,6 @@ inline void solve(){
     </a>
     <p class="post-meta">
         Posted by ethan-zhou on February 9, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/">
-        <h2 class="post-title">
-            【题解】P7287魔法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            听说有1log做法？
-        </h3>
-        
-        <div class="post-content-preview">
-			题目在此：P7287
-
-结论
-
-
-  所有的 1 操作一定在所有的 2 操作之前进行
-  每个 1 操作的范围一定是 [1,n]
-  每次 2 操作都是对当前序列的最大字段和那个区间进行的。
-  最终选的区间是最终序列的最大子段和
-
-
-1，2，4 都很显然，3 结论可感性理解（这个野鸡博主不会证）：
-
-如果每次都选那个最大子段和进行操作，那得到的结果一定是最优的。
-否则一旦在操作过程中有操作的区间不是最大子段和区间的话，在进行同样次操作之后的结果是不优的。
-
-算法
-
-现在，我们只需要知道 1 操作以及 2 操作的次数，就能算出最终数列的最大最大字段和。接着观察发现2操作的次数是不超过\(...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ethan-zhou on January 25, 2021
     </p>
 </div>
 <hr>

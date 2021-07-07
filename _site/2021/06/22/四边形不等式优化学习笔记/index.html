@@ -10,7 +10,7 @@
     <meta name="keywords"  content="算法竞赛，天文">
     <meta name="theme-color" content="#000000">
     
-    <title>斯特林数学习笔记 - Blog E</title>
+    <title>四边形不等式优化学习笔记 - Blog E</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://blog-e.tk/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link rel="canonical" href="https://blog-e.tk/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <!-- Bootstrap Core CSS -->
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -172,17 +172,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#组合" title="组合">组合</a>
+                        <a class="tag" href="/tags/#dp" title="dp">dp</a>
                         
                         <a class="tag" href="/tags/#笔记" title="笔记">笔记</a>
                         
                     </div>
-                    <h1>斯特林数学习笔记</h1>
+                    <h1>四边形不等式优化学习笔记</h1>
                     
                     
-                    <h2 class="subheading">怎么感觉组合数用 C 几几更方便写</h2>
+                    <h2 class="subheading">学会，但没完全学会</h2>
                     
-                    <span class="meta">Posted by ethan-zhou on June 18, 2021</span>
+                    <span class="meta">Posted by ethan-zhou on June 22, 2021</span>
                 </div>
             </div>
         </div>
@@ -199,88 +199,195 @@
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
-				<h2 id="第一类斯特林数">第一类斯特林数</h2>
-<h3 id="几何意义">几何意义</h3>
-<p>把 n 各不同的数放进为 k 个环的方案数，用 $\begin{bmatrix}n\cr k\end{bmatrix}$ 表示。</p>
+				<p>参考 <a href="https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp">肖然的博客</a></p>
 
-<h3 id="代数意义">代数意义</h3>
+<h2 id="什么是四边形不等式">什么是四边形不等式</h2>
+
+<h3 id="原形式">原形式</h3>
+
+<blockquote>
+  <p>有一个双变量函数 $f(x,y)$，如果对于 $\forall a\le b\le c\le d$，都满足 $f(a,d)+f(b,c)\ge f(a,c)+f(b,d)$ 则称其满足 <strong>四边形不等式</strong>。</p>
+</blockquote>
+
+<h3 id="等价形式">等价形式</h3>
+
+<blockquote>
+  <p>对于 $\forall a&lt;b$，都有 $f(a,b+1)+f(a+1,b)\ge f(a,b)+f(a+1,b+1)$。</p>
+</blockquote>
+
+<p>这一形式的必要性显然，下证其充分性：</p>
+
+<p>若 $a+1&lt;b$ 则：</p>
 
 \[\begin{aligned}
-x^{\overline{n}}&amp;=\sum_{i=1}^n \begin{bmatrix}n\cr i\end{bmatrix}x^i\cr
-x^{\underline{n}}&amp;=\sum_{i=1}^n (-1)^{n-i}\begin{bmatrix}n\cr i\end{bmatrix}x^i
+f(a,b+1)+f(a+1,b)&amp;\ge f(a,b)+f(a+1,b+1)\cr
+f(a+1,b+1)+f(a+2,b)&amp;\ge f(a+1,b)+f(a+2,b+1)
 \end{aligned}\]
 
-<h3 id="计算方式">计算方式</h3>
+<p>两式相加，得</p>
 
-<p>$O(nk)$ 递推：</p>
+\[f(a,b+1)+f(a+2,b)\ge f(a,b)+f(a+2,b+1)\]
 
-\[\begin{bmatrix}n\cr k\end{bmatrix}=(n-1)\begin{bmatrix}n-1\cr k\end{bmatrix}+\begin{bmatrix}n-1\cr k-1\end{bmatrix}\]
+<p>原来的 a+1 可以扩展到 a+2，用类似方法，可扩展成：</p>
 
-<h2 id="第二类斯特林数">第二类斯特林数</h2>
+\[\forall a^{\prime}&gt;a,f(a,b+1)+f(a^{\prime},b)\ge f(a,b)+f(a^{\prime},b+1)\]
 
-<h3 id="组合意义">组合意义</h3>
-<p>把 n 各不同的数放进为 k 个非空集合的方案数，用 $\begin{Bmatrix}n\cr k\end{Bmatrix}$ 表示。</p>
+<p>b 的扩展方式类似，就是把原式带入 $b^{\prime}=b-1$ 然后相加即可。</p>
 
-<h3 id="代数意义-1">代数意义</h3>
+<h2 id="1d1d">1D1D</h2>
 
-\[\begin{aligned}i^k&amp;=&amp;&amp;\sum_{j=1}^k i^{\underline{j}}\begin{Bmatrix}k\cr j\end{Bmatrix}\cr &amp;=&amp;&amp;\sum_{j=1}^k \binom i j j! \begin{Bmatrix}k\cr j\end{Bmatrix}\cr \end{aligned}\]
+\[dp(i)=\min_{j&lt;i}(dp(j)+w(j,i))\]
 
-<h3 id="计算方式-1">计算方式</h3>
+<p>其中 w 函数满足四边形不等式时，转移具有 <strong>决策单调性</strong>，每次的决策点都在上次的后头，下证之：</p>
 
-<p>$O(nk)$ 递推：</p>
+<p><strong>单调性证明</strong></p>
 
-\[\begin{Bmatrix}n\cr k\end{Bmatrix}=k\begin{Bmatrix}n-1\cr k\end{Bmatrix}+\begin{Bmatrix}n-1\cr k-1\end{Bmatrix}\]
+<p>设第 i 项的决策点为 $p(i)$，则对 $\forall j&lt;i$：</p>
 
-<p>$O(k \log n)$ 容斥：</p>
+\[\begin{aligned}
+dp(p(i))+w(p(i),i)&amp;\le dp(j)+w(j,i)\cr
+w(p(i),i+1)+w(j,i)&amp;\le w(p(i),i)+w(j,i+1)
+\end{aligned}\]
 
-\[\begin{Bmatrix}n\cr k\end{Bmatrix}=\frac 1 {k!}\sum_{i=0}^k (-1)^i \binom k i (k-i)^n\]
+<p>两式相加，得：</p>
 
-<h2 id="斯特林反演">斯特林反演</h2>
+\[dp(p(i))+w(p(i),i+1)\le dp(j)+w(j,i+1)\]
 
-<h3 id="哪些题可能是斯特林反演">哪些题可能是斯特林反演</h3>
+<p>所以 $p(i+1)\ge p(i)$。</p>
 
-<ul>
-  <li>求和 $\sum_{i=1}^n (\cdots) i^k$</li>
-  <li>n 超级大，但 $k^2$ 能过</li>
-</ul>
+<h3 id="p3515-poi2011lightning-conductor">P3515 [POI2011]Lightning Conductor</h3>
 
-<h3 id="步骤">步骤</h3>
+<p><del>老师的代码交到黑暗爆炸 OJ 被卡了</del></p>
 
-<ul>
-  <li>反演</li>
-</ul>
+<p>把原式移项，得 $p=\max(a_j-a_i+\sqrt{|i-j|)}$，发现满足决策单调性，只需正着搞一遍，反着搞一遍即可。</p>
 
-\[\begin{aligned}i^k&amp;=&amp;&amp;\sum_{j=1}^k i^{\underline{j}}\begin{Bmatrix}k\cr j\end{Bmatrix}\cr &amp;=&amp;&amp;\sum_{j=1}^k \binom i j j! \begin{Bmatrix}k\cr j\end{Bmatrix}\cr \end{aligned}\]
+<p><strong>代码：</strong></p>
 
-<ul>
-  <li>换序求和</li>
-</ul>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef pair&lt;int,int&gt; pi;
+const int MXN=5e5+5;
+int n,arr[MXN];
+double p1[MXN],p2[MXN];
+template&lt;class T1,class T2&gt;
+struct pr{
+	T1 fi;T2 se;
+	inline pr(T1 fi=0,T2 se=0):fi(fi),se(se){}
+};
+pr&lt;int,int&gt; q[MXN];int ql,qr;
+inline double f(int i,int j){return sqrt(i-j)+arr[j]-arr[i];}
+inline void solve(double *p){
+	ql=1,qr=0;
+	for(int i=1;i&lt;=n;i++){
+		while(ql&lt;=qr &amp;&amp; f(max(q[qr].se,i),i)&gt;=f(max(q[qr].se,i),q[qr].fi))qr--;
+		if(ql&gt;qr)q[++qr]=pr&lt;int,int&gt;(i,1);
+		else{
+			int l=max(i,q[qr].fi),r=n+1;
+			while(l&lt;r){
+				int mid=(l+r)&gt;&gt;1;
+				f(mid,i)&gt;=f(mid,q[qr].fi)?r=mid:l=mid+1;
+			}
+			q[++qr]=pr&lt;int,int&gt;(i,l);
+		}
+		while(ql&lt;qr &amp;&amp; q[ql+1].se&lt;=i)ql++;
+		p[i]=f(i,q[ql].fi);
+	}
+}
 
-\[=\sum_{j=1}^k j! \begin{Bmatrix}k\cr j\end{Bmatrix}\sum_{i=1}^n \binom i j (\cdots)\]
+int main(){
+	scanf("%d",&amp;n);
+	for(int i=1;i&lt;=n;i++)scanf("%d",arr+i);
+	solve(p1);
+	reverse(arr+1,arr+1+n);
+	solve(p2);
+	for(int i=1;i&lt;=n;i++)
+		printf("%d\n",(int)ceil(max(p1[i],p2[n-i+1])));
+	return 0;
+}
+</code></pre>
 
-<ul>
-  <li>化简后面一部分：
-    <ul>
-      <li>重组组合数，尽量多凑成与 i 无关的形式，比如：</li>
-    </ul>
+<h3 id="p1912-noi2009-诗人小g">P1912 [NOI2009] 诗人小G</h3>
 
-\[\sum_{i=1}^n \binom i j \binom n i=\binom n j \sum_{i=1}^n \binom {n-j} {i-j}\]
+<p>依然有决策单调性，推导甚是麻烦，略。这个答案超过 1e18 不太好搞，不妨用 <code>long double</code> 存答案，最后再判。</p>
 
-    <ul>
-      <li>利用组合意义求和，比如：</li>
-    </ul>
+<p><strong>代码：（加了快读就是最优解）</strong></p>
 
-\[\sum_{i=1}^n \binom i j=\binom {n+1}{j+1}\]
-  </li>
-</ul>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+template&lt;class T1,class T2&gt;struct pr{T1 x;T2 y;};
+template&lt;class T1,class T2&gt;inline pr&lt;T1,T2&gt; mp(T1 x,T2 y){return pr&lt;T1,T2&gt;{x,y};}
+
+typedef long long ll;
+typedef long double ld;
+const int MXN=1e5+5;
+const int MXS=35;
+int t,n,stdlen,p,len[MXN];
+char str[MXN][MXS];
+
+inline ld qpow(ld x,int y){
+	ld r=1;
+	while(y){
+		if(y&amp;1)r*=x;
+		x*=x,y&gt;&gt;=1;
+	}
+	return r;
+}
+#define w(x,y) (dp[x]+qpow(abs(len[y]-len[x]-stdlen),p))
+
+
+
+int ql,qr,tran[MXN];
+pr&lt;int,int&gt; q[MXN];
+ld dp[MXN];
+int main(){
+	scanf("%d",&amp;t);
+	while(t--){
+		scanf("%d%d%d",&amp;n,&amp;stdlen,&amp;p);stdlen++;
+		q[qr=ql=1]=mp(0,1);
+		for(int i=1;i&lt;=n;i++){
+			str[i][0]=0;
+			scanf("%s",str[i]+1);
+			len[i]=strlen(str[i]+1)+len[i-1]+1;
+		}
+		for(int i=1;i&lt;=n;i++){
+			while(ql&lt;qr &amp;&amp; q[ql+1].y&lt;=i)ql++;
+			tran[i]=q[ql].x;
+			dp[i]=w(tran[i],i);
+
+			while(ql&lt;=qr &amp;&amp; w(i,q[qr].y)&lt;w(q[qr].x,q[qr].y))qr--;
+			if(ql&gt;qr)q[++qr]=mp(i,i);
+			else{
+				int l=q[qr].y,r=n+1,mid;
+				while(l&lt;r){
+					mid=(l+r)&gt;&gt;1;
+					if(w(i,mid)&lt;w(q[qr].x,mid))r=mid;
+					else l=mid+1;
+				}
+				if(l&lt;=n)q[++qr]=mp(i,l);
+			}
+		}
+		if(dp[n]&gt;1e18)printf("Too hard to arrange\n");
+		else{
+			printf("%lld\n",(ll)dp[n]);
+			for(int i=n;i;i=tran[i])str[i][0]=-1;
+			for(int i=1;i&lt;=n;i++){
+				printf("%s",str[i]+1);
+				putchar(str[i][0]?'\n':' ');
+			}
+		}
+		puts("--------------------");
+	}
+	return 0;
+}
+</code></pre>
 
 
 				
 				<hr></hr>
-				<p>作者：<a href="/">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">本文链接</a></p>
+				<p>作者：<a href="/">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">本文链接</a></p>
                 
                 
-                <span id="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="leancloud-visitors">
+                <span id="/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="leancloud-visitors">
                     <em class="post-meta-item-text">阅读量 </em>
                     <i class="leancloud-visitors-count"></i>
                 </span>
@@ -291,19 +398,12 @@ x^{\underline{n}}&amp;=\sum_{i=1}^n (-1)^{n-i}\begin{bmatrix}n\cr i\end{bmatrix}
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/06/07/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="斜率优化学习笔记">
+                        <a href="/2021/06/18/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="斯特林数学习笔记">
                         Previous<br>
-                        <span>斜率优化学习笔记</span>
+                        <span>斯特林数学习笔记</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="四边形不等式优化学习笔记">
-                        Next<br>
-                        <span>四边形不等式优化学习笔记</span>
-                        </a>
-                    </li>
                     
                 </ul>
 

@@ -1,0 +1,183 @@
+I"R<p>参考 <a href="https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp">肖然的博客</a></p>
+
+<h2 id="什么是四边形不等式">什么是四边形不等式</h2>
+
+<h3 id="原形式">原形式</h3>
+
+<blockquote>
+  <p>有一个双变量函数 $f(x,y)$，如果对于 $\forall a\le b\le c\le d$，都满足 $f(a,d)+f(b,c)\ge f(a,c)+f(b,d)$ 则称其满足 <strong>四边形不等式</strong>。</p>
+</blockquote>
+
+<h3 id="等价形式">等价形式</h3>
+
+<blockquote>
+  <p>对于 $\forall a&lt;b$，都有 $f(a,b+1)+f(a+1,b)\ge f(a,b)+f(a+1,b+1)$。</p>
+</blockquote>
+
+<p>这一形式的必要性显然，下证其充分性：</p>
+
+<p>若 $a+1&lt;b$ 则：</p>
+
+\[\begin{aligned}
+f(a,b+1)+f(a+1,b)&amp;\ge f(a,b)+f(a+1,b+1)\cr
+f(a+1,b+1)+f(a+2,b)&amp;\ge f(a+1,b)+f(a+2,b+1)
+\end{aligned}\]
+
+<p>两式相加，得</p>
+
+\[f(a,b+1)+f(a+2,b)\ge f(a,b)+f(a+2,b+1)\]
+
+<p>原来的 a+1 可以扩展到 a+2，用类似方法，可扩展成：</p>
+
+\[\forall a^{\prime}&gt;a,f(a,b+1)+f(a^{\prime},b)\ge f(a,b)+f(a^{\prime},b+1)\]
+
+<p>b 的扩展方式类似，就是把原式带入 $b^{\prime}=b-1$ 然后相加即可。</p>
+
+<h2 id="1d1d">1D1D</h2>
+
+\[dp(i)=\min_{j&lt;i}(dp(j)+w(j,i))\]
+
+<p>其中 w 函数满足四边形不等式时，转移具有 <strong>决策单调性</strong>，每次的决策点都在上次的后头，下证之：</p>
+
+<p><strong>单调性证明</strong></p>
+
+<p>设第 i 项的决策点为 $p(i)$，则对 $\forall j&lt;i$：</p>
+
+\[\begin{aligned}
+dp(p(i))+w(p(i),i)&amp;\le dp(j)+w(j,i)\cr
+w(p(i),i+1)+w(j,i)&amp;\le w(p(i),i)+w(j,i+1)
+\end{aligned}\]
+
+<p>两式相加，得：</p>
+
+\[dp(p(i))+w(p(i),i+1)\le dp(j)+w(j,i+1)\]
+
+<p>所以 $p(i+1)\ge p(i)$。</p>
+
+<h4 id="p3515-poi2011lightning-conductor">P3515 [POI2011]Lightning Conductor</h4>
+
+<p><del>老师的代码交到黑暗爆炸 OJ 被卡了</del></p>
+
+<p>把原式移项，得 $p=\max(a_j-a_i+\sqrt{|i-j|)}$，发现满足决策单调性，只需正着搞一遍，反着搞一遍即可。</p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef pair&lt;int,int&gt; pi;
+const int MXN=5e5+5;
+int n,arr[MXN];
+double p1[MXN],p2[MXN];
+template&lt;class T1,class T2&gt;
+struct pr{
+	T1 fi;T2 se;
+	inline pr(T1 fi=0,T2 se=0):fi(fi),se(se){}
+};
+pr&lt;int,int&gt; q[MXN];int ql,qr;
+inline double f(int i,int j){return sqrt(i-j)+arr[j]-arr[i];}
+inline void solve(double *p){
+	ql=1,qr=0;
+	for(int i=1;i&lt;=n;i++){
+		while(ql&lt;=qr &amp;&amp; f(max(q[qr].se,i),i)&gt;=f(max(q[qr].se,i),q[qr].fi))qr--;
+		if(ql&gt;qr)q[++qr]=pr&lt;int,int&gt;(i,1);
+		else{
+			int l=max(i,q[qr].fi),r=n+1;
+			while(l&lt;r){
+				int mid=(l+r)&gt;&gt;1;
+				f(mid,i)&gt;=f(mid,q[qr].fi)?r=mid:l=mid+1;
+			}
+			q[++qr]=pr&lt;int,int&gt;(i,l);
+		}
+		while(ql&lt;qr &amp;&amp; q[ql+1].se&lt;=i)ql++;
+		p[i]=f(i,q[ql].fi);
+	}
+}
+
+int main(){
+	scanf("%d",&amp;n);
+	for(int i=1;i&lt;=n;i++)scanf("%d",arr+i);
+	solve(p1);
+	reverse(arr+1,arr+1+n);
+	solve(p2);
+	for(int i=1;i&lt;=n;i++)
+		printf("%d\n",(int)ceil(max(p1[i],p2[n-i+1])));
+	return 0;
+}
+</code></pre>
+
+<h4 id="p1912-noi2009-诗人小g">P1912 [NOI2009] 诗人小G</h4>
+
+<p>依然有决策单调性，推导甚是麻烦，略。这个答案超过 1e18 不太好搞，不妨用 <code>long double</code> 存答案，最后再判。</p>
+
+<p><strong>代码：（加了快读就是最优解）</strong></p>
+
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+template&lt;class T1,class T2&gt;struct pr{T1 x;T2 y;};
+template&lt;class T1,class T2&gt;inline pr&lt;T1,T2&gt; mp(T1 x,T2 y){return pr&lt;T1,T2&gt;{x,y};}
+
+typedef long long ll;
+typedef long double ld;
+const int MXN=1e5+5;
+const int MXS=35;
+int t,n,stdlen,p,len[MXN];
+char str[MXN][MXS];
+
+inline ld qpow(ld x,int y){
+	ld r=1;
+	while(y){
+		if(y&amp;1)r*=x;
+		x*=x,y&gt;&gt;=1;
+	}
+	return r;
+}
+#define w(x,y) (dp[x]+qpow(abs(len[y]-len[x]-stdlen),p))
+
+
+
+int ql,qr,tran[MXN];
+pr&lt;int,int&gt; q[MXN];
+ld dp[MXN];
+int main(){
+	scanf("%d",&amp;t);
+	while(t--){
+		scanf("%d%d%d",&amp;n,&amp;stdlen,&amp;p);stdlen++;
+		q[qr=ql=1]=mp(0,1);
+		for(int i=1;i&lt;=n;i++){
+			str[i][0]=0;
+			scanf("%s",str[i]+1);
+			len[i]=strlen(str[i]+1)+len[i-1]+1;
+		}
+		for(int i=1;i&lt;=n;i++){
+			while(ql&lt;qr &amp;&amp; q[ql+1].y&lt;=i)ql++;
+			tran[i]=q[ql].x;
+			dp[i]=w(tran[i],i);
+
+			while(ql&lt;=qr &amp;&amp; w(i,q[qr].y)&lt;w(q[qr].x,q[qr].y))qr--;
+			if(ql&gt;qr)q[++qr]=mp(i,i);
+			else{
+				int l=q[qr].y,r=n+1,mid;
+				while(l&lt;r){
+					mid=(l+r)&gt;&gt;1;
+					if(w(i,mid)&lt;w(q[qr].x,mid))r=mid;
+					else l=mid+1;
+				}
+				if(l&lt;=n)q[++qr]=mp(i,l);
+			}
+		}
+		if(dp[n]&gt;1e18)printf("Too hard to arrange\n");
+		else{
+			printf("%lld\n",(ll)dp[n]);
+			for(int i=n;i;i=tran[i])str[i][0]=-1;
+			for(int i=1;i&lt;=n;i++){
+				printf("%s",str[i]+1);
+				putchar(str[i][0]?'\n':' ');
+			}
+		}
+		puts("--------------------");
+	}
+	return 0;
+}
+</code></pre>
+
+:ET

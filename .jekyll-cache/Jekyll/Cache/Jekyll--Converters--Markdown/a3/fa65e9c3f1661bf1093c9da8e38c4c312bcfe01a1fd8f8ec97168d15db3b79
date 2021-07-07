@@ -1,0 +1,64 @@
+I"�<p>参考 <a href="https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp">肖然的博客</a></p>
+
+<h2 id="什么是四边形不等式">什么是四边形不等式</h2>
+
+<h3 id="原形式">原形式</h3>
+
+<blockquote>
+  <p>有一个双变量函数 $f(x,y)$，如果对于 $\forall a\le b\le c\le d$，都满足 $f(a,d)+f(b,c)\ge f(a,c)+f(b,d)$ 则称其满足 <strong>四边形不等式</strong>。</p>
+</blockquote>
+
+<h3 id="等价形式">等价形式</h3>
+
+<blockquote>
+  <p>对于 $\forall a&lt;b$，都有 $f(a,b+1)+f(a+1,b)\ge f(a,b)+f(a+1,b+1)$。</p>
+</blockquote>
+
+<p>这一形式的必要性显然，下证其充分性：</p>
+
+<p>若 $a+1&lt;b$ 则：</p>
+
+\[\begin{aligned}
+f(a,b+1)+f(a+1,b)&amp;\ge f(a,b)+f(a+1,b+1)\cr
+f(a+1,b+1)+f(a+2,b)&amp;\ge f(a+1,b)+f(a+2,b+1)
+\end{aligned}\]
+
+<p>两式相加，得</p>
+
+\[f(a,b+1)+f(a+2,b)\ge f(a,b)+f(a+2,b+1)\]
+
+<p>原来的 a+1 可以扩展到 a+2，用类似方法，可扩展成：</p>
+
+\[\forall a^{\prime}&gt;a,f(a,b+1)+f(a^{\prime},b)\ge f(a,b)+f(a^{\prime},b+1)\]
+
+<p>b 的扩展方式类似，就是把原式带入 $b^{\prime}=b-1$ 然后相加即可。</p>
+
+<h2 id="优化-dp">优化 DP</h2>
+
+<h3 id="1d1d">1D1D</h3>
+
+\[dp(i)=\min_{j&lt;i}(dp(j)+w(j,i))\]
+
+<p>其中 w 函数满足四边形不等式时，转移具有 <strong>决策单调性</strong>，每次的决策点都在上次的后头，下证之：</p>
+
+<p><strong>单调性证明</strong></p>
+
+<p>设第 i 项的决策点为 $p(i)$，则对 $\forall j&lt;i$：</p>
+
+\[\begin{aligned}
+dp(p(i))+w(p(i),i)&amp;\le dp(j)+w(j,i)\cr
+w(p(i),i+1)+w(j,i)&amp;\le w(p(i),i)+w(j,i+1)
+\end{aligned}\]
+
+<p>两式相加，得：</p>
+
+\[dp(p(i))+w(p(i),i+1)\le dp(j)+w(j,i+1)\]
+
+<p>所以 $p(i+1)\ge p(i)$。</p>
+
+<h4 id="p3515-poi2011lightning-conductor">P3515 [POI2011]Lightning Conductor</h4>
+
+<p><del>老师的代码交到黑暗爆炸 OJ 被卡了</del></p>
+
+<p>把原式移项 $p\ge a_j-a_i+\sqrt{\abs{i-j}}$</p>
+:ET

@@ -181,6 +181,44 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/">
+        <h2 class="post-title">
+            【题解】P7287魔法
+        </h2>
+        
+        <h3 class="post-subtitle">
+            听说有1log做法？
+        </h3>
+        
+        <div class="post-content-preview">
+			题目在此：P7287
+
+结论
+
+
+  所有的 1 操作一定在所有的 2 操作之前进行
+  每个 1 操作的范围一定是 [1,n]
+  每次 2 操作都是对当前序列的最大字段和那个区间进行的。
+  最终选的区间是最终序列的最大子段和
+
+
+1，2，4 都很显然，3 结论可感性理解（这个野鸡博主不会证）：
+
+如果每次都选那个最大子段和进行操作，那得到的结果一定是最优的。
+否则一旦在操作过程中有操作的区间不是最大子段和区间的话，在进行同样次操作之后的结果是不优的。
+
+算法
+
+现在，我们只需要知道 1 操作以及 2 操作的次数，就能算出最终数列的最大最大字段和。接着观察发现2操作的次数是不超过\(...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by ethan-zhou on January 25, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/01/24/USACO%E4%B8%80%E6%9C%88%E6%9C%88%E8%B5%9B%E9%87%91%E7%BB%84%E6%B8%B8%E8%AE%B0/">
         <h2 class="post-title">
             USACO一月月赛金组游记
@@ -471,50 +509,6 @@ void dfs(int curn,long long curs,int tot){
     </a>
     <p class="post-meta">
         Posted by ethan-zhou on November 30, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/11/01/%E4%B8%A4%E6%AC%A1CSP-J%E6%A8%A1%E6%8B%9F/">
-        <h2 class="post-title">
-            两次CSP-J模拟
-        </h2>
-        
-        <h3 class="post-subtitle">
-            我该说什么
-        </h3>
-        
-        <div class="post-content-preview">
-			P.S. 本博客好像好久都没更了。。不是博主弃坑了，只是最近忙于各种比赛，没啥时间，有时间会更的。
-
-另外因为种种原因我没报上提高组csp，十分悲痛QAQ
-
-
-
-第一次模拟赛
-t1
-
-
-
-我用了一种不是很暴力的模拟，即按照1位，2位，3位…来统计长度，却莫名其妙的错了一个点，也许是极端情况程序被卡了。
-t2
-
-
-纯暴力题目，枚举所有可能的a，b算出c，再计算不同的位数，最后取最小即可
-t3
-
-
-这题爆炸了。。。
-本来期望用二分加上搜索得到60分，在适当加优化。结果脑子抽抽，二分的逻辑搞混了，加上搜索时写成了找路径的搜索，最后只得15分，很不满意。
-t4
-
-
-这题没太理解题意，也没算出来，...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by ethan-zhou on November 1, 2019
     </p>
 </div>
 <hr>

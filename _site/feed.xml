@@ -5,9 +5,205 @@
     <description>路漫漫其修远兮，吾将上下而求索。</description>
     <link>https://blog-e.tk/</link>
     <atom:link href="https://blog-e.tk/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Jun 2021 13:40:08 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Jun 2021 13:40:08 +0800</lastBuildDate>
+    <pubDate>Wed, 07 Jul 2021 12:35:31 +0800</pubDate>
+    <lastBuildDate>Wed, 07 Jul 2021 12:35:31 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>四边形不等式优化学习笔记</title>
+        <description>&lt;p&gt;参考 &lt;a href=&quot;https://www.luogu.com.cn/blog/BeWild/post-si-bian-xing-fou-deng-shi-you-hua-dp&quot;&gt;肖然的博客&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;什么是四边形不等式&quot;&gt;什么是四边形不等式&lt;/h2&gt;
+
+&lt;h3 id=&quot;原形式&quot;&gt;原形式&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;有一个双变量函数 $f(x,y)$，如果对于 $\forall a\le b\le c\le d$，都满足 $f(a,d)+f(b,c)\ge f(a,c)+f(b,d)$ 则称其满足 &lt;strong&gt;四边形不等式&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;等价形式&quot;&gt;等价形式&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;对于 $\forall a&amp;lt;b$，都有 $f(a,b+1)+f(a+1,b)\ge f(a,b)+f(a+1,b+1)$。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这一形式的必要性显然，下证其充分性：&lt;/p&gt;
+
+&lt;p&gt;若 $a+1&amp;lt;b$ 则：&lt;/p&gt;
+
+\[\begin{aligned}
+f(a,b+1)+f(a+1,b)&amp;amp;\ge f(a,b)+f(a+1,b+1)\cr
+f(a+1,b+1)+f(a+2,b)&amp;amp;\ge f(a+1,b)+f(a+2,b+1)
+\end{aligned}\]
+
+&lt;p&gt;两式相加，得&lt;/p&gt;
+
+\[f(a,b+1)+f(a+2,b)\ge f(a,b)+f(a+2,b+1)\]
+
+&lt;p&gt;原来的 a+1 可以扩展到 a+2，用类似方法，可扩展成：&lt;/p&gt;
+
+\[\forall a^{\prime}&amp;gt;a,f(a,b+1)+f(a^{\prime},b)\ge f(a,b)+f(a^{\prime},b+1)\]
+
+&lt;p&gt;b 的扩展方式类似，就是把原式带入 $b^{\prime}=b-1$ 然后相加即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;1d1d&quot;&gt;1D1D&lt;/h2&gt;
+
+\[dp(i)=\min_{j&amp;lt;i}(dp(j)+w(j,i))\]
+
+&lt;p&gt;其中 w 函数满足四边形不等式时，转移具有 &lt;strong&gt;决策单调性&lt;/strong&gt;，每次的决策点都在上次的后头，下证之：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;单调性证明&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;设第 i 项的决策点为 $p(i)$，则对 $\forall j&amp;lt;i$：&lt;/p&gt;
+
+\[\begin{aligned}
+dp(p(i))+w(p(i),i)&amp;amp;\le dp(j)+w(j,i)\cr
+w(p(i),i+1)+w(j,i)&amp;amp;\le w(p(i),i)+w(j,i+1)
+\end{aligned}\]
+
+&lt;p&gt;两式相加，得：&lt;/p&gt;
+
+\[dp(p(i))+w(p(i),i+1)\le dp(j)+w(j,i+1)\]
+
+&lt;p&gt;所以 $p(i+1)\ge p(i)$。&lt;/p&gt;
+
+&lt;h3 id=&quot;p3515-poi2011lightning-conductor&quot;&gt;P3515 [POI2011]Lightning Conductor&lt;/h3&gt;
+
+&lt;p&gt;&lt;del&gt;老师的代码交到黑暗爆炸 OJ 被卡了&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;把原式移项，得 $p=\max(a_j-a_i+\sqrt{|i-j|)}$，发现满足决策单调性，只需正着搞一遍，反着搞一遍即可。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;代码：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cpp&quot;&gt;#include&amp;lt;bits/stdc++.h&amp;gt;
+using namespace std;
+typedef pair&amp;lt;int,int&amp;gt; pi;
+const int MXN=5e5+5;
+int n,arr[MXN];
+double p1[MXN],p2[MXN];
+template&amp;lt;class T1,class T2&amp;gt;
+struct pr{
+	T1 fi;T2 se;
+	inline pr(T1 fi=0,T2 se=0):fi(fi),se(se){}
+};
+pr&amp;lt;int,int&amp;gt; q[MXN];int ql,qr;
+inline double f(int i,int j){return sqrt(i-j)+arr[j]-arr[i];}
+inline void solve(double *p){
+	ql=1,qr=0;
+	for(int i=1;i&amp;lt;=n;i++){
+		while(ql&amp;lt;=qr &amp;amp;&amp;amp; f(max(q[qr].se,i),i)&amp;gt;=f(max(q[qr].se,i),q[qr].fi))qr--;
+		if(ql&amp;gt;qr)q[++qr]=pr&amp;lt;int,int&amp;gt;(i,1);
+		else{
+			int l=max(i,q[qr].fi),r=n+1;
+			while(l&amp;lt;r){
+				int mid=(l+r)&amp;gt;&amp;gt;1;
+				f(mid,i)&amp;gt;=f(mid,q[qr].fi)?r=mid:l=mid+1;
+			}
+			q[++qr]=pr&amp;lt;int,int&amp;gt;(i,l);
+		}
+		while(ql&amp;lt;qr &amp;amp;&amp;amp; q[ql+1].se&amp;lt;=i)ql++;
+		p[i]=f(i,q[ql].fi);
+	}
+}
+
+int main(){
+	scanf(&quot;%d&quot;,&amp;amp;n);
+	for(int i=1;i&amp;lt;=n;i++)scanf(&quot;%d&quot;,arr+i);
+	solve(p1);
+	reverse(arr+1,arr+1+n);
+	solve(p2);
+	for(int i=1;i&amp;lt;=n;i++)
+		printf(&quot;%d\n&quot;,(int)ceil(max(p1[i],p2[n-i+1])));
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;p1912-noi2009-诗人小g&quot;&gt;P1912 [NOI2009] 诗人小G&lt;/h3&gt;
+
+&lt;p&gt;依然有决策单调性，推导甚是麻烦，略。这个答案超过 1e18 不太好搞，不妨用 &lt;code&gt;long double&lt;/code&gt; 存答案，最后再判。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;代码：（加了快读就是最优解）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cpp&quot;&gt;#include&amp;lt;bits/stdc++.h&amp;gt;
+using namespace std;
+template&amp;lt;class T1,class T2&amp;gt;struct pr{T1 x;T2 y;};
+template&amp;lt;class T1,class T2&amp;gt;inline pr&amp;lt;T1,T2&amp;gt; mp(T1 x,T2 y){return pr&amp;lt;T1,T2&amp;gt;{x,y};}
+
+typedef long long ll;
+typedef long double ld;
+const int MXN=1e5+5;
+const int MXS=35;
+int t,n,stdlen,p,len[MXN];
+char str[MXN][MXS];
+
+inline ld qpow(ld x,int y){
+	ld r=1;
+	while(y){
+		if(y&amp;amp;1)r*=x;
+		x*=x,y&amp;gt;&amp;gt;=1;
+	}
+	return r;
+}
+#define w(x,y) (dp[x]+qpow(abs(len[y]-len[x]-stdlen),p))
+
+
+
+int ql,qr,tran[MXN];
+pr&amp;lt;int,int&amp;gt; q[MXN];
+ld dp[MXN];
+int main(){
+	scanf(&quot;%d&quot;,&amp;amp;t);
+	while(t--){
+		scanf(&quot;%d%d%d&quot;,&amp;amp;n,&amp;amp;stdlen,&amp;amp;p);stdlen++;
+		q[qr=ql=1]=mp(0,1);
+		for(int i=1;i&amp;lt;=n;i++){
+			str[i][0]=0;
+			scanf(&quot;%s&quot;,str[i]+1);
+			len[i]=strlen(str[i]+1)+len[i-1]+1;
+		}
+		for(int i=1;i&amp;lt;=n;i++){
+			while(ql&amp;lt;qr &amp;amp;&amp;amp; q[ql+1].y&amp;lt;=i)ql++;
+			tran[i]=q[ql].x;
+			dp[i]=w(tran[i],i);
+
+			while(ql&amp;lt;=qr &amp;amp;&amp;amp; w(i,q[qr].y)&amp;lt;w(q[qr].x,q[qr].y))qr--;
+			if(ql&amp;gt;qr)q[++qr]=mp(i,i);
+			else{
+				int l=q[qr].y,r=n+1,mid;
+				while(l&amp;lt;r){
+					mid=(l+r)&amp;gt;&amp;gt;1;
+					if(w(i,mid)&amp;lt;w(q[qr].x,mid))r=mid;
+					else l=mid+1;
+				}
+				if(l&amp;lt;=n)q[++qr]=mp(i,l);
+			}
+		}
+		if(dp[n]&amp;gt;1e18)printf(&quot;Too hard to arrange\n&quot;);
+		else{
+			printf(&quot;%lld\n&quot;,(ll)dp[n]);
+			for(int i=n;i;i=tran[i])str[i][0]=-1;
+			for(int i=1;i&amp;lt;=n;i++){
+				printf(&quot;%s&quot;,str[i]+1);
+				putchar(str[i][0]?'\n':' ');
+			}
+		}
+		puts(&quot;--------------------&quot;);
+	}
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Tue, 22 Jun 2021 00:00:00 +0800</pubDate>
+        <link>https://blog-e.tk/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">https://blog-e.tk/2021/06/22/%E5%9B%9B%E8%BE%B9%E5%BD%A2%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%BC%98%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        
+        <category>dp</category>
+        
+        <category>笔记</category>
+        
+        
+      </item>
     
       <item>
         <title>斯特林数学习笔记</title>
@@ -1692,123 +1888,6 @@ int main(){
         <pubDate>Tue, 09 Feb 2021 00:00:00 +0800</pubDate>
         <link>https://blog-e.tk/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/</link>
         <guid isPermaLink="true">https://blog-e.tk/2021/02/09/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7%E4%BA%8C%E6%9C%88%E6%9C%88%E8%B5%9Bdiv2/</guid>
-        
-        <category>算法</category>
-        
-        <category>题解</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>【题解】P7287魔法</title>
-        <description>&lt;p&gt;题目在此：&lt;a href=&quot;https://www.luogu.com.cn/problem/P7287&quot;&gt;P7287&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;结论&quot;&gt;结论&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;所有的 1 操作一定在所有的 2 操作之前进行&lt;/li&gt;
-  &lt;li&gt;每个 1 操作的范围一定是 [1,n]&lt;/li&gt;
-  &lt;li&gt;每次 2 操作都是对当前序列的最大字段和那个区间进行的。&lt;/li&gt;
-  &lt;li&gt;最终选的区间是最终序列的最大子段和&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;1，2，4 都很显然，3 结论可感性理解&lt;del&gt;（这个野鸡博主不会证）&lt;/del&gt;：&lt;/p&gt;
-
-&lt;p&gt;如果每次都选那个最大子段和进行操作，那得到的结果一定是最优的。
-否则一旦在操作过程中有操作的区间不是最大子段和区间的话，在进行同样次操作之后的结果是不优的。&lt;/p&gt;
-
-&lt;h2 id=&quot;算法&quot;&gt;算法&lt;/h2&gt;
-
-&lt;p&gt;现在，我们只需要知道 1 操作以及 2 操作的次数，就能算出最终数列的最大最大字段和。接着观察发现2操作的次数是不超过\(log(值域)\)次的。&lt;/p&gt;
-
-&lt;p&gt;所以我们只需枚举 2 操作的次数，再二分出 1 操作的次数即可。&lt;/p&gt;
-
-&lt;h2 id=&quot;代码&quot;&gt;代码&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&quot;language-cpp&quot;&gt;#include&amp;lt;bits/stdc++.h&amp;gt;
-using namespace std;
-#define fi first
-#define se second
-#define pb push_back
-#define mp make_pair
-#define rd scanf
-#define pt printf
-#define setp(x) setprecision(x)
-#define mem(x,y) memset(x,y,sizeof(x))
-#define sz(x) (int)x.size()
-#define umn(x,y) x=min(x,y)
-#define umx(x,y) x=max(x,y)
-typedef long long ll;
-typedef unsigned long long ull;
-typedef pair&amp;lt;ll,ll&amp;gt; pi;
-typedef vector&amp;lt;ll&amp;gt; vi;
-typedef vector&amp;lt;pi&amp;gt; vpi;
-
-const double eps=1e-9;
-const ll INF=1e18;
-const ll P=998244353;
-const ll MXN=1e5+5;
-
-inline ll mod(ll x){return x&amp;gt;=P?x-P:x;}
-inline ll mul(ll x,ll y){if(x&amp;lt;y)swap(x,y);ll res=0;while(y){if(y&amp;amp;1)res=mod(res+x);x=mod(x&amp;lt;&amp;lt;1);y&amp;gt;&amp;gt;=1;}return res;}
-inline ll qpow(ll x,ll y){ll res=1;while(y){if(y&amp;amp;1)res=res*x%P;x=x*x%P;y&amp;gt;&amp;gt;=1;}return res;}
-ll gcd(ll x,ll y){return !y?x:gcd(y,x%y);}
-inline void pbin(ll x,ll y){for(;~y;y--)cerr&amp;lt;&amp;lt;char('0'+((x&amp;gt;&amp;gt;y)&amp;amp;1));cerr&amp;lt;&amp;lt;endl;}
-
-
-
-ll n,a,b,s;
-ll arr[MXN];
-inline ll cal(ll add){
-	ll last=0,ans=0;
-	for(int i=1;i&amp;lt;=n;i++){
-		last=max(last,0ll)+arr[i]+add;
-		umx(ans,last);
-	}
-	return ans;
-}
-inline bool chk(ll add,ll pwr){
-	ll tmp=cal(add);
-	for(int i=0;i&amp;lt;=pwr;i++)
-		if((tmp&amp;lt;&amp;lt;i)&amp;gt;=s)return 1;
-	return 0;
-}
-
-
-inline void solve(){
-    //codes
-	cin&amp;gt;&amp;gt;n&amp;gt;&amp;gt;a&amp;gt;&amp;gt;b&amp;gt;&amp;gt;s;
-	for(int i=1;i&amp;lt;=n;i++)cin&amp;gt;&amp;gt;arr[i];
-
-	ll ans=INF;
-	for(int i=0;i&amp;lt;=32;i++){
-		ll l=0,r=2e9;
-		while(l&amp;lt;r){
-			ll mid=(l+r)&amp;gt;&amp;gt;1;
-			if(chk(mid,i))r=mid;
-			else l=mid+1;
-		}
-		ans=min(ans,a*l+b*i);
-	}
-	cout&amp;lt;&amp;lt;ans;
-    
-}
-int main(){
-	//freopen(&quot;.in&quot;,&quot;r&quot;,stdin);
-	//freopen(&quot;.out&quot;,&quot;w&quot;,stdout);
-	ios_base::sync_with_stdio(0);cin.tie(0);
-	cout&amp;lt;&amp;lt;setiosflags(ios::fixed);
-	srand(time(NULL));
-
-	solve();
-	return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-</description>
-        <pubDate>Mon, 25 Jan 2021 00:00:00 +0800</pubDate>
-        <link>https://blog-e.tk/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/</link>
-        <guid isPermaLink="true">https://blog-e.tk/2021/01/25/%E9%A2%98%E8%A7%A3-P7287%E9%AD%94%E6%B3%95/</guid>
         
         <category>算法</category>
         
