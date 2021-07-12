@@ -49,6 +49,7 @@ plugins: [jekyll-paginate,jekyll-sitemap]
 markdown: kramdown
 highlighter: rouge
 kramdown:
+  parse_block_html: true
   input: GFM                            # use Github Flavored Markdown !important
   syntax_highlighter_opts:
     disable: true
