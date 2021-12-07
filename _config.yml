@@ -83,6 +83,7 @@ gitalk:
 
 # Valine
 valine:
+  serverURLs: https://xc3pblgp.api.lncldglobal.com
   enable: true    #是否开启valine评论
   id: xc3PBlgpE3UXRAJaXWVeazFX-MdYXbMMI
   key: Q5ec2duzeuLbvP5ut4AeWF8E
