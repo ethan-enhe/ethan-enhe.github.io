@@ -23,7 +23,9 @@
 
     <!-- Bootstrap Core CSS -->
 	<!-- <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}"> -->
-	<link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+    <link rel="preload" href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
     <!-- Custom CSS -->
 	<link rel="stylesheet" href="{{ "/css/hux-blog.min.css" | prepend: site.baseurl }}">
