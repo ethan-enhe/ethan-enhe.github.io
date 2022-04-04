@@ -63,14 +63,6 @@ layout: default
 				<hr></hr>
 				<p>作者：<a href="{{ site.baseurl }}/">@ethan-enhe</a><br>本文为作者原创，转载请注明出处：<a href="{{page.url}}">本文链接</a></p>
                 {% endif %}
-                {% if site.valine.enable %}
-                <span id="{{page.url}}" class="leancloud-visitors">
-                    <em class="post-meta-item-text">阅读量 </em>
-                    <i class="leancloud-visitors-count"></i>
-                </span>
-                {% endif %}
-
-                <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     {% if page.previous.url %}
@@ -91,54 +83,8 @@ layout: default
                     {% endif %}
                 </ul>
 
+                {% include comments.html %}
 
-                <!--Gitalk评论start  -->
-                {% if site.gitalk.enable %}
-                <!-- 引入Gitalk评论插件  -->
-                <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
-                <script src="//unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
-                <div id="gitalk-container"></div>
-                <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
-                <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
-                <script src="{{ site.baseurl }}/js/md5.min.js"></script>
-                <script type="text/javascript">
-                    var gitalk = new Gitalk({
-                    clientID: '{{site.gitalk.clientID}}',
-                    clientSecret: '{{site.gitalk.clientSecret}}',
-                    repo: '{{site.gitalk.repo}}',
-                    owner: '{{site.gitalk.owner}}',
-                    admin: ['{{site.gitalk.admin}}'],
-                    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
-                    id: md5(location.pathname),
-                    });
-                    gitalk.render('gitalk-container');
-                </script>
-                {% endif %}
-                <!-- Gitalk end -->
-				<!-- Valine -->
-				{% if site.valine.enable %}
-				<hr style="visibility: hidden;">
-				<script src="//cdn.bootcdn.net/ajax/libs/valine/1.4.4/Valine.min.js"></script>
-				<div id="vcomments"></div>
-				<script>
-					new Valine({
-						el: '#vcomments',
-						serverURLs: '{{site.valine.serverURLs}}',
-						appId: '{{site.valine.id}}',
-						appKey: '{{site.valine.key}}',
-						avatar: 'identicon',
-                        visitor: true
-					})
-				</script>
-				{% endif %}
-		    
-                {% if site.disqus_username %}
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                {% endif %}
 
             </div>  
 

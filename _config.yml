@@ -83,10 +83,10 @@ gitalk:
 
 # Valine
 valine:
-  serverURLs: https://xc3pblgp.api.lncldglobal.com
+  serverURLs: https://blog-e-waline.vercel.app/
   enable: true    #是否开启valine评论
-  id: xc3PBlgpE3UXRAJaXWVeazFX-MdYXbMMI
-  key: Q5ec2duzeuLbvP5ut4AeWF8E
+  # id: DyUeKd76JkpmI93IIYvqF7Gi-MdYXbMMI
+  # key: fdYFOcmhzOjw255eqBemzulK
 
 # 统计
 
