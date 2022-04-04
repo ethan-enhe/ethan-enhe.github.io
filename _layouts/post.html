@@ -82,12 +82,7 @@ layout: default
                     </li>
                     {% endif %}
                 </ul>
-
-
-
             </div>  
-
-
         <div class="
             col-lg-8 col-lg-offset-2
             col-md-10 col-md-offset-1
@@ -157,7 +152,7 @@ layout: default
 <script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.js"></script>
 <script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/contrib/auto-render.min.js"></script>
 <script>
-    renderMathInElement(document.body,{
+    renderMathInElement(document.getElementsByClassName("post-container"),{
               delimiters: [
                   {left: "$$", right: "$$", display: true},
                   {left: "\\[", right: "\\]", display: true},
