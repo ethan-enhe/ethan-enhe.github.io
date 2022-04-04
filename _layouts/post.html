@@ -83,11 +83,17 @@ layout: default
                     {% endif %}
                 </ul>
 
-                {% include comments.html %}
 
 
             </div>  
 
+
+        <div class="
+            col-lg-8 col-lg-offset-2
+            col-md-10 col-md-offset-1
+            comments-container">
+        {% include comments.html %}
+        </div>
     <!-- Side Catalog Container -->
         {% if page.catalog %}
             <div class="
@@ -144,22 +150,6 @@ layout: default
 </article>
 
 
-{% if site.disqus_username %}
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus_username}}";
-    var disqus_identifier = "{{page.id}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-{% endif %}
 
 <script src="/js/prism.js"></script>
 <!-- mathjax -->
