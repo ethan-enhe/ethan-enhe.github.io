@@ -5,7 +5,7 @@ header-img: img/home-bg-littleprince.jpg
 email: ethan_enhe@163.com
 description: "路漫漫其修远兮，吾将上下而求索。"
 keyword: "算法竞赛，天文"
-url: "https://www.blog-e.tk"          # your host, for absolute URL
+url: "https://www.blog-e.top"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/ethan-enhe/ethan-enhe.github.io.git" # you code repository
 
@@ -98,7 +98,7 @@ valine:
 
 # Google Analytics
 ga_track_id: 'UA-173022260-1'            # Format: UA-xxxxxx-xx
-ga_domain: www.blog-e.tk              # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+ga_domain: www.blog-e.top              # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 
 
