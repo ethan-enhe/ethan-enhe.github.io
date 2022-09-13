@@ -85,7 +85,7 @@ gitalk:
 
 # Valine
 valine:
-  serverURLs: https://blog-e-waline.vercel.app/
+  serverURLs: https://waline.blog-e.top/
   enable: true    #是否开启valine评论
   # id: DyUeKd76JkpmI93IIYvqF7Gi-MdYXbMMI
   # key: fdYFOcmhzOjw255eqBemzulK
