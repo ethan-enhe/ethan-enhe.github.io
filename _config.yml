@@ -67,7 +67,7 @@ copyright:
 
 #不蒜子
 bsz:
-    enable: true
+    enable: false
 
 # 评论系统
 # Disqus（https://disqus.com/）
@@ -87,8 +87,6 @@ gitalk:
 valine:
   serverURLs: https://waline.blog-e.top/
   enable: true    #是否开启valine评论
-  # id: DyUeKd76JkpmI93IIYvqF7Gi-MdYXbMMI
-  # key: fdYFOcmhzOjw255eqBemzulK
 
 # 统计
 
