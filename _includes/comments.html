@@ -1,12 +1,13 @@
 <!-- Valine -->
 {% if site.valine.enable %}
-<script src="//cdn.bootcdn.net/ajax/libs/waline/1.6.0/Waline.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/waline/2.9.1/waline.min.js"></script>
+<link href="//cdn.bootcdn.net/ajax/libs/waline/2.9.1/waline.min.css" rel="stylesheet" />
 <hr style="visibility: hidden;">
 <p>阅读量: <span id="{{page.url}}" class="waline-visitor-count" /></p>
 <hr style="visibility: hidden;">
 <div id="vcomments"></div>
 <script>
-    Waline({
+    Waline.init({
 		el: '#vcomments',
 		serverURL: '{{site.valine.serverURLs}}',
 		visitor: true
