@@ -1,6 +1,6 @@
 ---
 layout: puremd
-permalink: /note
+permalink: /note/
 ---
 
 
