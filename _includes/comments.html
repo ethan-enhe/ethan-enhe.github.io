@@ -1,8 +1,6 @@
 <!-- Valine -->
 {% if site.valine.enable %}
-<!-- <script src="//cdn.bootcdn.net/ajax/libs/waline/2.9.1/waline.min.js"></script> -->
 <script src="//cdn.bootcdn.net/ajax/libs/waline/2.13.0/waline.min.js"></script>
-<!-- <link href="//cdn.bootcdn.net/ajax/libs/waline/2.9.1/waline.min.css" rel="stylesheet" /> -->
 <link href="//cdn.bootcdn.net/ajax/libs/waline/2.13.0/waline.min.css" rel="stylesheet">
 <hr style="visibility: hidden;">
 <p>阅读量: <span class="waline-pageview-count" /></p>
@@ -12,7 +10,8 @@
     Waline.init({
 		el: '#vcomments',
 		serverURL: '{{site.valine.serverURLs}}',
-		pageview: true
+		pageview: true,
+        reaction: true
 	})
 </script>
 {% endif %}
