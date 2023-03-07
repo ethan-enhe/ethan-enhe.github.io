@@ -77,6 +77,8 @@ $$\operatorname{det}(A)=\sum_{排列 P} (-1)^\text{P 中逆序对数}\prod_{i=1}
     - 某年 pkusc
 - 比如说，求满足某个序关系的最小的点对，可以考虑是否有少数支配对，用类似单调栈的思想解决，例子：
     - <https://codeforces.com/gym/104076/problem/L>（在树上，经典套路！）
+- 求不同颜色序列数的一些技巧：
+    - <https://www.luogu.com.cn/problem/AT_agc002_f>
 
 
 
