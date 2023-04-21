@@ -79,6 +79,7 @@ $$\operatorname{det}(A)=\sum_{排列 P} (-1)^\text{P 中逆序对数}\prod_{i=1}
     - <https://codeforces.com/gym/104076/problem/L>（在树上，经典套路！）
 - 求不同颜色序列数的一些技巧：
     - <https://www.luogu.com.cn/problem/AT_agc002_f>
+- 环上均分纸牌：首先假定两堆纸牌之间经过了x个纸牌，则其他堆之间经过的纸牌数都确定了，可以表示为$\|x+c_i\|$加起来是一个单谷函数，二分即可
 
 
 
