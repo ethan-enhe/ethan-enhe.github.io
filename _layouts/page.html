@@ -81,23 +81,16 @@ layout: default
                 col-xs-12
                 sidebar-container
             ">
-                <!-- Featured Tags -->
-                {% if site.featured-tags %}
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h4><a href="{{'/tags/' | prepend: site.baseurl }}">FEATURED TAGS</a></h4>
-                    <div class="tags">
-                        {% for tag in site.tags %}
-                            {% if tag[1].size > site.featured-condition-size %}
-                                <a href="{{ site.baseurl }}/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
-                                    {{ tag[0] }}
-                                </a>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </section>
-                {% endif %}
 
+                <!-- Friends Blog -->
+                {% if site.friends %}
+                <h4>FRIENDS</h4>
+                <ul class="list-inline">
+                    {% for friend in site.friends %}
+                        <li><a href="{{friend.href}}">{{friend.title}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <!-- Short About -->
                 <section class="visible-md visible-lg">
                     <hr><h4><a href="{{'/about/' | prepend: site.baseurl }}">ABOUT ME</a></h4>
@@ -190,15 +183,21 @@ layout: default
                         {% endif %}
                     </div>
                 </section>
-                <!-- Friends Blog -->
-                {% if site.friends %}
-                <hr>
-                <h4>FRIENDS</h4>
-                <ul class="list-inline">
-                    {% for friend in site.friends %}
-                        <li><a href="{{friend.href}}">{{friend.title}}</a></li>
-                    {% endfor %}
-                </ul>
+                <!-- Featured Tags -->
+                {% if site.featured-tags %}
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h4><a href="{{'/tags/' | prepend: site.baseurl }}">FEATURED TAGS</a></h4>
+                    <div class="tags">
+                        {% for tag in site.tags %}
+                            {% if tag[1].size > site.featured-condition-size %}
+                                <a href="{{ site.baseurl }}/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
+                                    {{ tag[0] }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
                 {% endif %}
     		</div>
         {% endif %}

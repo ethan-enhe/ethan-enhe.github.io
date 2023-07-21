@@ -120,5 +120,8 @@ friends: [
     },{
         title: "CLCN 的博客",
         href: "https://www.luogu.com.cn/blog/61088/"
+    },{
+        title: "brealid 的小站",
+        href: "https://www.brealid.cn/"
     }
 ]
