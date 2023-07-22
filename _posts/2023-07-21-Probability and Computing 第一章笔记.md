@@ -1,7 +1,6 @@
 ---
 layout:     post
 title:      Probability and Computing 第一章笔记
-subtitle:   能不能出题?
 date:       2023-07-21
 author:     ethan-zhou
 header-img: img/post-bg-YesOrNo.jpg
