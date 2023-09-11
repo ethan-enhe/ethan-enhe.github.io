@@ -52,7 +52,7 @@ ll arr[MXN];
 int main() {
   // ios::sync_with_stdio(0);
   // cin.tie(0);
-  for (ll n = 1; n <= 10; n++) {
+  for (n = 1; n <= 10; n++) {
     cout << n << endl;
     for (ll i = 1; i < (1 << n); i++)
       arr[i] = i;
@@ -102,4 +102,15 @@ $$P^{\prime\prime}\approx\frac {16}{N^2}$$
 
 $$P>\frac N4\times P^\prime-\frac {N^2}{32}\times P^{\prime\prime}=\frac 12$$
 
+## 第三问
+
+模拟结果发现，在这个过程中，$N$ 层二叉树需要且仅需要填 $2^N$ 次操作就能全部涂黑，下归纳证明：
+
+若结论对 $1\sim N-1$ 层二叉树都成立，则对 N 层二叉树，考虑其根和左右子树的填满顺序：
+
+- 左右儿子先分别填满，根自动变黑，操作次数 $2^N$
+- 左儿子和根先涂黑，右子树的根自动变黑，随后右子树填满，操作次数 $2^N$
+- 对称情况同理
+
+得证。
 
