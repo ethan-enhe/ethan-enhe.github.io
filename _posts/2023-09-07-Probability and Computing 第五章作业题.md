@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Probability and Computing 第五章作业题毛估估
+title:      Probability and Computing 第五章作业题
 date:       2023-09-07
 author:     ethan-zhou
 header-img: img/mark-basarab-1OtUkD_8svc-unsplash.jpg
