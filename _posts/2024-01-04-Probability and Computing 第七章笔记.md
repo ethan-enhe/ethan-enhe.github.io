@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Probability and Computing 第五章作业题
+title:      Probability and Computing 第七章笔记
 date:       2024-01-04
 author:     ethan-zhou
 header-img: img/mark-basarab-1OtUkD_8svc-unsplash.jpg
@@ -43,7 +43,7 @@ tags:
 
 **Theorem.** finite irreducible ergodic Makov chain P:
 - 有唯一的平稳分布
-- $\pi_i=\lim _{t\rightarrow\infty} P^t_{j,i}=1/h_{i,i}$ （感性理解，每 $h_{i,i}$ 时刻回到 i 节点一次，所以稳态分布中在 i 的概率为 $1/h_{i,i}$）
+- $\pi_i=\lim_{t\rightarrow\infty} P^t_{j,i}=1/h_{i,i}$ （感性理解，每 $h_{i,i}$ 时刻回到 i 节点一次，所以稳态分布中在 i 的概率为 $1/h_{i,i}$）
 
 不加证明（证明没看完）
 
@@ -51,7 +51,7 @@ tags:
 
 **Theorom(Time reversible MC).** if $\forall i,j, \pi_i P_{i,j}=\pi_j P_{j,i}$，则 $\pi$ 为平稳分布，此时称这个链是时间可逆的。
 
-证明：$\sum _i\pi_i P_{i,j}=\sum _i\pi_j P_{j,i}=\pi_j$
+证明：$\sum_i \pi_i P_{i,j}=\sum_i \pi_j P_{j,i}=\pi_j$
 
 **Therom.** irreducible aperiodic Markov chain 分为两类：
 - ergodic
@@ -61,21 +61,23 @@ tags:
 ## RW on undirect graphs
 
 **Lemma.** A RW on G is aperiodic = G is not bipartite
+
 注：在无向图随机游走时，对于任何偶数n,都可以先走n/2步，再原路返回。因此aperiodic等价于有奇环。
 
 **Theorom.** RW on G, 其平稳分布为：
 
-$$\pi_v=\frac{d(v)}{2|E|}$$
+$$\pi_v=\frac{d(v)}{2\|E\|}$$
 
 ### Cover Time & Commute Time
 - Cover Time: $\max_v(\text{expected time to visit all nodes by a RW starting from v})$
 
-**Lemma(bound on commute time).** if $(u,v)\in E$, commute time $h_{u,v}+h_{v,u}\le 2|E|$
-这个证明挺妙的：设 D 中的状态为 E 中所有的边对应的两个方向的有向边（总共$2|E|$个状态）而其中状态的含义为：在E上游走的第t步采用了这条有向边。
+**Lemma(bound on commute time).** if $(u,v)\in E$, commute time $h_{u,v}+h_{v,u}\le 2\|E\|$
 
-容易验证，D的平稳分布是 $\vec 1/2|E|$，从而在访问过 $u\rightarrow v$ 后，再重新走一次这条边的期望时间为(假设 i 为 $u\rightarrow v$ 在D中对应状态) $h_{i,i}=1/\pi_i=2|E|$。因为这只是 $v\rightarrow u \rightarrow v$ 的一种方法，期望时间就已经小于 $2|E|$ 了，得证。
+这个证明挺妙的：设 D 中的状态为 E 中所有的边对应的两个方向的有向边（总共$2\|E\|$个状态）而其中状态的含义为：在E上游走的第t步采用了这条有向边。
 
-**Lemma(bound on cover time).** cover time $C_G \le 2|E|(|V|-1)$
+容易验证，D的平稳分布是 $\vec 1/2\|E\|$，从而在访问过 $u\rightarrow v$ 后，再重新走一次这条边的期望时间为(假设 i 为 $u\rightarrow v$ 在D中对应状态) $h_{i,i}=1/\pi_i=2\|E\|$。因为这只是 $v\rightarrow u \rightarrow v$ 的一种方法，期望时间就已经小于 $2\|E\|$ 了，得证。
+
+**Lemma(bound on cover time).** cover time $C_G \le 2\|E\|(\|V\|-1)$
 
 造一个生成树，期望的遍历时间根据前一个引理也被bound住，得证。
 
