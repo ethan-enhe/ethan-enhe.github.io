@@ -1,4 +1,4 @@
 source "https://rubygems.org"
-ruby "~> 3.2.x"
+ruby ">= 2.7.0"
 gem "jekyll"
 gem "jekyll-paginate"
