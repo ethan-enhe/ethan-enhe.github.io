@@ -8,7 +8,6 @@ header-img: img/post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
     - 前端
-    - javascript
 ---
 
 ## 引言
