@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Probability and Computing 第八章笔记
-subtitle:   一些连续的随机过程
+subtitle:   泊松过程——最独立的一集
 date:       2024-02-03
 author:     ethan-zhou
 header-img: img/mark-basarab-1OtUkD_8svc-unsplash.jpg
@@ -10,7 +10,7 @@ tags:
     - 随机算法
 ---
 
-这一章节前面不少内容偏概念，和概统课讲的一样，故只记录两者的差异
+这一章节前面不少内容偏概念，和概统课讲的一样，下面主要记录泊松过程和连续马尔可夫过程分布的一些性质，泊松分布给我的直观感受就是，什么统计量之间都是独立的。
 
 ## Balls and bins with feedback
 
@@ -66,3 +66,5 @@ $$\pi_i \theta_i=\sum_k \pi_k \theta_kp_{k,i} $$
 ## 例子 Markovian Queues
 
 懒得写了
+
+PASTA 原则: If a Markov process with Poisson arrivals has a stationary distribution and the fraction of time the system is in state $k$ is $\pi_k$, then $\pi_k$ is also the proportion of arrivals that find the system in state k when they arrive.
