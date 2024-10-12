@@ -569,10 +569,10 @@ fbba |             if (col[nx] != col[i]) ne[col[nx]].push_back(col[i]);
 d10b | }
 ```
 
-<!-- mathjax -->
-<link href="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.css" rel="stylesheet">
-<script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/katex.min.js"></script>
-<script src="//cdn.bootcdn.net/ajax/libs/KaTeX/0.13.3/contrib/auto-render.min.js"></script>
+<!-- katex -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 <script>
     renderMathInElement(document.body,{
             delimiters: [

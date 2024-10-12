@@ -1,18 +1,21 @@
-<!-- Valine -->
+<!-- Waline -->
 {% if site.valine.enable %}
-<script src="//cdn.bootcdn.net/ajax/libs/waline/2.15.7/waline.min.js"></script>
-<link href="//cdn.bootcdn.net/ajax/libs/waline/2.15.7/waline.min.css" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@waline/client@v3/dist/waline.css"
+  />
 <hr style="visibility: hidden;">
 <p>阅读量: <span class="waline-pageview-count" /></p>
 <hr style="visibility: hidden;">
 <div id="vcomments"></div>
-<script>
-    Waline.init({
+<script type="module">
+	import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+	init({
 		el: '#vcomments',
 		serverURL: '{{site.valine.serverURLs}}',
 		pageview: true,
-        reaction: true
-	})
+		reaction: true
+	});
 </script>
 {% endif %}
 

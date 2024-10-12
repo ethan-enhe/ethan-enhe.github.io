@@ -6,34 +6,9 @@ header-img: "img/home-bg-m42.jpg"
 ---
 
 
-<!-- Chinese Version -->
 <div class="zh post-container">
-	<!--copied from markdown -->
-	<h2 id="关于我">关于我</h2>
-	<!-- <img src="/img/advartar-littleprince.png" alt="Ethan Zhou的头像"> -->
-	<p>Homepage: <a href="https://home.blog-e.top/">https://home.blog-e.top/</a></br>
-	USTC 少创班 大二，ICPCER。</br>
-	ICPC 2023 西安&杭州区域金牌🥇</br>
-	ICPC 2022 沈阳&西安区域金牌🥇</br>
-	ICPC 2022,2023 两次 EC-final 金牌🥇</br>
-	NOI 2021 D 类铜牌🥉
-	</p>
-
-	<h2 id="联系我">联系我</h2>
-	<p>
-	邮箱：{{site.email}} </br>
-	github：<a href="https://github.com/ethan-enhe">ethan-enhe</a></br>
-	洛谷：<a href="https://www.luogu.com.cn/user/124740">ethan-enhe</a></br>
-	codeforces：<a href="https://codeforces.com/profile/ethan_enhe">ethan_enhe</a></br>
-	atcoder：<a href="https://atcoder.jp/users/ethanzhou">ethanzhou</a></p>
-	<h2 id="感谢">感谢</h2>
-	<ol>
-		<li>由 vercel 提供静态网页托管平台</li>
-		<li>魔改自<a href="https://github.com/qiubaiying/qiubaiying.github.io">@qiubaiying的主题</a>,借鉴<a href="/2019/06/16/博客园细节美化打磨/">我优化的</a>原来是<a href="https://www.cnblogs.com/summertime-wu/p/9356736.html">@Summertime-Wu</a>写的cnblogs主题</li>
-		<li>本站使用的评论系统：<a href="https://waline.js.org/">waline</a></li>
-		<li>代码高亮使用 prism.js 实现</li>
-		<li>搜索功能基于 Simple-Jekyll-Search 实现</li>
-	</ol>
+    {% capture about_content %}{% include about.md %}{% endcapture %}
+    {{ about_content | markdownify }}
 </div>
 
 {% include comments.html %}

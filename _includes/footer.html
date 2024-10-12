@@ -108,16 +108,14 @@
 
 <!-- jQuery -->
 <!--<script src="{{ "/js/jquery.min.js " | prepend: site.baseurl }}"></script>-->
-<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://unpkg.com/jquery@latest/dist/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <!-- <script src="{{ "/js/bootstrap.min.js " | prepend: site.baseurl }}"></script> -->
-<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!--<script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.min.js"></script>-->
+<script src="https://unpkg.com/bootstrap@latest/dist/js/bootstrap.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="{{ "/js/hux-blog.min.js " | prepend: site.baseurl }}"></script>
-<!-- <script src="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"></script> -->
 
 <!-- 不蒜子 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -169,7 +167,7 @@
 		fuzzy: true
 	})
 </script>
-<script src="//cdn.bootcdn.net/ajax/libs/instant.page/5.1.0/instantpage.min.js"></script>
+<script src="https://unpkg.com/instant.page@latest/instantpage.min.js"></script>
 <!-- Service Worker -->
 {% if site.service-worker %}
 <script type="text/javascript">
@@ -211,7 +209,7 @@
 </script>
 <!--fastClick.js -->
 <script>
-    async("//cdn.bootcdn.net/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    async("//unpkg.com/fastclick@latest/lib/fastclick.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
