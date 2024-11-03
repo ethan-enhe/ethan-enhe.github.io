@@ -72,7 +72,8 @@ $$\operatorname{det}(A)=\sum_{排列 P} (-1)^\text{P 中逆序对数}\prod_{i=1}
 - 把统计某个东西转化为统计图上的边
 - 求不同颜色序列数的一些技巧：
     - <https://www.luogu.com.cn/problem/AT_agc002_f>
-    - Min-Max 容斥
+- Min-Max 容斥
+- 带组合数的求和，比如求 $f_i=\sum_{j=0}^n a_j{j\choose i}$，可以拆成 $f_i=\frac{1}{i!} \sum_{j=0}^n a_j j!\cdot \frac{1}{(j-i)!}$ 可以 fft 快速求。
 
 ### 奇怪操作/一些找规律
 
