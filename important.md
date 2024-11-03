@@ -72,6 +72,7 @@ $$\operatorname{det}(A)=\sum_{排列 P} (-1)^\text{P 中逆序对数}\prod_{i=1}
 - 把统计某个东西转化为统计图上的边
 - 求不同颜色序列数的一些技巧：
     - <https://www.luogu.com.cn/problem/AT_agc002_f>
+    - Min-Max 容斥
 
 ### 奇怪操作/一些找规律
 
