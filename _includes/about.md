@@ -4,13 +4,13 @@
 
 Homepage: [https://home.blog-e.top/](https://home.blog-e.top/)  
 USTC 少创班 大三，ICPCER。  
-ICPC 2024 南京 亚军🏆 & 金牌🥇  
-CCPC 2024 哈尔滨 亚军🏆 & 金牌🥇  
-ICPC 2024 World Finals (Astana) Rank 14th
-ICPC 2023 西安&杭州金牌🥇  
-ICPC 2022 沈阳&西安金牌🥇  
-ICPC 2022,2023 两次 EC-final 金牌🥇  
-NOI 2021 D 类铜牌🥉  
+- ICPC 2024 南京 亚军🏆 & 金牌🥇  
+- CCPC 2024 哈尔滨 亚军🏆 & 金牌🥇  
+- ICPC 2024 World Finals (Astana) Rank 14th
+- ICPC 2023 西安&杭州金牌🥇  
+- ICPC 2022 沈阳&西安金牌🥇  
+- ICPC 2022,2023 两次 EC-final 金牌🥇  
+- NOI 2021 D 类铜牌🥉  
 
 ## 联系我
 
