@@ -8,5 +8,5 @@ gem "logger"
 gem "csv"
 gem "base64"
 gem "bigdecimal"
-gem "jektex"
+# gem "jektex"
 
